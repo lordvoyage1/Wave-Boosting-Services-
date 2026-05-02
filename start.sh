@@ -112,6 +112,20 @@ for i in $(seq 1 30); do
   sleep 1
 done
 
+# Verify smm_free database exists; re-import if lost (e.g. after /tmp reset)
+DB_EXISTS=$(mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME")
+if [ "$DB_EXISTS" -eq 0 ]; then
+  echo "[DB] Database '$DB_NAME' missing - re-importing schema..."
+  mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
+    CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'localhost';
+    GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'127.0.0.1';
+    FLUSH PRIVILEGES;
+  " 2>/dev/null
+  mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" < _sql/install.sql 2>/dev/null
+  echo "[DB] Schema re-imported!"
+fi
+
 # Start PHP built-in server (foreground)
 PORT="${PORT:-5000}"
 echo "[PHP] Starting server on http://0.0.0.0:$PORT"

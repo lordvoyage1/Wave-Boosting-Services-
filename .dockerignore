@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Replit specific
+.replit
+replit.nix
+.cache
+.upm
+.local
+
+# Temp files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs (will be created in container)
+*.log
+app/logs/*.php
+
+# PHP cache
+app/cache/*
+!app/cache/index.html
+
+# Node modules (if any)
+node_modules
+
+# Attached assets (screenshots)
+attached_assets/
+
+# Startup scripts for local dev only
+start.sh
+router.php
+
+# Docker config is copied via COPY . .
+# but we want to exclude local dev artifacts
+/tmp

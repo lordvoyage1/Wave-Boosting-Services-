@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: wave-boosting-services
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DB_NAME
+        value: smm_free
+      - key: DB_USER
+        value: smm_user
+      - key: DB_PASS
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        value: 202dd507882ef55dbbc23f7e84dcfc8d
+      - key: APP_TIMEZONE
+        value: Africa/Nairobi
+    disk:
+      name: wave-db-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
