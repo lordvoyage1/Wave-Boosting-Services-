@@ -45,9 +45,9 @@
     <div id="particles-js"></div>
     <nav class="header-top navbar navbar-expand-lg navbar-light static-top fixed-top" id="headerNav">
       <div class="container">
-        <a class="navbar-brand" href="#">
-          <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
-          <img class="site-logo-white" src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Webstie logo">
+        <a class="navbar-brand wave-navbar-brand" href="#">
+          <img class="site-logo-white" src="<?=get_option('website_logo_white', BASE.'assets/images/wave-logo-white.svg')?>" alt="<?=get_option('website_name','Wave Boosting Services')?>" style="height:36px;max-width:220px;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';">
+          <span class="wave-text-logo" style="display:none"><span class="wave-icon">&#9651;</span> <?=get_option('website_name','Wave Boosting Services')?></span>
         </a>
         <div class="d-flex order-lg-2 ml-auto">
           <ul class="navbar-nav list-inline ml-auto">

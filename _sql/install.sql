@@ -524,9 +524,7 @@ UPDATE `general_options` SET `value` = 'delostvoyage@gmail.com' WHERE `name` = '
 UPDATE `general_options` SET `value` = 'Wave Boosting Services' WHERE `name` = 'email_name';
 UPDATE `general_options` SET `value` = 'Copyright &copy; 2025 Wave Platforms, Inc. All Rights Reserved.' WHERE `name` = 'copy_right_content';
 UPDATE `general_options` SET `value` = 'Wave Boosting Services' WHERE `name` = 'website_name';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'website_logo';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'website_logo_white';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'website_logo_mark';
+DELETE FROM `general_options` WHERE `name` IN ('website_logo', 'website_logo_white', 'website_logo_mark');
 UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_facebook_link';
 UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_twitter_link';
 UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_instagram_link';
