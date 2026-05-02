@@ -6,8 +6,8 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg ">
           <a class="navbar-brand" href="<?=cn()?>">
-            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
-            <img class="site-logo-white" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
+            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
+            <img class="site-logo-white" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="fe fe-menu"></i></span>
@@ -410,7 +410,7 @@
           <div class="col-lg-12">
             <div class="site-logo m-b-30">
               <a href="<?=cn()?>" class="m-r-20">
-                <img src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Website logo">
+                <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="Website logo">
               </a>
               <?php
                 $redirect = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

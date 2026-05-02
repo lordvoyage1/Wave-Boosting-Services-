@@ -555,4 +555,148 @@ VALUES (15, 'lworx', 'LworxPay (Mobile Money & Cards)', 1, 10000, 1, 1, 1,
 /* Disable old payment methods, enable lworx */
 UPDATE `payments` SET `status` = 0 WHERE `type` IN ('paypal', 'stripe');
 
+/* Enable services page for non-logged-in visitors */
+UPDATE `general_options` SET `value` = '1' WHERE `name` = 'enable_service_list_no_login';
+/* Set currency */
+INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES ('currency_code', 'USD');
+UPDATE `general_options` SET `value` = 'USD' WHERE `name` = 'currency_code';
+UPDATE `general_options` SET `value` = '$' WHERE `name` = 'currency_symbol';
+
+/* ============================================================
+   SMM Service Categories
+   ============================================================ */
+INSERT IGNORE INTO `categories` (`id`, `ids`, `uid`, `name`, `desc`, `image`, `sort`, `status`, `created`, `changed`) VALUES
+(1,  'cat_tiktok',    10, 'TikTok',           'Boost your TikTok presence with real engagement',       '', 1,  1, NOW(), NOW()),
+(2,  'cat_youtube',   10, 'YouTube',           'Grow your YouTube channel fast and organically',        '', 2,  1, NOW(), NOW()),
+(3,  'cat_instagram', 10, 'Instagram',         'Increase your Instagram reach and engagement',          '', 3,  1, NOW(), NOW()),
+(4,  'cat_facebook',  10, 'Facebook',          'Expand your Facebook page and post reach',              '', 4,  1, NOW(), NOW()),
+(5,  'cat_twitter',   10, 'Twitter / X',       'Grow your Twitter/X audience and engagement',           '', 5,  1, NOW(), NOW()),
+(6,  'cat_telegram',  10, 'Telegram',          'Build your Telegram community with real members',       '', 6,  1, NOW(), NOW()),
+(7,  'cat_spotify',   10, 'Spotify',           'Boost your Spotify streams and monthly listeners',      '', 7,  1, NOW(), NOW()),
+(8,  'cat_soundcloud',10, 'SoundCloud',        'Grow your SoundCloud audience and plays',               '', 8,  1, NOW(), NOW()),
+(9,  'cat_linkedin',  10, 'LinkedIn',          'Build your professional LinkedIn presence',             '', 9,  1, NOW(), NOW()),
+(10, 'cat_traffic',   10, 'Website Traffic',   'Drive real targeted visitors to your website',          '', 10, 1, NOW(), NOW());
+
+/* ============================================================
+   SMM Services — TikTok (cate_id=1)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_tt_fol',    10,1,'TikTok Followers',               'Real-looking TikTok followers. Fast delivery.',              0.8000,  0.8000, 0,0,0, 100,  1000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_fol_hq', 10,1,'TikTok Followers [High Quality]','Premium high-retention TikTok followers.',                  2.0000,  2.0000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_lik',    10,1,'TikTok Likes',                   'Instant TikTok likes for any public video.',                 0.3000,  0.3000, 0,0,0,  50,   500000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_view',   10,1,'TikTok Video Views',             'Fast video views delivered within minutes.',                 0.1000,  0.1000, 0,0,0, 500, 10000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_cmt',    10,1,'TikTok Comments [Custom]',       'Custom TikTok comments from real-looking accounts.',         5.0000,  5.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_share',  10,1,'TikTok Shares',                  'Boost video distribution with organic-looking shares.',      0.8000,  0.8000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_sview',  10,1,'TikTok Story Views',             'Increase your TikTok story view count.',                     0.2000,  0.2000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_live',   10,1,'TikTok Live Views',              'Real concurrent viewers for your TikTok Live streams.',      2.5000,  2.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_save',   10,1,'TikTok Saves (Favorites)',       'Increase saves/favorites on your TikTok posts.',             0.5000,  0.5000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_tt_fol_df', 10,1,'TikTok Followers [Drip-Feed]',  'Gradual follower delivery to mimic organic growth.',         1.2000,  1.2000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — YouTube (cate_id=2)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_yt_sub',    10,2,'YouTube Subscribers',            'Real-looking YouTube subscribers. Safe delivery.',           1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_sub_hq', 10,2,'YouTube Subscribers [Non-Drop]', 'Premium subscribers with 30-day refill guarantee.',         4.0000,  4.0000, 0,1,1, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_view',   10,2,'YouTube Views',                  'High-retention YouTube video views.',                        0.1500,  0.1500, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_view_hr',10,2,'YouTube Views [High Retention]', '60%+ audience retention views for better rankings.',         0.5000,  0.5000, 0,0,0,1000,  1000000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_lik',    10,2,'YouTube Likes',                  'Boost your video likes for better social proof.',            0.5000,  0.5000, 0,0,0,  50,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_cmt',    10,2,'YouTube Comments [Custom]',      'Custom comments on your YouTube videos.',                    6.0000,  6.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_share',  10,2,'YouTube Shares',                 'Increase share count on your YouTube videos.',               1.5000,  1.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_wh',     10,2,'YouTube Watch Hours',            'Monetization-safe watch hours (4000 hrs required).',        10.0000, 10.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
+('svc_yt_sub_df', 10,2,'YouTube Subscribers [Drip-Feed]','Gradual subscriber delivery for safe growth.',               2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',1,1,NOW(),NOW()),
+('svc_yt_live',   10,2,'YouTube Live Views',             'Real concurrent viewers for YouTube Live streams.',           3.0000,  3.0000, 0,0,0, 100,    20000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Instagram (cate_id=3)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_ig_fol',    10,3,'Instagram Followers',            'Real-looking Instagram followers. Fast start.',              0.7000,  0.7000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_fol_hq', 10,3,'Instagram Followers [HQ]',      'Premium followers with 30-day refill guarantee.',            2.5000,  2.5000, 0,1,1, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_lik',    10,3,'Instagram Likes',                'Auto-likes on your latest Instagram posts.',                 0.2500,  0.2500, 0,0,0,  50,   500000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_view',   10,3,'Instagram Video Views',          'Fast video view delivery for Reels and posts.',              0.1200,  0.1200, 0,0,0, 500,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_reel',   10,3,'Instagram Reel Views',           'Boost reel views for better Explore placement.',             0.1000,  0.1000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_sview',  10,3,'Instagram Story Views',          'Increase story view count instantly.',                       0.1500,  0.1500, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_cmt',    10,3,'Instagram Comments [Custom]',    'Custom comments from real-looking profiles.',                4.0000,  4.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_save',   10,3,'Instagram Saves',                'Boost post saves for algorithm reach increase.',             0.5000,  0.5000, 0,0,0,  50,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_igtv',   10,3,'Instagram IGTV Views',           'Real views for your IGTV long-form video content.',         0.1500,  0.1500, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
+('svc_ig_fol_df', 10,3,'Instagram Followers [Drip-Feed]','Organic-paced follower delivery over time.',                 1.0000,  1.0000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Facebook (cate_id=4)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_fb_plik',   10,4,'Facebook Page Likes',            'Real-looking Facebook page likes for brand growth.',         0.8000,  0.8000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_fol',    10,4,'Facebook Page Followers',        'Increase your Facebook page follower count.',                0.8000,  0.8000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_postlik',10,4,'Facebook Post Likes',            'Likes on any public Facebook post.',                         0.3000,  0.3000, 0,0,0,  50,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_cmt',    10,4,'Facebook Comments [Custom]',     'Custom comments on public Facebook posts.',                  5.0000,  5.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_share',  10,4,'Facebook Post Shares',           'Organic-looking post shares for viral reach.',               1.5000,  1.5000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_view',   10,4,'Facebook Video Views',           '3-second video views to boost post reach.',                  0.1000,  0.1000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_grp',    10,4,'Facebook Group Members',         'Add real-looking members to your Facebook group.',           2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_event',  10,4,'Facebook Event Attendees',       'Boost event attendance interest count.',                     2.5000,  2.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW()),
+('svc_fb_reel',   10,4,'Facebook Reel Views',            'Boost views on your Facebook Reels.',                        0.1200,  0.1200, 0,0,0,1000,  3000000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Twitter / X (cate_id=5)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_tw_fol',    10,5,'Twitter/X Followers',            'Real-looking Twitter/X followers. Fast delivery.',           1.0000,  1.0000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_lik',    10,5,'Twitter/X Likes',                'Increase likes on your tweets quickly.',                     0.4000,  0.4000, 0,0,0,  50,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_ret',    10,5,'Twitter/X Retweets',             'Real-looking retweets to boost content reach.',              1.0000,  1.0000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_cmt',    10,5,'Twitter/X Replies [Custom]',     'Custom replies on any public tweet.',                        5.0000,  5.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_imp',    10,5,'Twitter/X Impressions',          'Boost tweet impression count for better reach.',             0.3000,  0.3000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_visit',  10,5,'Twitter/X Profile Visits',       'Drive traffic to your Twitter/X profile.',                   0.5000,  0.5000, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tw_spaces', 10,5,'Twitter/X Spaces Listeners',     'Real listeners for your Twitter Spaces broadcast.',          3.0000,  3.0000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Telegram (cate_id=6)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_tg_mem',    10,6,'Telegram Channel Members',       'Real-looking Telegram channel members.',                     0.9000,  0.9000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
+('svc_tg_grp',    10,6,'Telegram Group Members',         'Add real-looking members to your Telegram group.',           1.5000,  1.5000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
+('svc_tg_view',   10,6,'Telegram Post Views',            'Fast post view delivery for any public channel.',            0.0800,  0.0800, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
+('svc_tg_react',  10,6,'Telegram Reactions 👍',          'Add positive reactions to your Telegram posts.',             0.8000,  0.8000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_tg_share',  10,6,'Telegram Post Shares',           'Organic-looking shares for your channel posts.',             1.0000,  1.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_tg_mem_df', 10,6,'Telegram Members [Drip-Feed]',   'Gradual member delivery for organic channel growth.',        1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Spotify (cate_id=7)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_sp_play',   10,7,'Spotify Plays',                  'Real Spotify song plays to boost chart position.',           0.2000,  0.2000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_sp_fol',    10,7,'Spotify Followers',              'Grow your Spotify artist followers count.',                  2.0000,  2.0000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_sp_ml',     10,7,'Spotify Monthly Listeners',      'Increase your monthly listeners for credibility.',           3.0000,  3.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_sp_plfol',  10,7,'Spotify Playlist Followers',     'Add followers to your Spotify playlist.',                    2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_sp_save',   10,7,'Spotify Track Saves',            'Real saves/add-to-library for your tracks.',                 1.5000,  1.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — SoundCloud (cate_id=8)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_sc_play',   10,8,'SoundCloud Plays',               'Fast SoundCloud track play delivery.',                       0.1500,  0.1500, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_sc_fol',    10,8,'SoundCloud Followers',           'Grow your SoundCloud follower base.',                        1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
+('svc_sc_lik',    10,8,'SoundCloud Likes',               'Increase likes on your SoundCloud tracks.',                  1.0000,  1.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_sc_cmt',    10,8,'SoundCloud Comments',            'Custom comments on your SoundCloud tracks.',                 4.0000,  4.0000, 0,0,0,  10,      500,'manual','default',0,1,NOW(),NOW()),
+('svc_sc_rep',    10,8,'SoundCloud Reposts',             'Reposts to expand your track distribution.',                 1.2000,  1.2000, 0,0,0, 100,    20000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — LinkedIn (cate_id=9)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_li_fol',    10,9,'LinkedIn Followers',             'Grow your LinkedIn company or profile followers.',           3.0000,  3.0000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_li_lik',    10,9,'LinkedIn Post Likes',            'Boost engagement on your LinkedIn posts.',                   1.2000,  1.2000, 0,0,0,  50,    20000,'manual','default',0,1,NOW(),NOW()),
+('svc_li_cmt',    10,9,'LinkedIn Comments [Custom]',     'Professional custom comments on your posts.',                6.0000,  6.0000, 0,0,0,   5,      200,'manual','default',0,1,NOW(),NOW()),
+('svc_li_visit',  10,9,'LinkedIn Profile Views',         'Drive traffic to your LinkedIn profile.',                    1.5000,  1.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
+('svc_li_conn',   10,9,'LinkedIn Connections',           'Expand your professional network connections.',              3.5000,  3.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW());
+
+/* ============================================================
+   SMM Services — Website Traffic (cate_id=10)
+   ============================================================ */
+INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
+('svc_web_ww',    10,10,'Website Traffic [Worldwide]',   'Real human visitors from around the world.',                 0.5000,  0.5000, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
+('svc_web_us',    10,10,'Website Traffic [USA]',         'Targeted US visitors for your website.',                    2.5000,  2.5000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
+('svc_web_eu',    10,10,'Website Traffic [Europe]',      'Targeted European visitors for your website.',              2.0000,  2.0000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
+('svc_web_seo',   10,10,'SEO Traffic [Organic Search]',  'Targeted visitors from Google/Bing search results.',        1.5000,  1.5000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
+('svc_web_af',    10,10,'Website Traffic [Africa]',      'Targeted African visitors including Uganda, Kenya, etc.',   1.0000,  1.0000, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW());
+
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

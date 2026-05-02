@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="site-logo m-b-30">
           <a href="<?=cn()?>" class="m-r-20">
-            <img src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Website logo">
+            <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="Website logo">
           </a>
           <?php
             $redirect = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

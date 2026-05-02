@@ -8,7 +8,7 @@
         <div class="card-title text-center">
           <div class="site-logo">
             <a href="<?=cn()?>">
-              <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="website-logo">
+              <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo">
             </a>
           </div>
         </div>

@@ -50,7 +50,7 @@
 <aside class="navbar navbar-side navbar-fixed js-sidebar" id="aside">
   <div class="mobile-logo">
     <a href="<?php echo admin_url('statistics'); ?>" class="navbar-brand text-inherit">
-      <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Website Logo" class="hide-navbar-folded navbar-brand-logo">
+      <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Website Logo" class="hide-navbar-folded navbar-brand-logo">
       <img src="<?=get_option('website_logo_mark', BASE."assets/images/logo-mark.png")?>" alt="Website Logo" class="hide-navbar-expanded navbar-brand-logo">
     </a>
   </div>

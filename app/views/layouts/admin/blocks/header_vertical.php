@@ -15,7 +15,7 @@
     </a>
 
     <a href="<?php echo cn(); ?>" class="navbar-brand text-inherit mr-md-3">
-      <img src="<?php echo get_option('website_logo', BASE.'assets/images/logo.png'); ?>" alt="Website Logo" class="d-md-none navbar-brand-logo">
+      <img src="<?php echo get_option('website_logo', BASE.'assets/images/favicon.png'); ?>" alt="Website Logo" class="d-md-none navbar-brand-logo">
     </a>
     
     <ul class="nav navbar-menu align-items-center order-1 order-lg-2">

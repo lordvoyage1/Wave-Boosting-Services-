@@ -106,6 +106,22 @@ This ensures `base_url()` returns `https://...` on Render even though the PHP se
 - `start.sh` auto-detects if DB is missing and re-imports schema on every start
 - **Docker (Render)** data directory: `/var/lib/mysql` (persistent disk if attached)
 
+## SMM Services
+**72 services across 10 categories** (all seeded in `_sql/install.sql`):
+1. **TikTok** — Followers, Likes, Views, Comments, Shares, Story Views, Live Views, Saves, Drip-Feed (10 services)
+2. **YouTube** — Subscribers, Views, Likes, Comments, Shares, Watch Hours, Drip-Feed, Live Views (10 services)
+3. **Instagram** — Followers, Likes, Video Views, Reel Views, Story Views, Comments, Saves, IGTV, Drip-Feed (10 services)
+4. **Facebook** — Page Likes, Followers, Post Likes, Comments, Shares, Video Views, Group Members, Events, Reel Views (9 services)
+5. **Twitter/X** — Followers, Likes, Retweets, Replies, Impressions, Profile Visits, Spaces Listeners (7 services)
+6. **Telegram** — Channel Members, Group Members, Post Views, Reactions, Shares, Drip-Feed (6 services)
+7. **Spotify** — Plays, Followers, Monthly Listeners, Playlist Followers, Track Saves (5 services)
+8. **SoundCloud** — Plays, Followers, Likes, Comments, Reposts (5 services)
+9. **LinkedIn** — Followers, Post Likes, Comments, Profile Views, Connections (5 services)
+10. **Website Traffic** — Worldwide, USA, Europe, SEO, Africa (5 services)
+
+Pricing is per 1000 units (e.g. $0.10/1000 views, $1.50/1000 subscribers).
+
 ## Admin Panel
 - URL: `/admin`
 - Default admin credentials set in `_sql/install.sql` (check `general_staffs` table)
+- Services page publicly visible (no login required): `enable_service_list_no_login = 1`

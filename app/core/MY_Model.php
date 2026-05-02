@@ -308,7 +308,7 @@ class MY_Model extends CI_Model
         $user_email = $user_info->email;
 
         $website_link = PATH;
-        $website_logo = get_option('website_logo', BASE . "assets/images/logo.png");
+        $website_logo = get_option('website_logo', BASE . "assets/images/favicon.png");
         $website_name = get_option("website_name", "SMM PANEL");
         $copyright = get_option('copy_right_content', "Copyright &copy; 2020 - SmartPanel");
 

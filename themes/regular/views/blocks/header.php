@@ -65,8 +65,8 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg ">
           <a class="navbar-brand" href="<?=cn()?>">
-            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
-            <img class="site-logo-white" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
+            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
+            <img class="site-logo-white" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="fe fe-menu"></i></span>

@@ -17,7 +17,7 @@
   <div class="container">
     <div class="d-flex">
       <a class="" href="<?=cn('statistics')?>">
-        <img src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Website logo" style="max-height: 40px;">
+        <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="Website logo" style="max-height: 40px;">
       </a>
       <div class="d-flex order-lg-2 ml-auto my-auto search-box">
         <div class="search-box m-r-30 d-none d-lg-block">

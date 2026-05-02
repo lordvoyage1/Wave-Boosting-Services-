@@ -12,7 +12,7 @@
             <div class="card-title text-center">
               <div class="site-logo mb-2">
                 <a href="<?=cn()?>">
-                  <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="website-logo" class="website-logo">
+                  <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo" class="website-logo">
                 </a>
               </div>
               <h5><?=lang("login_to_your_account")?></h5>

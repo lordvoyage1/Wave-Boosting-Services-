@@ -6,7 +6,7 @@
         <div class="card-title text-center">
           <div class="site-logo mb-3">
             <a href="<?=cn()?>">
-              <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="website-logo" style="max-height: 50px;">
+              <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo" style="max-height: 50px;">
             </a>
           </div>
           <h5><?=lang("register_now")?></h5>

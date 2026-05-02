@@ -48,7 +48,7 @@
           <div class="col-md-6 mx-auto">
             <div class="content">
               <div class="logo">
-                <img src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="website-logo">
+                <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="website-logo">
               </div>
               <h1 class="m-b-50 m-t-50">
                 <?=lang("the_website_is_in_maintenance_mode")?>
