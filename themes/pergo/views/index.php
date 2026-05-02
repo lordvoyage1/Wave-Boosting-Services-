@@ -4,9 +4,14 @@
     <header class="header fixed-top" id="headerNav">
       <div class="container">
         <nav class="navbar navbar-expand-lg ">
-          <a class="navbar-brand" href="#">
-            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Webstie logo">
-            <img class="site-logo-white" src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Webstie logo">
+          <a class="navbar-brand wave-navbar-brand" href="#">
+            <?php
+              $lw = get_option('website_logo_white', '');
+              $wn = get_option('website_name', 'Wave Boosting Services');
+              $logo_src = !empty($lw) ? $lw : BASE.'assets/images/wave-logo-white.svg';
+            ?>
+            <img class="site-logo-white" src="<?=$logo_src?>" alt="<?=htmlspecialchars($wn)?>" style="height:36px;max-width:220px;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';">
+            <span class="wave-text-logo" style="display:none;color:#fff;font-weight:700;font-size:1.05rem;letter-spacing:0.03em;"><span style="margin-right:4px;">&#9651;</span><?=htmlspecialchars($wn)?></span>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="fe fe-menu"></i></span>
@@ -349,7 +354,8 @@
           <div class="col-lg-12">
             <div class="site-logo m-b-30">
               <a href="<?=cn()?>" class="m-r-20">
-                <img src="<?=get_option('website_logo_white', BASE."assets/images/logo-white.png")?>" alt="Website logo">
+                <?php $fl = get_option('website_logo_white', ''); $foot_logo = !empty($fl) ? $fl : BASE.'assets/images/wave-logo-white.svg'; ?>
+                <img src="<?=$foot_logo?>" alt="<?=htmlspecialchars(get_option('website_name','Wave Boosting Services'))?>" style="height:36px;max-width:220px;" onerror="this.style.display='none';">
               </a>
               <?php
                 $redirect = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

@@ -9,18 +9,18 @@ A full-featured Social Media Marketing (SMM) panel platform for Wave Boosting Se
 - **Frontend**: Bootstrap 4 + custom theme "pergo"
 - **Payment Gateway**: LworxPay (Uganda Mobile Money + Cards)
 
-## Running the Application
+## Running the Application (Local / Replit)
 The workflow `Start application` runs `bash start.sh` which:
-1. Initializes MariaDB data directory (first run only)
+1. Initializes MariaDB data directory on first run only
 2. Creates the `smm_free` database and imports `_sql/install.sql`
-3. Starts MariaDB on port 3306
-4. Starts PHP built-in server on port 5000
+3. **On every start**: verifies the DB exists and re-imports if missing (e.g. after `/tmp` reset)
+4. Starts MariaDB on port 3306 and PHP built-in server on port 5000
 
 ## Database Configuration
-File: `app/config.php`
+File: `app/config.php` — uses `getenv()` with local fallbacks:
 - DB_HOST: `127.0.0.1`
-- DB_USER: `root`
-- DB_PASS: `yourpass`
+- DB_USER: `root` (Replit) / `smm_user` (Docker)
+- DB_PASS: `yourpass` (Replit) / env var (Docker)
 - DB_NAME: `smm_free`
 
 ## Branding
@@ -29,6 +29,8 @@ File: `app/config.php`
 - **Copyright**: Copyright © 2025 Wave Platforms, Inc. All Rights Reserved.
 - **Hero Image**: Futuristic energy sphere (stored at `assets/images/wave_hero.jpg`)
 - **Theme**: pergo (dark purple/blue theme with sphere background)
+- **Logo**: SVG wave icon + text at `assets/images/wave-logo-white.svg`
+  - Navbar logo uses dynamic `BASE` URL (no hardcoded host in DB)
 
 ## Social Links
 - TikTok: https://www.tiktok.com/@itsmeddy?_r=1&_t=ZS-95zn8eiI69V
@@ -51,25 +53,59 @@ File: `app/modules/add_funds/controllers/lworx.php`
 - **IPN Endpoint**: `/lworx_ipn` → `add_funds/lworx/ipn/`
 - **Admin Config View**: `app/modules/admin/views/payments/integrations/lworx.php`
 
+## Docker / Render Deployment
+Files ready for Render.com Docker deployment:
+- `Dockerfile` — PHP 8.2-Apache + MariaDB + supervisord
+- `docker/entrypoint.sh` — startup: Apache port config, DB init, supervisord launch
+- `docker/apache-vhost.conf` — Apache VirtualHost with `APP_PORT` placeholder
+- `docker/supervisord.conf` — manages MariaDB + Apache processes
+- `docker/php.ini` — PHP settings
+- `render.yaml` — Render blueprint (auto-configures service + disk)
+- `.dockerignore` — excludes dev artifacts from Docker build
+
+### Render Deployment Steps
+1. Push code to GitHub (include the `Dockerfile`)
+2. On Render: New → Web Service → Connect GitHub repo
+3. Runtime: Docker (auto-detected from Dockerfile)
+4. Set env vars in Render dashboard:
+   - `DB_USER=smm_user`
+   - `DB_PASS=<strong password>`
+   - `MYSQL_ROOT_PASSWORD=<strong password>`
+   - `PORT=10000` (default)
+5. Optional: Add a 1 GB Disk mounted at `/var/lib/mysql` (free tier: ephemeral)
+
+### Docker env vars for PHP (set by entrypoint via Apache SetEnv)
+- `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`, `APP_TIMEZONE`
+
+## HTTPS Handling
+`app/config/config.php` detects HTTPS via:
+- `$_SERVER['HTTPS']` (direct TLS)
+- `HTTP_X_FORWARDED_PROTO` (Render proxy / load balancers)
+- `HTTP_X_FORWARDED_SSL`
+
+This ensures `base_url()` returns `https://...` on Render even though the PHP server sees HTTP.
+
 ## Key Files
 - `start.sh` — startup script (MariaDB init + PHP server)
 - `router.php` — PHP built-in server router
 - `_sql/install.sql` — database schema + Wave Boosting Services config
-- `app/config.php` — database credentials + encryption key
-- `app/config/config.php` — CodeIgniter config (dynamic base_url)
-- `themes/pergo/views/index.php` — homepage (sphere hero + social links)
+- `app/config.php` — database credentials + encryption key (getenv-based)
+- `app/config/config.php` — CodeIgniter config (dynamic base_url + HTTPS proxy)
+- `themes/pergo/views/index.php` — homepage (sphere hero + social links + wave logo)
 - `themes/pergo/views/blocks/footer.php` — footer block
 - `themes/pergo/views/blocks/head.blade.php` — head block (title/favicon)
 - `app/modules/add_funds/controllers/lworx.php` — LworxPay gateway
 - `app/modules/add_funds/views/lworx/index.php` — LworxPay payment form
 - `app/modules/add_funds/views/lworx/check_status.php` — MoMo status page
 - `app/modules/admin/views/payments/integrations/lworx.php` — admin config
+- `assets/images/wave-logo-white.svg` — Wave Boosting Services navbar logo
+- `assets/images/wave_hero.jpg` — hero background image
 
 ## MariaDB Data
-- Data directory: `/tmp/mysql_data` (persists during session)
-- MariaDB binary: `/nix/store/a4jsa8kjdn3wlccj2wkvhxqza38rpxzf-mariadb-server-10.11.13/`
-- If `/tmp/mysql_data` is cleared, it re-initializes automatically on next start
+- **Local (Replit)** data directory: `/tmp/mysql_data` (persists during session)
+- `start.sh` auto-detects if DB is missing and re-imports schema on every start
+- **Docker (Render)** data directory: `/var/lib/mysql` (persistent disk if attached)
 
-## User Account Default
-Admin panel: `/admin`
-First-time setup may require running install or creating admin via DB if default credentials not set.
+## Admin Panel
+- URL: `/admin`
+- Default admin credentials set in `_sql/install.sql` (check `general_staffs` table)
