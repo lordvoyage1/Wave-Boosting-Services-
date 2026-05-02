@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# NOTE: No "set -e" — we handle errors explicitly so a killed mysqld doesn't exit the script
 
 APP_PORT="${PORT:-10000}"
 DB_NAME="${DB_NAME:-smm_free}"
@@ -30,8 +30,10 @@ chown -R www-data:www-data /var/www/html/app/cache \
 IS_FIRST_RUN=0
 if [ ! -d "${DB_DATA}/mysql" ]; then
     echo "[DB] First run — initializing MariaDB data directory..."
-    mysql_install_db --user=mysql --datadir="${DB_DATA}" --skip-test-db \
-        > /var/log/mysql/install.log 2>&1
+    mariadb-install-db --user=mysql --datadir="${DB_DATA}" --skip-test-db \
+        > /var/log/mysql/install.log 2>&1 \
+        || mysql_install_db --user=mysql --datadir="${DB_DATA}" --skip-test-db \
+           >> /var/log/mysql/install.log 2>&1
     echo "[DB] Data directory initialized."
     IS_FIRST_RUN=1
 fi
@@ -39,32 +41,36 @@ fi
 # ── Start MariaDB temporarily for setup ───────────────────────────────────────
 echo "[DB] Starting MariaDB for setup..."
 mysqld --user=mysql --skip-networking --socket="${SETUP_SOCK}" \
-       --datadir="${DB_DATA}" &
+       --datadir="${DB_DATA}" > /var/log/mysql/setup.log 2>&1 &
 MYSQLD_PID=$!
 
-for i in $(seq 1 30); do
+READY=0
+for i in $(seq 1 40); do
     if mysqladmin --socket="${SETUP_SOCK}" ping --silent 2>/dev/null; then
         echo "[DB] MariaDB ready (${i}s)"
+        READY=1
         break
     fi
     sleep 1
 done
 
+if [ "$READY" -eq 0 ]; then
+    echo "[ERROR] MariaDB failed to start. Log:"
+    cat /var/log/mysql/setup.log
+    exit 1
+fi
+
 # ── Determine if schema import is needed ─────────────────────────────────────
-# Use filesystem check — more reliable than SQL across first/subsequent runs
 SCHEMA_NEEDED=0
-if [ ! -d "${DB_DATA}/${DB_NAME}" ]; then
+if [ "$IS_FIRST_RUN" -eq 1 ] || [ ! -d "${DB_DATA}/${DB_NAME}" ]; then
     SCHEMA_NEEDED=1
 fi
 
-if [ "$IS_FIRST_RUN" -eq 1 ] || [ "$SCHEMA_NEEDED" -eq 1 ]; then
+if [ "$SCHEMA_NEEDED" -eq 1 ]; then
     echo "[DB] Setting up database, users and schema..."
 
-    # Set root password (works with empty password on fresh install)
-    mysql --socket="${SETUP_SOCK}" -u root 2>/dev/null <<SQL || true
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-SQL
+    # Set root password (fresh install has no password)
+    mysqladmin --socket="${SETUP_SOCK}" -u root password "${MYSQL_ROOT_PASSWORD}" 2>/dev/null || true
 
     # Create database and app user
     mysql --socket="${SETUP_SOCK}" -u root -p"${MYSQL_ROOT_PASSWORD}" 2>/dev/null <<SQL
@@ -83,19 +89,31 @@ SQL
     mysql --socket="${SETUP_SOCK}" \
           -u root -p"${MYSQL_ROOT_PASSWORD}" "${DB_NAME}" \
           < /var/www/html/_sql/install.sql
-
     echo "[DB] Schema imported successfully!"
 else
     echo "[DB] Database already set up, skipping import."
 fi
 
-# ── Stop setup mysqld ─────────────────────────────────────────────────────────
-echo "[DB] Stopping setup mysqld..."
-kill $MYSQLD_PID 2>/dev/null
-wait $MYSQLD_PID 2>/dev/null
+# ── Gracefully stop setup mysqld before supervisord takes over ─────────────────
+echo "[DB] Shutting down setup mysqld..."
+mysqladmin --socket="${SETUP_SOCK}" -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown 2>/dev/null || \
+    kill "$MYSQLD_PID" 2>/dev/null || true
+
+# Wait up to 15s for the process to exit cleanly
+for i in $(seq 1 15); do
+    if ! kill -0 "$MYSQLD_PID" 2>/dev/null; then
+        break
+    fi
+    sleep 1
+done
+# Force-kill if still running
+kill -9 "$MYSQLD_PID" 2>/dev/null || true
+
+# Remove setup socket so supervisord's mysqld can create its own
+rm -f "${SETUP_SOCK}"
 sleep 1
 
-# ── Export env vars for Apache/PHP ───────────────────────────────────────────
+# ── Export env vars for Apache/PHP via Apache SetEnv ──────────────────────────
 cat > /etc/apache2/conf-available/wave-env.conf <<APACHEENV
 SetEnv DB_HOST 127.0.0.1
 SetEnv DB_NAME ${DB_NAME}

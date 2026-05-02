@@ -9,7 +9,7 @@
     <meta name="keywords" content="<?=get_option('website_keywords', "smm panel, wave boosting, wave panel, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, facebook panel, cheap smm panel")?>">
     <title><?=get_option('website_title', "Wave Boosting Services - SMM Panel")?></title>
 
-    <link rel="shortcut icon" type="image/png" href="<?=get_option('website_favicon', BASE."assets/images/wave_hero.jpg")?>">
+    <link rel="shortcut icon" type="image/png" href="<?=get_option('website_favicon', BASE."assets/images/favicon.png")?>">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">

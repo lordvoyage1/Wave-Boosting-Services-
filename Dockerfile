@@ -43,6 +43,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 COPY docker/apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/php.ini /usr/local/etc/php/conf.d/wave.ini
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/my.cnf /etc/mysql/conf.d/wave.cnf
 
 # Set working directory and copy application
 WORKDIR /var/www/html

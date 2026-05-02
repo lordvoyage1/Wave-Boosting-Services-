@@ -19,7 +19,9 @@ services:
         value: 202dd507882ef55dbbc23f7e84dcfc8d
       - key: APP_TIMEZONE
         value: Africa/Nairobi
-    disk:
-      name: wave-db-data
-      mountPath: /var/lib/mysql
-      sizeGB: 1
+    # NOTE: Free tier has ephemeral disk — DB is re-seeded from _sql/install.sql on every restart.
+    # To persist user data, upgrade to a paid plan and add:
+    # disk:
+    #   name: wave-db-data
+    #   mountPath: /var/lib/mysql
+    #   sizeGB: 1

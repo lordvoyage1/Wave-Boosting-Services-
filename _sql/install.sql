@@ -518,7 +518,7 @@ CREATE TABLE `tickets` (
 UPDATE `general_options` SET `value` = 'Wave Boosting Services - #1 SMM Panel | Boost TikTok, YouTube, Instagram, Facebook & More' WHERE `name` = 'website_desc';
 UPDATE `general_options` SET `value` = 'smm panel, wave boosting, wave panel, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, facebook panel, cheap smm panel' WHERE `name` = 'website_keywords';
 UPDATE `general_options` SET `value` = 'Wave Boosting Services - SMM Panel' WHERE `name` = 'website_title';
-UPDATE `general_options` SET `value` = 'https://media.istockphoto.com/id/1504173168/photo/futuristic-energy-sphere-on-black-background-representing-ai-and-future-technologies-3d.jpg?s=612x612&w=0&k=20&c=lNbKE07EEb7bpsKTf1Pmm1enLnfwooepNLsSa4hAAE4=' WHERE `name` = 'website_favicon';
+DELETE FROM `general_options` WHERE `name` = 'website_favicon';
 UPDATE `general_options` SET `value` = 'delostvoyage@gmail.com' WHERE `name` = 'contact_email';
 UPDATE `general_options` SET `value` = 'delostvoyage@gmail.com' WHERE `name` = 'email_from';
 UPDATE `general_options` SET `value` = 'Wave Boosting Services' WHERE `name` = 'email_name';
