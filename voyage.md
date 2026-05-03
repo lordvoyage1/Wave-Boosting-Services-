@@ -1,5 +1,6 @@
-# Wave Boosting Services — SMM Panel
+# Wave Boosting Services — SMM Panel Developed by Meddy. people used to call me Lord Voyage 🌚
 
+# don't copy, all rights reserved 
 ## Overview
 A full-featured Social Media Marketing (SMM) panel platform for Wave Boosting Services / Wave Platforms, Inc. Built on PHP/CodeIgniter 3 + HMVC (MX modules).
 
