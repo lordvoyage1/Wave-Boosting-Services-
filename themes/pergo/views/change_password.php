@@ -1,41 +1,41 @@
-<?php 
-  include_once 'blocks/head.blade.php';
-?>
-<div class="auth-login-form">
-  <div class="form-login">
-    <form class="actionForm" action="<?=cn("auth/ajax_reset_password/".$reset_key)?>" data-redirect="<?=cn("auth/login")?>" method="POST">
-      <div>
-        <div class="card-title text-center">
-          <div class="site-logo">
-            <a href="<?=cn()?>">
-              <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo">
-            </a>
-          </div>
-          <h4><?=lang("new_password")?></h4>
-        </div>
-        <div class="form-group">
-          <div class="input-icon mb-5">
-            <span class="input-icon-addon">
-              <i class="fa fa-key"></i>
-            </span>
-            <input type="password" class="form-control" name="password" placeholder="<?=lang("new_password")?>" required>
-          </div>    
-          <div class="input-icon mb-5">
-            <span class="input-icon-addon">
-              <i class="fa fa-key"></i>
-            </span>
-            <input type="password" class="form-control" name="re_password" placeholder="<?=lang("Confirm_password")?>" required>
-          </div>
-        </div>
+<?php include_once 'blocks/head.blade.php'; ?>
 
-        <div class="form-footer">
-          <button type="submit" class="btn btn-pill btn-2 btn-block btn-submit btn-gradient"><?=lang("Submit")?></button>
+<div class="lv-auth-page">
+  <div class="lv-auth-box">
+    <div class="lv-auth-logo">
+      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-auth-logo-img">
+      <span class="lv-auth-logo-name">Loishvizo</span>
+      <span class="lv-auth-logo-sub">Boosting Solutions</span>
+    </div>
+    <div class="lv-auth-head">
+      <div class="lv-auth-title">Set New Password 🔒</div>
+      <div class="lv-auth-sub">Choose a strong password for your account</div>
+    </div>
+    <form class="actionForm" action="<?=cn('auth/ajax_reset_password/'.$reset_key)?>" data-redirect="<?=cn('auth/login')?>" method="POST">
+      <div class="lv-field">
+        <label><?=lang('new_password')?></label>
+        <div class="lv-field-icon">
+          <i class="fa fa-lock"></i>
+          <input type="password" class="lv-input" name="password" placeholder="<?=lang('new_password')?>" required>
         </div>
       </div>
+      <div class="lv-field">
+        <label><?=lang('Confirm_password')?></label>
+        <div class="lv-field-icon">
+          <i class="fa fa-lock"></i>
+          <input type="password" class="lv-input" name="re_password" placeholder="<?=lang('Confirm_password')?>" required>
+        </div>
+      </div>
+      <button type="submit" class="lv-btn-auth btn-submit"><?=lang('Submit')?></button>
     </form>
+    <div class="lv-auth-bottom">
+      <a href="<?=cn('auth/login')?>">← Back to Login</a>
+    </div>
   </div>
 </div>
 
-<?php 
-  include_once 'blocks/script.blade.php';
-?>
+<script src="<?=BASE?>assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="<?=BASE?>assets/plugins/jquery-toast/js/jquery.toast.js"></script>
+<script src="<?=BASE?>assets/js/process.js"></script>
+<script src="<?=BASE?>assets/js/general.js"></script>
+</body></html>

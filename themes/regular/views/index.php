@@ -6,8 +6,8 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg ">
           <a class="navbar-brand" href="<?=cn()?>">
-            <img class="site-logo d-none" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
-            <img class="site-logo-white" src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="Webstie logo">
+            <img class="site-logo" src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Loishvizo Boosting Solutions" style="height:34px;width:34px;border-radius:50%;object-fit:cover;">
+            <span style="color:#fff;font-weight:800;font-size:0.95rem;margin-left:6px;"><?=get_option('website_name','Loishvizo')?></span>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="fe fe-menu"></i></span>

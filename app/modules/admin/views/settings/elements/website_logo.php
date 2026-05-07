@@ -52,7 +52,7 @@
           <div class="form-group">
             <label class="form-label"><?=lang("website_logo_white")?></label>
             <div class="input-group">
-              <input type="text" name="website_logo_white" class="form-control" value="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>">
+              <input type="text" name="website_logo_white" class="form-control" value="<?=get_option('website_logo_white', BASE."assets/images/logo.png")?>">
               <span class="input-group-append">
                 <button class="btn btn-info" type="button">
                   <i class="fe fe-image">

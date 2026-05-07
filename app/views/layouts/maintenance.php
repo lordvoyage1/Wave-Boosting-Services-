@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Language" content="en" >
-    <meta name="description" content="<?=get_option('website_desc', "SmartPanel - #1 SMM Reseller Panel - Best SMM Panel for Resellers. Also well known for TOP SMM Panel and Cheap SMM Panel for all kind of Social Media Marketing Services. SMM Panel for Facebook, Instagram, YouTube and more services!")?>">
-    <meta name="keywords" content="<?=get_option('website_keywords', "smm panel, SmartPanel, smm reseller panel, smm provider panel, reseller panel, instagram panel, resellerpanel, social media reseller panel, smmpanel, panelsmm, smm, panel, socialmedia, instagram reseller panel")?>">
-    <title><?=get_option('website_title', "SmartPanel - SMM Panel Reseller Tool")?></title>
+    <meta name="description" content="<?=get_option('website_desc', "Loishvizo Boosting Solutions - Ultra Speed Social Media Boosting Panel")?>">
+    <meta name="keywords" content="<?=get_option('website_keywords', "loishvizo, smm panel, social media boosting, tiktok panel, instagram panel")?>">
+    <title><?=get_option('website_title', "Loishvizo Boosting Solutions - Maintenance")?></title>
 
     <link rel="shortcut icon" type="image/x-icon" href="<?=get_option('website_favicon', BASE."assets/images/favicon.png")?>">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -48,7 +48,7 @@
           <div class="col-md-6 mx-auto">
             <div class="content">
               <div class="logo">
-                <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="website-logo">
+                <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Loishvizo" style="height:50px;width:50px;border-radius:50%;">
               </div>
               <h1 class="m-b-50 m-t-50">
                 <?=lang("the_website_is_in_maintenance_mode")?>

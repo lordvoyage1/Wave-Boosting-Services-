@@ -3,7 +3,10 @@
     ?>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand logo-image" href="<?php echo cn(); ?>"><img src="<?=get_option('website_logo_white', BASE."assets/images/logo_white.png")?>" alt="Website logo"></a> 
+            <a class="navbar-brand logo-image" href="<?php echo cn(); ?>" style="display:flex;align-items:center;gap:8px;">
+              <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Loishvizo" style="height:32px;width:32px;border-radius:50%;object-fit:cover;">
+              <span style="color:#fff;font-weight:800;font-size:0.9rem;"><?=get_option('website_name','Loishvizo')?></span>
+            </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-awesome fas fa-bars"></span>

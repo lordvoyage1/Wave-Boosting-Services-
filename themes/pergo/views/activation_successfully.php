@@ -1,35 +1,24 @@
-<?php 
-  include_once 'blocks/head.blade.php';
-?>
+<?php include_once 'blocks/head.blade.php'; ?>
 
-<style>
-  .auth-login-form .form-login {
-    width: 620px;
-  }
-</style>
-
-<div class="auth-login-form">
-  <div class="form-login">
-    <div>
-      <div class="card-title text-center">
-        <div class="site-logo">
-          <a href="<?=cn()?>">
-            <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo">
-          </a>
-        </div>
-      </div>
-      <div class="form-group text-center">
-        <h1 class="text-pink"><?=lang('congratulations_your_registration_is_now_complete')?></h1>
-        <p><?=lang('congratulations_desc')?></p>
-      </div>
-
-      <div class="form-footer">
-        <a href="<?=cn("auth/login")?>" class="btn btn-pill btn-2 btn-block btn-submit btn-gradient"><?=lang("get_start_now")?></a>
-      </div>
+<div class="lv-auth-page">
+  <div class="lv-auth-box" style="text-align:center;max-width:500px">
+    <div class="lv-auth-logo">
+      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-auth-logo-img">
+      <span class="lv-auth-logo-name">Loishvizo</span>
+      <span class="lv-auth-logo-sub">Boosting Solutions</span>
+    </div>
+    <div style="font-size:56px;margin:20px 0">🎉</div>
+    <h2 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:10px"><?=lang('congratulations_your_registration_is_now_complete')?></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px"><?=lang('congratulations_desc')?></p>
+    <a href="<?=cn('auth/login')?>" class="lv-btn-auth" style="display:block">🚀 <?=lang('get_start_now')?></a>
+    <div class="lv-auth-bottom" style="margin-top:16px">
+      <a href="<?=cn()?>">← Back to Home</a>
     </div>
   </div>
 </div>
 
-<?php 
-  include_once 'blocks/script.blade.php';
-?>
+<script src="<?=BASE?>assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="<?=BASE?>assets/plugins/jquery-toast/js/jquery.toast.js"></script>
+<script src="<?=BASE?>assets/js/process.js"></script>
+<script src="<?=BASE?>assets/js/general.js"></script>
+</body></html>

@@ -108,7 +108,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label class="form-label">Content</label>
-                <input class="form-control" name="copy_right_content" value="<?=get_option('copy_right_content',"Copyright &copy; 2025 Wave Platforms, Inc. All Rights Reserved.")?>">
+                <input class="form-control" name="copy_right_content" value="<?=get_option('copy_right_content',"Copyright &copy; ".date('Y')." Loishvizo Boosting Solutions. All Rights Reserved.")?>">
               </div>
             </div>
           </div>

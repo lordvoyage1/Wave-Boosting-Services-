@@ -149,7 +149,7 @@
                 $version = 'Ver'.$version;
             ?>
             <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center small">
-                <?=get_option('copy_right_content',"Copyright &copy; 2020 - SmartPanel");?> <?=(get_role("admin")) ? $version : "" ?> 
+                <?=get_option('copy_right_content',"Copyright &copy; ".date('Y')." Loishvizo Boosting Solutions. All Rights Reserved.");?> <?=(get_role("admin")) ? $version : "" ?> 
             </div>
         </div>
       </div>

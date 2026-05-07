@@ -25,23 +25,23 @@
           
           <div class="form-group">
             <label class="form-label"><?=lang("website_name")?></label>
-            <input class="form-control" name="website_name" value="<?=get_option('website_name', "Wave Boosting Services")?>">
+            <input class="form-control" name="website_name" value="<?=get_option('website_name', "Loishvizo Boosting Solutions")?>">
           </div>  
 
           <div class="form-group">
             <label class="form-label"><?=lang("website_description")?></label>
-            <textarea rows="3" name="website_desc" class="form-control"><?=get_option('website_desc', "Wave Boosting Services - #1 SMM Panel | Boost TikTok, YouTube, Instagram & More")?>
+            <textarea rows="3" name="website_desc" class="form-control"><?=get_option('website_desc', "Loishvizo Boosting Solutions - The ultra speed social media boosting platform")?>
             </textarea>
           </div>
 
           <div class="form-group">
             <label class="form-label"><?=lang("website_keywords")?></label>
-            <textarea rows="3" name="website_keywords" class="form-control"><?=get_option('website_keywords', "smm panel, wave boosting, smm reseller panel, smm provider panel, reseller panel, instagram panel, resellerpanel, social media reseller panel, smmpanel, panelsmm, smm, panel, socialmedia, instagram reseller panel")?>
+            <textarea rows="3" name="website_keywords" class="form-control"><?=get_option('website_keywords', "loishvizo, smm panel, social media boosting, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, fast smm panel")?>
             </textarea>
           </div>
           <div class="form-group">
             <label class="form-label"><?=lang("website_title")?></label>
-            <input class="form-control" name="website_title" value="<?=get_option('website_title', "Wave Boosting Services - SMM Panel")?>">
+            <input class="form-control" name="website_title" value="<?=get_option('website_title', "Loishvizo Boosting Solutions - Ultra Speed SMM Panel")?>">
           </div>
         </div>
       </div>

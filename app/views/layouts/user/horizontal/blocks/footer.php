@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="site-logo m-b-30">
           <a href="<?=cn()?>" class="m-r-20">
-            <img src="<?=get_option('website_logo_white', BASE."assets/images/wave-logo-white.svg")?>" alt="Website logo">
+            <img src="<?=get_option('website_logo', BASE."assets/images/logo.png")?>" alt="Loishvizo Boosting Solutions" style="max-height:38px;border-radius:50%;">
           </a>
           <?php
             $redirect = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -115,7 +115,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-        <?=get_option('copy_right_content',"Copyright &copy; 2025 Wave Platforms, Inc. All Rights Reserved.")?>
+        <?=get_option('copy_right_content',"Copyright &copy; ".date('Y')." Loishvizo Boosting Solutions. All Rights Reserved.")?>
       </div>
     </div>
   </div>

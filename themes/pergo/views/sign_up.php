@@ -1,115 +1,94 @@
-<?php 
-  include_once 'blocks/head.blade.php';
-?>
-<div class="auth-login-form">
-  <div class="form-login">
-    <form class="actionForm" action="<?=cn("auth/ajax_sign_up")?>" data-redirect="<?=cn('statistics')?>" method="POST">
-      <div>
-        <div class="card-title text-center">
-          <div class="site-logo">
-            <a href="<?=cn()?>">
-              <img src="<?=get_option('website_logo', BASE."assets/images/favicon.png")?>" alt="website-logo">
-            </a>
-          </div>
-          <h4><?=lang("register_now")?></h4>
-        </div>
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-icon mb-3">
-                <span class="input-icon-addon">
-                  <i class="fe fe-user"></i>
-                </span>
-                <input type="text" class="form-control" name="first_name" placeholder="<?=lang("first_name")?>"  required>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-icon mb-3">
-                <span class="input-icon-addon">
-                  <i class="fe fe-user"></i>
-                </span>
-                <input type="text" class="form-control" name="last_name" placeholder="<?=lang("last_name")?>" required>
-              </div>  
-            </div>
-          </div>
+<?php include_once 'blocks/head.blade.php'; ?>
 
-          <div class="input-icon mb-3">
-            <span class="input-icon-addon">
-              <i class="fe fe-mail"></i>
-            </span>
-            <input type="email" class="form-control" name="email" placeholder="<?=lang("Email")?>" required>
-          </div>  
-          
-          <?php
-            if (get_option('enable_signup_skype_field')) {
-          ?>
-          <div class="input-icon mb-3">
-            <span class="input-icon-addon">
-              <i class="fa fa-skype"></i>
-            </span>
-            <input type="text" class="form-control" name="skype_id" placeholder="<?=lang("Skype_id")?>" required>
-          </div>    
-          <?php } ?>      
-          <div class="input-icon mb-3">
-            <span class="input-icon-addon">
-              <i class="fa fa-key"></i>
-            </span>
-            <input type="password" class="form-control" name="password" placeholder="<?=lang("Password")?>" required>
-          </div>    
-
-          <div class="input-icon mb-3">
-            <span class="input-icon-addon">
-              <i class="fa fa-key"></i>
-            </span>
-            <input type="password" class="form-control" name="re_password" placeholder="<?=lang("Confirm_password")?>" required>
-          </div>
-
-          <div class="input-icon mb-3">
-            <span class="input-icon-addon">
-              <i class="fe fe-clock"></i>
-            </span>
-            <select  name="timezone" class="form-control square">
-              <?php $time_zones = tz_list();
-                if (!empty($time_zones)) {
-                  $location = get_location_info_by_ip(get_client_ip());
-                  $user_timezone = $location->timezone;
-                  if ($user_timezone == "" || $user_timezone == 'Unknow') {
-                    $user_timezone = get_option("default_timezone", 'UTC');
-                  }
-                  foreach ($time_zones as $key => $time_zone) {
-              ?>
-              <option value="<?=$time_zone['zone']?>" <?=($user_timezone == $time_zone["zone"])? 'selected': ''?>><?=$time_zone['time']?></option>
-              <?php }}?>
-            </select>
+<div class="lv-auth-page">
+  <div class="lv-auth-box" style="max-width:500px">
+    <div class="lv-auth-logo">
+      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-auth-logo-img">
+      <span class="lv-auth-logo-name">Loishvizo</span>
+      <span class="lv-auth-logo-sub">Boosting Solutions</span>
+    </div>
+    <div class="lv-auth-head">
+      <div class="lv-auth-title">Create Free Account 🚀</div>
+      <div class="lv-auth-sub">Join 50,000+ creators and start boosting today</div>
+    </div>
+    <form class="actionForm" action="<?=cn('auth/ajax_sign_up')?>" data-redirect="<?=cn('statistics')?>" method="POST">
+      <div class="lv-field-row">
+        <div class="lv-field">
+          <label><?=lang('first_name')?></label>
+          <div class="lv-field-icon">
+            <i class="fa fa-user"></i>
+            <input type="text" class="lv-input" name="first_name" placeholder="John" required>
           </div>
         </div>
-        
-        <?php
-          if (get_option('enable_goolge_recapcha') &&  get_option('google_capcha_site_key') != "" && get_option('google_capcha_secret_key') != "") {
-        ?>
-        <div class="form-group">
-          <div class="g-recaptcha" data-sitekey="<?=get_option('google_capcha_site_key')?>"></div>
-        </div>
-        <?php } ?> 
-
-        <div class="form-group">
-          <label class="custom-control custom-checkbox">
-            <input type="checkbox" name="terms" class="custom-control-input" />
-            <span class="custom-control-label"><?=lang("i_agree_the")?> <a href="<?=cn('terms')?>"><?=lang("terms__policy")?></a></span>
-          </label>
-        </div>
-
-        <div class="form-footer">
-          <button type="submit" class="btn btn-pill btn-2 btn-block btn-submit btn-gradient"><?=lang("create_new_account")?></button>
+        <div class="lv-field">
+          <label><?=lang('last_name')?></label>
+          <div class="lv-field-icon">
+            <i class="fa fa-user"></i>
+            <input type="text" class="lv-input" name="last_name" placeholder="Doe" required>
+          </div>
         </div>
       </div>
+      <div class="lv-field">
+        <label>Email Address</label>
+        <div class="lv-field-icon">
+          <i class="fa fa-envelope"></i>
+          <input type="email" class="lv-input" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <?php if(get_option('enable_signup_skype_field')):?>
+      <div class="lv-field">
+        <label>Skype ID</label>
+        <div class="lv-field-icon">
+          <i class="fa fa-skype"></i>
+          <input type="text" class="lv-input" name="skype_id" placeholder="your.skype.id" required>
+        </div>
+      </div>
+      <?php endif;?>
+      <div class="lv-field-row">
+        <div class="lv-field">
+          <label>Password</label>
+          <div class="lv-field-icon">
+            <i class="fa fa-lock"></i>
+            <input type="password" class="lv-input" name="password" placeholder="Min 6 chars" required>
+          </div>
+        </div>
+        <div class="lv-field">
+          <label>Confirm Password</label>
+          <div class="lv-field-icon">
+            <i class="fa fa-lock"></i>
+            <input type="password" class="lv-input" name="re_password" placeholder="Repeat password" required>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="timezone" id="timezone" value="Africa/Nairobi">
+      <div class="lv-check-row">
+        <input type="checkbox" name="terms" id="termsCheck" required>
+        <label for="termsCheck">I agree to the <a href="<?=cn('terms')?>">Terms of Service</a> and <a href="<?=cn('cookie-policy')?>">Privacy Policy</a></label>
+      </div>
+      <?php if(get_option('enable_goolge_recapcha') && get_option('google_capcha_site_key')):?>
+      <div class="g-recaptcha" data-sitekey="<?=get_option('google_capcha_site_key')?>" style="margin-bottom:14px"></div>
+      <?php endif;?>
+      <button type="submit" class="lv-btn-auth btn-submit" style="margin-top:8px">🚀 Create My Free Account</button>
     </form>
-    <div class="text-center text-muted m-t-20">
-      <?=lang("already_have_account")?> <a href="<?=cn('auth/login')?>"><?=lang("Login")?></a>
+    <div class="lv-auth-or">or</div>
+    <a href="<?=cn('auth/login')?>" class="lv-btn-auth" style="display:block;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);box-shadow:none">Login to Existing Account</a>
+    <div class="lv-auth-bottom">
+      <a href="<?=cn()?>" class="lv-auth-back"><i class="fa fa-arrow-left"></i> Back to Home</a>
     </div>
   </div>
 </div>
 
-<?php 
-  include_once 'blocks/script.blade.php';
-?>
+<script>
+// Auto-detect timezone
+try {
+  document.getElementById('timezone').value = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Nairobi';
+} catch(e){}
+</script>
+<script src="<?=BASE?>assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="<?=BASE?>assets/plugins/jquery-toast/js/jquery.toast.js"></script>
+<script src="<?=BASE?>assets/js/process.js"></script>
+<script src="<?=BASE?>assets/js/general.js"></script>
+<?php if(get_option('enable_goolge_recapcha') && get_option('google_capcha_site_key')):?>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<?php endif;?>
+</body></html>

@@ -16,7 +16,7 @@ MYSQLD="$MARIADB_BIN/mysqld"
 MYSQLADMIN="$MARIADB_BIN/mysqladmin"
 MYSQL="$MARIADB_BIN/mysql"
 
-echo "=== Wave Boosting Services - Starting ==="
+echo "=== Loishvizo Boosting Solutions - Starting ==="
 
 # Initialize MariaDB data directory on first run
 if [ ! -f "$MYSQL_DATA/.initialized" ]; then
@@ -118,8 +118,9 @@ for i in $(seq 1 30); do
 done
 
 # Verify smm_free database exists; re-import if lost (e.g. after /tmp reset)
-DB_EXISTS=$("$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME" || echo 0)
-if [ "$DB_EXISTS" -eq 0 ]; then
+DB_EXISTS=$("$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME" 2>/dev/null || true)
+DB_EXISTS="${DB_EXISTS:-0}"
+if [ "$DB_EXISTS" -eq 0 ] 2>/dev/null || [ -z "$DB_EXISTS" ]; then
   echo "[DB] Database '$DB_NAME' missing - re-importing schema..."
   "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
     CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -137,6 +138,44 @@ fi
   ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '$MYSQL_ROOT_PASS';
   FLUSH PRIVILEGES;
 " 2>/dev/null
+
+# ─── Update brand settings in general_options ───
+echo "[APP] Updating Loishvizo brand settings..."
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'BRAND_SQL'
+INSERT INTO general_options (option_name, option_value) VALUES
+  ('website_name',    'Loishvizo Boosting Solutions'),
+  ('website_title',   'Loishvizo Boosting Solutions - Ultra Speed SMM Panel'),
+  ('website_desc',    'Loishvizo Boosting Solutions - The ultra speed social media boosting platform. Boost TikTok, YouTube, Instagram, Facebook, Twitter, Spotify & more instantly.'),
+  ('website_keywords','loishvizo, smm panel, social media boosting, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, fast smm panel'),
+  ('copy_right_content', 'Copyright &copy; 2025 Loishvizo Boosting Solutions. All Rights Reserved.')
+ON DUPLICATE KEY UPDATE option_value = VALUES(option_value);
+BRAND_SQL
+
+# ─── Set up admin accounts in general_staffs ───
+echo "[APP] Setting up admin accounts..."
+ADMIN_PASS_HASH=$(php -r "echo md5('Loishvizo@2025');" 2>/dev/null || echo "c9f5a9e6b2d8a4f1e7c3b5d2a8f4e6c1")
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<ADMINS_SQL
+INSERT IGNORE INTO general_staffs (ids, first_name, last_name, email, password, role, status, created)
+VALUES
+  (1, 'Isha',   'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
+  (2, 'Lois',   'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
+  (3, 'Delos',  'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
+  (4, 'Meddy',  'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 'admin', 1, NOW())
+ON DUPLICATE KEY UPDATE role='admin', status=1;
+ADMINS_SQL
+
+# ─── Add admin emails to general_users with balance=9999999 (no pay) ───
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<USERS_SQL
+INSERT IGNORE INTO general_users (ids, first_name, last_name, email, password, balance, status, api_key, created)
+VALUES
+  (1001, 'Isha',  'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_isha',   NOW()),
+  (1002, 'Lois',  'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_lois',   NOW()),
+  (1003, 'Delos', 'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_delos',  NOW()),
+  (1004, 'Meddy', 'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_meddy',  NOW())
+ON DUPLICATE KEY UPDATE balance=9999999.00, status=1;
+USERS_SQL
+
+echo "[APP] Setup complete!"
 
 # Start PHP built-in server (foreground)
 PORT="${PORT:-5000}"
