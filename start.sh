@@ -9,7 +9,12 @@ MYSQL_ROOT_PASS="yourpass"
 
 MARIADB_BASE="/nix/store/a4jsa8kjdn3wlccj2wkvhxqza38rpxzf-mariadb-server-10.11.13"
 MARIADB_SHARE="$MARIADB_BASE/share/mysql"
-MARIADB_PLUGINS="$MARIADB_BASE/lib/plugin"
+MARIADB_PLUGINS="$MARIADB_BASE/lib/mysql/plugin"
+MARIADB_BIN="$MARIADB_BASE/bin"
+
+MYSQLD="$MARIADB_BIN/mysqld"
+MYSQLADMIN="$MARIADB_BIN/mysqladmin"
+MYSQL="$MARIADB_BIN/mysql"
 
 echo "=== Wave Boosting Services - Starting ==="
 
@@ -30,7 +35,7 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
     cat "$MARIADB_SHARE/fill_help_tables.sql"
     cat "$MARIADB_SHARE/maria_add_gis_sp_bootstrap.sql"
     cat "$MARIADB_SHARE/mysql_sys_schema.sql"
-  ) | mysqld --no-defaults \
+  ) | "$MYSQLD" --no-defaults \
       --bootstrap \
       --basedir="$MARIADB_BASE" \
       --datadir="$MYSQL_DATA" \
@@ -45,7 +50,7 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
 
   # Start mysqld temporarily to set up users and import schema
   rm -f "$MYSQL_SOCK"
-  mysqld --no-defaults \
+  "$MYSQLD" --no-defaults \
     --basedir="$MARIADB_BASE" \
     --datadir="$MYSQL_DATA" \
     --socket="$MYSQL_SOCK" \
@@ -56,7 +61,7 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
 
   echo "[DB] Waiting for setup mysqld..."
   for i in $(seq 1 20); do
-    if mysqladmin --socket="$MYSQL_SOCK" ping --silent 2>/dev/null; then
+    if "$MYSQLADMIN" --socket="$MYSQL_SOCK" ping --silent 2>/dev/null; then
       echo "[DB] Setup mysqld ready"
       break
     fi
@@ -64,7 +69,7 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
   done
 
   # Set up root user and create app database (skip-grant-tables mode)
-  mysql --socket="$MYSQL_SOCK" 2>/dev/null <<SETUP_SQL
+  "$MYSQL" --socket="$MYSQL_SOCK" 2>/dev/null <<SETUP_SQL
 USE mysql;
 UPDATE user SET plugin='mysql_native_password', Password=PASSWORD('$MYSQL_ROOT_PASS'), authentication_string='' WHERE User='root' AND Host='localhost';
 INSERT IGNORE INTO user (Host, User, plugin, Password, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Reload_priv, Shutdown_priv, Process_priv, File_priv, Grant_priv, References_priv, Index_priv, Alter_priv, Show_db_priv, Super_priv, Create_tmp_table_priv, Lock_tables_priv, Execute_priv, Repl_slave_priv, Repl_client_priv, Create_view_priv, Show_view_priv, Create_routine_priv, Alter_routine_priv, Create_user_priv, Event_priv, Trigger_priv, Create_tablespace_priv, ssl_type, ssl_cipher, x509_issuer, x509_subject, max_questions, max_updates, max_connections, max_user_connections) VALUES ('127.0.0.1', 'root', 'mysql_native_password', PASSWORD('$MYSQL_ROOT_PASS'), 'Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','','0','0','0','0');
@@ -76,7 +81,7 @@ FLUSH PRIVILEGES;
 SETUP_SQL
 
   echo "[DB] Importing application schema..."
-  mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" < _sql/install.sql 2>/dev/null
+  "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" < _sql/install.sql 2>/dev/null
   echo "[DB] Schema imported!"
 
   # Stop the init mysqld
@@ -93,7 +98,7 @@ rm -f "$MYSQL_SOCK"
 
 # Start MariaDB for real
 echo "[DB] Starting MariaDB..."
-mysqld --no-defaults \
+"$MYSQLD" --no-defaults \
   --basedir="$MARIADB_BASE" \
   --datadir="$MYSQL_DATA" \
   --socket="$MYSQL_SOCK" \
@@ -105,7 +110,7 @@ MYSQLD_PID=$!
 
 echo "[DB] Waiting for MariaDB..."
 for i in $(seq 1 30); do
-  if mysqladmin --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" ping --silent 2>/dev/null; then
+  if "$MYSQLADMIN" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" ping --silent 2>/dev/null; then
     echo "[DB] MariaDB ready after ${i}s"
     break
   fi
@@ -113,18 +118,25 @@ for i in $(seq 1 30); do
 done
 
 # Verify smm_free database exists; re-import if lost (e.g. after /tmp reset)
-DB_EXISTS=$(mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME")
+DB_EXISTS=$("$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME" || echo 0)
 if [ "$DB_EXISTS" -eq 0 ]; then
   echo "[DB] Database '$DB_NAME' missing - re-importing schema..."
-  mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
+  "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
     CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'localhost';
     GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'127.0.0.1';
     FLUSH PRIVILEGES;
   " 2>/dev/null
-  mysql --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" < _sql/install.sql 2>/dev/null
+  "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" < _sql/install.sql 2>/dev/null
   echo "[DB] Schema re-imported!"
 fi
+
+# Fix root password for all hosts (ensures PHP can connect via 127.0.0.1)
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
+  ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+  ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+  FLUSH PRIVILEGES;
+" 2>/dev/null
 
 # Start PHP built-in server (foreground)
 PORT="${PORT:-5000}"
