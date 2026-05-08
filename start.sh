@@ -139,16 +139,23 @@ fi
   FLUSH PRIVILEGES;
 " 2>/dev/null
 
+# ─── Ensure root password is set for all hosts ───
+"$MYSQL" --socket="$MYSQL_SOCK" -u root 2>/dev/null <<'ROOTFIX'
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('yourpass');
+SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('yourpass');
+FLUSH PRIVILEGES;
+ROOTFIX
+
 # ─── Update brand settings in general_options ───
 echo "[APP] Updating Loishvizo brand settings..."
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'BRAND_SQL'
-INSERT INTO general_options (option_name, option_value) VALUES
+INSERT INTO general_options (name, value) VALUES
   ('website_name',    'Loishvizo Boosting Solutions'),
   ('website_title',   'Loishvizo Boosting Solutions - Ultra Speed SMM Panel'),
   ('website_desc',    'Loishvizo Boosting Solutions - The ultra speed social media boosting platform. Boost TikTok, YouTube, Instagram, Facebook, Twitter, Spotify & more instantly.'),
   ('website_keywords','loishvizo, smm panel, social media boosting, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, fast smm panel'),
   ('copy_right_content', 'Copyright &copy; 2025 Loishvizo Boosting Solutions. All Rights Reserved.')
-ON DUPLICATE KEY UPDATE option_value = VALUES(option_value);
+ON DUPLICATE KEY UPDATE value = VALUES(value);
 BRAND_SQL
 
 # ─── Set up admin accounts in general_staffs ───
@@ -174,6 +181,11 @@ VALUES
   (1004, 'Meddy', 'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_meddy',  NOW())
 ON DUPLICATE KEY UPDATE balance=9999999.00, status=1;
 USERS_SQL
+
+# ─── Disable lworx payment gateway in DB ───
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'LWORX_SQL'
+UPDATE payments_method SET status=0 WHERE type='lworx';
+LWORX_SQL
 
 echo "[APP] Setup complete!"
 

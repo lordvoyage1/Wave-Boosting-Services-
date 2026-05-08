@@ -1,52 +1,61 @@
 <?php include_once 'blocks/head.blade.php'; ?>
 
-<!-- EMOJI BACKGROUND -->
-<div id="lv-emoji-bg"></div>
+<!-- MOBILE SIDEBAR OVERLAY -->
+<div class="lv-overlay" id="lvOverlay" onclick="closeMobMenu()"></div>
 
-<!-- MOBILE MENU -->
-<div class="lv-mobile-menu" id="lvMobMenu">
-  <a href="<?=cn()?>">Home</a>
-  <a href="#platforms">Platforms</a>
-  <a href="<?=cn('services')?>">Services</a>
-  <a href="#how">How It Works</a>
-  <a href="#faq">FAQ</a>
-  <div class="lv-mob-btns">
-    <a href="<?=cn('auth/login')?>" style="background:rgba(255,255,255,.08);color:#fff">Login</a>
+<!-- MOBILE SIDEBAR -->
+<nav class="lv-mobile-nav" id="lvMobNav">
+  <div class="lv-mob-header">
+    <div class="lv-mob-logo">
+      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" height="36">
+      <span>Loishvizo</span>
+    </div>
+    <button class="lv-mob-close" onclick="closeMobMenu()">✕</button>
+  </div>
+  <div class="lv-mob-links">
+    <a href="<?=cn()?>">Home</a>
+    <a href="#platforms">Platforms</a>
+    <?php if(get_option("enable_service_list_no_login") == 1):?>
+    <a href="<?=cn('services')?>">Services</a>
+    <?php endif;?>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="lv-mob-actions">
+    <a href="<?=cn('auth/login')?>" class="lv-mob-btn-login">Login</a>
     <?php if(!get_option('disable_signup_page')):?>
-    <a href="<?=cn('auth/signup')?>" style="background:linear-gradient(135deg,#7c22f8,#06d6a0);color:#fff">Get Started Free</a>
+    <a href="<?=cn('auth/signup')?>" class="lv-mob-btn-signup">Sign Up Free</a>
     <?php endif;?>
   </div>
-</div>
+</nav>
 
-<!-- NAVBAR -->
-<nav class="lv-nav" id="lvNav">
-  <div class="container lv-nav-inner">
-    <a href="<?=cn()?>" class="lv-brand">
-      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-brand-img">
-      <div class="lv-brand-info">
-        <span class="lv-brand-name">Loishvizo</span>
-        <span class="lv-brand-tagline">Boosting Solutions</span>
+<!-- TOP NAVBAR -->
+<nav class="lv-navbar" id="lvNavbar">
+  <div class="lv-container lv-navbar-inner">
+    <a href="<?=cn()?>" class="lv-logo-wrap">
+      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-logo-img">
+      <div class="lv-logo-text">
+        <span class="lv-logo-name">Loishvizo</span>
+        <span class="lv-logo-tagline">Boosting Solutions</span>
       </div>
     </a>
-    <ul class="lv-nav-links">
+    <ul class="lv-nav-menu">
       <li><a href="<?=cn()?>" class="active">Home</a></li>
       <li><a href="#platforms">Platforms</a></li>
       <?php if(get_option("enable_service_list_no_login") == 1):?>
       <li><a href="<?=cn('services')?>">Services</a></li>
       <?php endif;?>
-      <li><a href="#how">How It Works</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <div class="lv-nav-actions">
+    <div class="lv-nav-right">
       <?php if(!session('uid')):?>
-      <a href="<?=cn('auth/login')?>" class="btn-nav-login">Login</a>
+      <a href="<?=cn('auth/login')?>" class="lv-btn-ghost">Login</a>
       <?php if(!get_option('disable_signup_page')):?>
-      <a href="<?=cn('auth/signup')?>" class="btn-nav-signup">Get Started Free</a>
+      <a href="<?=cn('auth/signup')?>" class="lv-btn-accent">Sign Up Free</a>
       <?php endif;?>
       <?php else:?>
-      <a href="<?=cn('statistics')?>" class="btn-nav-signup">Dashboard</a>
+      <a href="<?=cn('statistics')?>" class="lv-btn-accent">Dashboard</a>
       <?php endif;?>
-      <button class="lv-hamburger" id="lvHamburger" onclick="toggleMobMenu()">
+      <button class="lv-hamburger" id="lvHamburger" onclick="openMobMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -54,98 +63,69 @@
 </nav>
 
 <!-- HERO SECTION -->
-<section class="lv-hero" id="home">
-  <div class="lv-hero-grid"></div>
-  <div class="container">
-    <div class="lv-hero-content">
-      <!-- LEFT -->
-      <div class="lv-hero-left">
-        <div class="lv-hero-badge">
-          <span class="lv-hero-dot"></span>
-          The Ultra Speed Boosting Platform
-        </div>
-        <h1 class="lv-hero-title">
-          Boost Your<br>
-          <span class="grad">Social Media</span><br>
-          Instantly ⚡
+<section class="lv-hero-section">
+  <div class="lv-hero-bg"></div>
+  <div class="lv-container">
+    <div class="lv-hero-layout">
+      <!-- TEXT SIDE -->
+      <div class="lv-hero-text">
+        <div class="lv-hero-pill">⚡ Ultra Speed Social Media Boosting</div>
+        <h1 class="lv-hero-heading">
+          Grow Your<br>
+          <span class="lv-gradient-text">Social Media</span><br>
+          Faster Than Ever
         </h1>
-        <p class="lv-hero-desc">
-          Loishvizo Boosting Solutions delivers real followers, likes, views &amp; engagement across all major platforms — blazing fast, affordable, and 100% safe.
+        <p class="lv-hero-para">
+          Loishvizo delivers followers, likes, views and engagement across all major platforms — fast, affordable, and safe.
         </p>
-        <div class="lv-hero-actions">
+        <div class="lv-hero-cta">
           <?php if(!session('uid')):?>
-          <a href="<?=cn('auth/signup')?>" class="btn-primary-lv">
-            🚀 Start Boosting Now
-          </a>
-          <a href="#how" class="btn-outline-lv">
-            ▶ See How It Works
-          </a>
+          <a href="<?=cn('auth/signup')?>" class="lv-btn-main">Get Started Free</a>
+          <a href="<?=cn('auth/login')?>" class="lv-btn-sec">Login to Dashboard</a>
           <?php else:?>
-          <a href="<?=cn('new_order')?>" class="btn-primary-lv">
-            🚀 Place New Order
-          </a>
-          <a href="<?=cn('services')?>" class="btn-outline-lv">
-            📋 View Services
-          </a>
+          <a href="<?=cn('new_order')?>" class="lv-btn-main">Place New Order</a>
+          <a href="<?=cn('services')?>" class="lv-btn-sec">Browse Services</a>
           <?php endif;?>
         </div>
-        <div class="lv-hero-numbers">
-          <div class="lv-num">
-            <span class="lv-num-val">50K+</span>
-            <span class="lv-num-label">Happy Clients</span>
-          </div>
-          <div class="lv-num">
-            <span class="lv-num-val">1M+</span>
-            <span class="lv-num-label">Orders Done</span>
-          </div>
-          <div class="lv-num">
-            <span class="lv-num-val">500+</span>
-            <span class="lv-num-label">Services</span>
-          </div>
-          <div class="lv-num">
-            <span class="lv-num-val">24/7</span>
-            <span class="lv-num-label">Support</span>
-          </div>
-        </div>
       </div>
-      <!-- RIGHT: PHONE MOCKUP -->
-      <div class="lv-phone-wrap" id="heroPhoneWrap">
-        <div class="lv-phone-glow"></div>
-        <div class="lv-phone">
-          <!-- Floating emojis around phone -->
-          <span class="lv-pep">❤️</span>
-          <span class="lv-pep">👍</span>
-          <span class="lv-pep">🔥</span>
-          <span class="lv-pep">⭐</span>
-          <span class="lv-pep">🚀</span>
-          <!-- Phone frame -->
-          <div class="lv-phone-frame">
-            <div class="lv-phone-notch"></div>
-            <div class="lv-phone-ui-bar">
-              <span class="lv-phone-ui-label">LOISHVIZO</span>
-              <div class="lv-phone-status-ring">⚡</div>
-            </div>
-            <div class="lv-phone-metric">
-              <div class="lv-phone-metric-label">INSTAGRAM FOLLOWERS</div>
-              <div class="lv-phone-metric-val">+24,800</div>
-              <div class="lv-phone-metric-bar"><div class="lv-phone-metric-fill lv-pmf-1"></div></div>
-            </div>
-            <div class="lv-phone-metric">
-              <div class="lv-phone-metric-label">TIKTOK LIKES</div>
-              <div class="lv-phone-metric-val">+156K</div>
-              <div class="lv-phone-metric-bar"><div class="lv-phone-metric-fill lv-pmf-2"></div></div>
-            </div>
-            <div class="lv-phone-metric">
-              <div class="lv-phone-metric-label">YOUTUBE VIEWS</div>
-              <div class="lv-phone-metric-val">+2.4M</div>
-              <div class="lv-phone-metric-bar"><div class="lv-phone-metric-fill lv-pmf-3"></div></div>
-            </div>
-            <div class="lv-phone-platform-row">
-              <div class="lv-phone-platform-pill">📸 IG</div>
-              <div class="lv-phone-platform-pill">🎵 TK</div>
-              <div class="lv-phone-platform-pill">▶️ YT</div>
-              <div class="lv-phone-platform-pill">👥 FB</div>
-            </div>
+      <!-- PLATFORM LOGOS SIDE -->
+      <div class="lv-hero-visual">
+        <div class="lv-plat-mosaic">
+          <div class="lv-pm-card lv-pm-tiktok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.7a8.27 8.27 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>
+            <span>TikTok</span>
+          </div>
+          <div class="lv-pm-card lv-pm-instagram">
+            <i class="fa fa-instagram"></i>
+            <span>Instagram</span>
+          </div>
+          <div class="lv-pm-card lv-pm-youtube">
+            <i class="fa fa-youtube-play"></i>
+            <span>YouTube</span>
+          </div>
+          <div class="lv-pm-card lv-pm-facebook">
+            <i class="fa fa-facebook"></i>
+            <span>Facebook</span>
+          </div>
+          <div class="lv-pm-card lv-pm-twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span>X / Twitter</span>
+          </div>
+          <div class="lv-pm-card lv-pm-spotify">
+            <i class="fa fa-spotify"></i>
+            <span>Spotify</span>
+          </div>
+          <div class="lv-pm-card lv-pm-telegram">
+            <i class="fa fa-telegram"></i>
+            <span>Telegram</span>
+          </div>
+          <div class="lv-pm-card lv-pm-linkedin">
+            <i class="fa fa-linkedin"></i>
+            <span>LinkedIn</span>
+          </div>
+          <div class="lv-pm-card lv-pm-pinterest">
+            <i class="fa fa-pinterest"></i>
+            <span>Pinterest</span>
           </div>
         </div>
       </div>
@@ -153,545 +133,194 @@
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="lv-ticker">
-  <div class="lv-ticker-track" id="tickerTrack">
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">📱</span><span class="lv-ticker-text">TikTok Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">❤️</span><span class="lv-ticker-text">Instagram Likes</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">▶️</span><span class="lv-ticker-text">YouTube Views</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">👥</span><span class="lv-ticker-text">Facebook Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🐦</span><span class="lv-ticker-text">Twitter/X Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🎵</span><span class="lv-ticker-text">Spotify Streams</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">💼</span><span class="lv-ticker-text">LinkedIn Connections</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">📌</span><span class="lv-ticker-text">Pinterest Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">💬</span><span class="lv-ticker-text">Telegram Members</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🎮</span><span class="lv-ticker-text">Twitch Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">👻</span><span class="lv-ticker-text">Snapchat Views</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🔊</span><span class="lv-ticker-text">SoundCloud Plays</span></div>
-    <!-- Duplicate for seamless loop -->
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">📱</span><span class="lv-ticker-text">TikTok Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">❤️</span><span class="lv-ticker-text">Instagram Likes</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">▶️</span><span class="lv-ticker-text">YouTube Views</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">👥</span><span class="lv-ticker-text">Facebook Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🐦</span><span class="lv-ticker-text">Twitter/X Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🎵</span><span class="lv-ticker-text">Spotify Streams</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">💼</span><span class="lv-ticker-text">LinkedIn Connections</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">📌</span><span class="lv-ticker-text">Pinterest Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">💬</span><span class="lv-ticker-text">Telegram Members</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🎮</span><span class="lv-ticker-text">Twitch Followers</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">👻</span><span class="lv-ticker-text">Snapchat Views</span></div>
-    <div class="lv-ticker-item"><span class="lv-ticker-emoji">🔊</span><span class="lv-ticker-text">SoundCloud Plays</span></div>
+<!-- SCROLLING TICKER -->
+<div class="lv-ticker-wrap">
+  <div class="lv-ticker-scroll">
+    <?php $ticks = ['TikTok Followers','Instagram Likes','YouTube Views','Facebook Likes','Twitter/X Followers','Spotify Streams','Telegram Members','LinkedIn Followers','Pinterest Repins','Twitch Followers','Snapchat Views','SoundCloud Plays','Discord Members','WhatsApp Members','Reddit Upvotes']; ?>
+    <?php foreach(array_merge($ticks,$ticks) as $t): ?>
+    <span class="lv-tick-item">⚡ <?=htmlspecialchars($t)?></span>
+    <?php endforeach; ?>
   </div>
 </div>
 
-<!-- STATS BAR -->
-<section class="lv-section" style="padding:40px 0">
-  <div class="container">
-    <div class="lv-statsbar">
-      <div class="lv-statsbar-item">
-        <span class="lv-statsbar-val grad">50,000+</span>
-        <span class="lv-statsbar-label">Happy Customers</span>
-      </div>
-      <div class="lv-statsbar-item">
-        <span class="lv-statsbar-val grad">1,000,000+</span>
-        <span class="lv-statsbar-label">Orders Completed</span>
-      </div>
-      <div class="lv-statsbar-item">
-        <span class="lv-statsbar-val grad">500+</span>
-        <span class="lv-statsbar-label">Services Available</span>
-      </div>
-      <div class="lv-statsbar-item">
-        <span class="lv-statsbar-val grad">15+</span>
-        <span class="lv-statsbar-label">Platforms Supported</span>
-      </div>
-      <div class="lv-statsbar-item">
-        <span class="lv-statsbar-val grad">99.9%</span>
-        <span class="lv-statsbar-label">Uptime Guarantee</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- PLATFORMS SECTION -->
-<section class="lv-section lv-section-alt" id="platforms">
-  <div class="container">
-    <div class="lv-section-header">
-      <div class="lv-section-badge">🌐 All Platforms</div>
-      <h2 class="lv-section-title">Boost On <span class="grad">Every Platform</span></h2>
-      <p class="lv-section-sub">One dashboard to boost all your social media accounts across 15+ platforms instantly.</p>
+<section class="lv-section" id="platforms">
+  <div class="lv-container">
+    <div class="lv-sec-head">
+      <h2>15+ Platforms. <span class="lv-gradient-text">One Panel.</span></h2>
+      <p>Boost your presence on every major social media platform from a single dashboard.</p>
     </div>
-    <div class="lv-platform-grid">
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">📱</span>
-        <div class="lv-platform-name">TikTok</div>
-        <div class="lv-platform-services">Followers • Likes • Views</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">📸</span>
-        <div class="lv-platform-name">Instagram</div>
-        <div class="lv-platform-services">Followers • Likes • Views</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">▶️</span>
-        <div class="lv-platform-name">YouTube</div>
-        <div class="lv-platform-services">Subscribers • Views • Likes</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">👥</span>
-        <div class="lv-platform-name">Facebook</div>
-        <div class="lv-platform-services">Likes • Followers • Shares</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">🐦</span>
-        <div class="lv-platform-name">Twitter / X</div>
-        <div class="lv-platform-services">Followers • Likes • Retweets</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">🎵</span>
-        <div class="lv-platform-name">Spotify</div>
-        <div class="lv-platform-services">Streams • Followers • Plays</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">💼</span>
-        <div class="lv-platform-name">LinkedIn</div>
-        <div class="lv-platform-services">Connections • Followers</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">📌</span>
-        <div class="lv-platform-name">Pinterest</div>
-        <div class="lv-platform-services">Followers • Repins • Likes</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">💬</span>
-        <div class="lv-platform-name">Telegram</div>
-        <div class="lv-platform-services">Members • Views • Reactions</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">🎮</span>
-        <div class="lv-platform-name">Twitch</div>
-        <div class="lv-platform-services">Followers • Views • Clips</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">👻</span>
-        <div class="lv-platform-name">Snapchat</div>
-        <div class="lv-platform-services">Followers • Views • Score</div>
-      </div>
-      <div class="lv-platform-card" onclick="location.href='<?=cn('auth/signup')?>'">
-        <span class="lv-platform-icon-wrap">🔊</span>
-        <div class="lv-platform-name">SoundCloud</div>
-        <div class="lv-platform-services">Plays • Followers • Likes</div>
-      </div>
+    <div class="lv-platforms-grid">
+      <?php
+      $platforms = [
+        ['TikTok',     'lv-p-tiktok',    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.7a8.27 8.27 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>', 'Followers · Likes · Views'],
+        ['Instagram',  'lv-p-ig',        '<i class="fa fa-instagram fa-lg"></i>', 'Followers · Likes · Reels'],
+        ['YouTube',    'lv-p-yt',        '<i class="fa fa-youtube-play fa-lg"></i>', 'Subscribers · Views · Likes'],
+        ['Facebook',   'lv-p-fb',        '<i class="fa fa-facebook fa-lg"></i>', 'Likes · Followers · Shares'],
+        ['Twitter / X','lv-p-tw',        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>', 'Followers · Likes · Retweets'],
+        ['Spotify',    'lv-p-sp',        '<i class="fa fa-spotify fa-lg"></i>', 'Streams · Followers · Saves'],
+        ['Telegram',   'lv-p-tg',        '<i class="fa fa-telegram fa-lg"></i>', 'Members · Views · Reactions'],
+        ['LinkedIn',   'lv-p-li',        '<i class="fa fa-linkedin fa-lg"></i>', 'Followers · Connections'],
+        ['Pinterest',  'lv-p-pn',        '<i class="fa fa-pinterest fa-lg"></i>', 'Followers · Repins · Likes'],
+        ['Twitch',     'lv-p-twitch',    '<i class="fa fa-twitch fa-lg"></i>', 'Followers · Views · Clips'],
+        ['Snapchat',   'lv-p-snap',      '<i class="fa fa-snapchat-ghost fa-lg"></i>', 'Followers · Views'],
+        ['SoundCloud', 'lv-p-sc',        '<i class="fa fa-soundcloud fa-lg"></i>', 'Plays · Followers · Likes'],
+        ['Discord',    'lv-p-discord',   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.031.055a19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>', 'Members · Boosts'],
+        ['Reddit',     'lv-p-reddit',    '<i class="fa fa-reddit fa-lg"></i>', 'Upvotes · Followers'],
+        ['WhatsApp',   'lv-p-wa',        '<i class="fa fa-whatsapp fa-lg"></i>', 'Channel Members'],
+        ['Threads',    'lv-p-threads',   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.028-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 012.26.126v-.529c0-1.813-.554-2.7-1.783-2.715a2.04 2.04 0 00-1.29.436l-1.168-1.62A4.06 4.06 0 0112.29 7.7c1.05 0 1.95.3 2.633.866.957.787 1.413 2.011 1.413 3.729v5.072a5.6 5.6 0 001.48 1.018c.47.213.977.336 1.503.366.012.162.018.329.018.498 0 1.762-.602 3.09-1.789 3.942-1.09.783-2.589 1.194-4.362 1.209zm-1.088-8.64c-.63 0-1.174.144-1.577.416-.5.332-.754.798-.72 1.316.032.508.29.93.727 1.211.518.335 1.218.499 2.003.456 1.009-.055 1.773-.469 2.272-1.233.362-.551.548-1.259.593-2.233a11.4 11.4 0 00-1.298-.083c-.651-.02-1.316.044-2 .15z"/></svg>', 'Followers · Likes'],
+      ];
+      foreach($platforms as $p): ?>
+      <a href="<?=cn('auth/signup')?>" class="lv-plat-card <?=$p[1]?>">
+        <div class="lv-plat-icon"><?=$p[2]?></div>
+        <div class="lv-plat-name"><?=htmlspecialchars($p[0])?></div>
+        <div class="lv-plat-subs"><?=htmlspecialchars($p[3])?></div>
+      </a>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
 
-<!-- WHY LOISHVIZO SECTION -->
-<section class="lv-section" id="features">
-  <div class="container">
-    <div class="lv-section-header">
-      <div class="lv-section-badge">⚡ Why Choose Us</div>
-      <h2 class="lv-section-title">The <span class="grad">Fastest &amp; Safest</span> SMM Panel</h2>
-      <p class="lv-section-sub">Experience the difference of ultra-speed social media growth with military-grade security.</p>
+<!-- WHY US SECTION -->
+<section class="lv-section lv-section-dark" id="features">
+  <div class="lv-container">
+    <div class="lv-sec-head lv-sec-head-light">
+      <h2>Why Choose <span class="lv-gradient-text">Loishvizo?</span></h2>
+      <p>Built for creators, agencies and resellers who want real results — fast.</p>
     </div>
     <div class="lv-features-grid">
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">⚡</div>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-purple">⚡</div>
         <div class="lv-feat-title">Ultra-Fast Delivery</div>
-        <p class="lv-feat-desc">Orders start processing within seconds. Most orders deliver in minutes, not hours. We're the fastest SMM panel on the market.</p>
+        <div class="lv-feat-body">Orders start processing in seconds. Most complete within minutes — the fastest delivery in the industry.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">🛡️</div>
-        <div class="lv-feat-title">100% Safe & Secure</div>
-        <p class="lv-feat-desc">No password needed. All our methods are compliant with platform terms. Your account is always safe with Loishvizo.</p>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-green">🛡️</div>
+        <div class="lv-feat-title">100% Account Safe</div>
+        <div class="lv-feat-body">No password required. All services are delivered externally and comply with platform guidelines.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">💎</div>
-        <div class="lv-feat-title">Premium Quality</div>
-        <p class="lv-feat-desc">We source only high-quality, real-looking engagement from our verified network of global API providers.</p>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-purple">💰</div>
+        <div class="lv-feat-title">Lowest Prices</div>
+        <div class="lv-feat-body">Industry's most competitive rates with bulk discounts and custom pricing for agencies and resellers.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">💰</div>
-        <div class="lv-feat-title">Cheapest Prices</div>
-        <p class="lv-feat-desc">Industry's most competitive rates. Bulk discounts available. Custom pricing for resellers and agencies.</p>
-      </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">🔄</div>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-green">🔄</div>
         <div class="lv-feat-title">Auto Refill</div>
-        <p class="lv-feat-desc">Subscribers dropping? Our auto-refill system automatically replenishes your orders at no extra cost.</p>
+        <div class="lv-feat-body">Followers drop? Our auto-refill system replenishes your orders automatically at no extra cost.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">🌍</div>
-        <div class="lv-feat-title">15+ Platforms</div>
-        <p class="lv-feat-desc">From TikTok to Spotify, we cover every major social media platform with hundreds of unique services.</p>
-      </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">📊</div>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-purple">📊</div>
         <div class="lv-feat-title">Real-Time Dashboard</div>
-        <p class="lv-feat-desc">Track all your orders live. See status, remaining, delivered count — all updated in real-time from your dashboard.</p>
+        <div class="lv-feat-body">Track every order live — status, delivered count, remaining — all updated in real-time.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">🤝</div>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-green">🤝</div>
         <div class="lv-feat-title">24/7 Support</div>
-        <p class="lv-feat-desc">Our dedicated support team is available around the clock via tickets. Average response time under 30 minutes.</p>
+        <div class="lv-feat-body">Our support team responds around the clock via tickets. Average response under 30 minutes.</div>
       </div>
-      <div class="lv-feat-card">
-        <div class="lv-feat-icon">🔁</div>
-        <div class="lv-feat-title">Drip Feed &amp; Subscriptions</div>
-        <p class="lv-feat-desc">Natural-looking growth with our drip feed system. Set custom intervals and run automated subscription campaigns.</p>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-purple">🌍</div>
+        <div class="lv-feat-title">15+ Platforms</div>
+        <div class="lv-feat-body">TikTok, Instagram, YouTube, Spotify, Telegram and more — all from a single, simple dashboard.</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="lv-section lv-section-alt" id="how">
-  <div class="container">
-    <div class="lv-section-header">
-      <div class="lv-section-badge">📋 Simple Process</div>
-      <h2 class="lv-section-title">How It <span class="grad">Works</span></h2>
-      <p class="lv-section-sub">Get started in under 2 minutes. No technical knowledge required.</p>
-    </div>
-    <div class="lv-steps">
-      <div class="lv-step">
-        <div class="lv-step-num">1</div>
-        <div class="lv-step-title">Create Account</div>
-        <p class="lv-step-desc">Sign up free in 30 seconds. No credit card required to get started.</p>
-      </div>
-      <div class="lv-step">
-        <div class="lv-step-num">2</div>
-        <div class="lv-step-title">Add Funds</div>
-        <p class="lv-step-desc">Top up your balance using your preferred payment method securely.</p>
-      </div>
-      <div class="lv-step">
-        <div class="lv-step-num">3</div>
-        <div class="lv-step-title">Choose Service</div>
-        <p class="lv-step-desc">Browse 500+ services across 15+ platforms. Select what you need.</p>
-      </div>
-      <div class="lv-step">
-        <div class="lv-step-num">4</div>
-        <div class="lv-step-title">Place Order</div>
-        <p class="lv-step-desc">Enter your social media link, quantity and confirm. That's it!</p>
-      </div>
-      <div class="lv-step">
-        <div class="lv-step-num">5</div>
-        <div class="lv-step-title">Watch It Grow 🚀</div>
-        <p class="lv-step-desc">Your engagement starts instantly. Track everything in real-time.</p>
+      <div class="lv-feat-box">
+        <div class="lv-feat-ic lv-ic-green">🎯</div>
+        <div class="lv-feat-title">Drip Feed &amp; API</div>
+        <div class="lv-feat-body">Natural-looking growth with drip feed delivery. Full API access for resellers and developers.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="lv-section">
-  <div class="container">
-    <div class="lv-section-header">
-      <div class="lv-section-badge">⭐ Reviews</div>
-      <h2 class="lv-section-title">What Our <span class="grad">Customers Say</span></h2>
-      <p class="lv-section-sub">Thousands of creators and businesses trust Loishvizo to grow their presence.</p>
+<!-- FAQ SECTION -->
+<section class="lv-section" id="faq">
+  <div class="lv-container">
+    <div class="lv-sec-head">
+      <h2>Frequently Asked <span class="lv-gradient-text">Questions</span></h2>
+      <p>Everything you need to know about Loishvizo Boosting Solutions.</p>
     </div>
-    <div class="lv-test-grid">
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"Insane speed! My TikTok went from 2K to 50K followers in 3 days. Loishvizo is the real deal. No drops, no issues."</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">S</div>
-          <div>
-            <div class="lv-test-name">Sarah K.</div>
-            <div class="lv-test-handle">@sarahcreates · TikTok Creator</div>
-          </div>
-        </div>
+    <div class="lv-faq-wrap">
+      <?php
+      $faqs = [
+        ['Is it safe to use Loishvizo?', 'Yes. We never ask for your password. Services are delivered externally without accessing your account. Your account security is always protected.'],
+        ['How fast will I receive results?', 'Most orders start within seconds and complete within minutes to a few hours depending on the service type and quantity ordered.'],
+        ['Which platforms do you support?', 'We support 15+ platforms including TikTok, Instagram, YouTube, Facebook, Twitter/X, Spotify, Telegram, LinkedIn, Pinterest, Twitch, Snapchat, SoundCloud, Discord, Reddit, WhatsApp and more.'],
+        ['Do you offer a refill guarantee?', 'Yes. Many of our services include a refill guarantee period. If your count drops, we refill it at no extra cost within the guarantee window.'],
+        ['Can I use Loishvizo for my clients as an agency?', 'Absolutely. Loishvizo is built for agencies and resellers. You can manage multiple accounts and access our API for automated order placement.'],
+        ['What payment methods do you accept?', 'We accept major payment methods available in your region. Log in and visit the Add Funds page to see all options available to you.'],
+        ['Can I cancel an order after placing it?', 'Orders can be cancelled if they have not started processing yet. Once started, cancellation depends on the service type. Contact support for help.'],
+        ['Is there a minimum order amount?', 'Minimum order quantities vary per service. You can see the minimum and maximum for each service on the services page before placing your order.'],
+      ];
+      foreach($faqs as $i => $faq): ?>
+      <div class="lv-faq-row" id="faqRow<?=$i?>">
+        <button class="lv-faq-question" onclick="toggleFaq(<?=$i?>)" aria-expanded="false">
+          <span><?=htmlspecialchars($faq[0])?></span>
+          <span class="lv-faq-arrow" id="faqArrow<?=$i?>">＋</span>
+        </button>
+        <div class="lv-faq-answer" id="faqAns<?=$i?>"><?=htmlspecialchars($faq[1])?></div>
       </div>
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"I've tried 10+ SMM panels and Loishvizo is by far the fastest. My YouTube channel took off after using their views service."</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">M</div>
-          <div>
-            <div class="lv-test-name">Marcus T.</div>
-            <div class="lv-test-handle">@marcustech · YouTuber</div>
-          </div>
-        </div>
-      </div>
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"Perfect for my agency. We manage 40+ client accounts and Loishvizo handles all their social media growth efficiently."</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">A</div>
-          <div>
-            <div class="lv-test-name">Amara D.</div>
-            <div class="lv-test-handle">@amaradigital · Agency Owner</div>
-          </div>
-        </div>
-      </div>
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"Their Instagram followers service is top-notch. Quality is great and the customer support team replied within minutes!"</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">J</div>
-          <div>
-            <div class="lv-test-name">James O.</div>
-            <div class="lv-test-handle">@jamesstyle · Influencer</div>
-          </div>
-        </div>
-      </div>
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"I was skeptical at first but the results speak for themselves. Facebook page went from 500 to 15K likes. Highly recommend!"</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">L</div>
-          <div>
-            <div class="lv-test-name">Linda M.</div>
-            <div class="lv-test-handle">@lindabusiness · Entrepreneur</div>
-          </div>
-        </div>
-      </div>
-      <div class="lv-test-card">
-        <div class="lv-test-stars">★★★★★</div>
-        <p class="lv-test-text">"Best Spotify streams service on the market. My tracks are getting real streams and showing up in playlists now. Game changer!"</p>
-        <div class="lv-test-author">
-          <div class="lv-test-avatar">D</div>
-          <div>
-            <div class="lv-test-name">DJ Phantom</div>
-            <div class="lv-test-handle">@djphantom · Music Artist</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="lv-section lv-section-alt" id="faq">
-  <div class="container">
-    <div class="lv-section-header">
-      <div class="lv-section-badge">❓ FAQ</div>
-      <h2 class="lv-section-title">Frequently Asked <span class="grad">Questions</span></h2>
-      <p class="lv-section-sub">Everything you need to know about Loishvizo Boosting Solutions.</p>
-    </div>
-    <div class="lv-faq-list">
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          Is it safe to use Loishvizo?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Yes, absolutely. We never ask for your password. All our services are delivered externally and safely without risking your account. We have a 100% safety track record with thousands of clients.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          How fast will I see results?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Most orders start within seconds and complete within minutes to hours depending on the service and quantity. Our ultra-speed infrastructure processes orders faster than any competitor.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          What platforms do you support?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">We support 15+ platforms including TikTok, Instagram, YouTube, Facebook, Twitter/X, Spotify, LinkedIn, Pinterest, Telegram, Twitch, Snapchat, SoundCloud and more. We're constantly adding new platforms.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          What payment methods do you accept?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">We accept multiple payment methods. Check the "Add Funds" section after registering for all available options in your region.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          Do you offer refills if followers drop?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Yes! Services marked with "Refill" automatically replenish any dropped engagement at no extra cost. Check each service's details for refill availability and period.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          Can I resell your services?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Absolutely! We have a full API that allows you to integrate our services into your own panel. Many agencies and resellers use Loishvizo as their backend provider. Check the API section after logging in.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          What is Drip Feed?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Drip Feed lets you spread your order delivery over a set period to look more natural. For example, you can get 1,000 followers delivered over 10 days at 100/day instead of all at once.</div>
-      </div>
-      <div class="lv-faq-item">
-        <div class="lv-faq-q" onclick="toggleFaq(this)">
-          How do I contact support?
-          <span class="lv-faq-icon">+</span>
-        </div>
-        <div class="lv-faq-a">Submit a ticket from your dashboard and our team will respond within 30 minutes. We're available 24/7 to help with any issues or questions.</div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
 
 <!-- CTA SECTION -->
-<section class="lv-section">
-  <div class="container">
+<section class="lv-cta-section">
+  <div class="lv-container">
     <div class="lv-cta-box">
-      <h2 class="lv-cta-title">Ready to Go <span class="grad">Viral? 🚀</span></h2>
-      <p class="lv-cta-desc">Join 50,000+ creators and businesses who trust Loishvizo for their social media growth. Start boosting in minutes.</p>
+      <h2>Ready to Grow Your Social Media?</h2>
+      <p>Join thousands of creators and businesses who trust Loishvizo for ultra-speed social media growth.</p>
       <div class="lv-cta-btns">
         <?php if(!session('uid')):?>
-        <a href="<?=cn('auth/signup')?>" class="btn-primary-lv">🚀 Create Free Account</a>
-        <a href="<?=cn('auth/login')?>" class="btn-outline-lv">Login to Dashboard</a>
+        <a href="<?=cn('auth/signup')?>" class="lv-btn-main">Create Free Account</a>
         <?php else:?>
-        <a href="<?=cn('new_order')?>" class="btn-primary-lv">🚀 Place New Order</a>
-        <a href="<?=cn('services')?>" class="btn-outline-lv">Browse Services</a>
+        <a href="<?=cn('new_order')?>" class="lv-btn-main">Place New Order</a>
         <?php endif;?>
+        <a href="#platforms" class="lv-btn-sec">View All Platforms</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="lv-footer">
-  <div class="container">
-    <div class="lv-footer-grid">
-      <div>
-        <a href="<?=cn()?>" class="lv-brand">
-          <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-brand-img" style="height:40px;width:40px">
-          <div class="lv-brand-info">
-            <span class="lv-brand-name">Loishvizo</span>
-            <span class="lv-brand-tagline">Boosting Solutions</span>
-          </div>
-        </a>
-        <p class="lv-footer-brand-desc">The ultra speed social media boosting platform. Trusted by 50,000+ creators and businesses worldwide.</p>
-        <div class="lv-footer-socials">
-          <a href="#" class="lv-footer-soc"><i class="fa fa-instagram"></i></a>
-          <a href="#" class="lv-footer-soc"><i class="fa fa-twitter"></i></a>
-          <a href="#" class="lv-footer-soc"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="lv-footer-soc"><i class="fa fa-telegram"></i></a>
-        </div>
-      </div>
-      <div>
-        <div class="lv-footer-col-head">Services</div>
-        <ul class="lv-footer-links">
-          <li><a href="<?=cn('auth/signup')?>">TikTok Boosting</a></li>
-          <li><a href="<?=cn('auth/signup')?>">Instagram Growth</a></li>
-          <li><a href="<?=cn('auth/signup')?>">YouTube Views</a></li>
-          <li><a href="<?=cn('auth/signup')?>">Facebook Likes</a></li>
-          <li><a href="<?=cn('auth/signup')?>">Spotify Streams</a></li>
-          <li><a href="<?=cn('auth/signup')?>">Twitter/X Followers</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="lv-footer-col-head">Platform</div>
-        <ul class="lv-footer-links">
-          <?php if(!session('uid')):?>
-          <li><a href="<?=cn('auth/login')?>">Login</a></li>
-          <li><a href="<?=cn('auth/signup')?>">Sign Up Free</a></li>
-          <?php else:?>
-          <li><a href="<?=cn('statistics')?>">Dashboard</a></li>
-          <li><a href="<?=cn('new_order')?>">New Order</a></li>
-          <?php endif;?>
-          <?php if(get_option("enable_service_list_no_login") == 1):?>
-          <li><a href="<?=cn('services')?>">Services</a></li>
-          <?php endif;?>
-          <li><a href="<?=cn('api/docs')?>">API Docs</a></li>
-          <li><a href="<?=cn('faq')?>">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="lv-footer-col-head">Legal</div>
-        <ul class="lv-footer-links">
-          <li><a href="<?=cn('terms')?>">Terms of Service</a></li>
-          <li><a href="<?=cn('cookie-policy')?>">Cookie Policy</a></li>
-          <li><a href="<?=cn('tickets')?>">Support Tickets</a></li>
-          <li><a href="<?=cn('news-annoucement')?>">Announcements</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="lv-footer-bottom">
-      <span class="lv-footer-copy">© <?=date('Y')?> Loishvizo Boosting Solutions. All rights reserved.</span>
-      <div class="lv-footer-legal">
-        <a href="<?=cn('terms')?>">Terms</a>
-        <a href="<?=cn('cookie-policy')?>">Privacy</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<?php include_once 'blocks/footer.php'; ?>
 
 <!-- SCRIPTS -->
-<script src="<?=BASE?>assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="<?=BASE?>assets/js/general.js"></script>
-<script src="<?=BASE?>assets/plugins/jquery-toast/js/jquery.toast.js"></script>
-<script src="<?=BASE?>assets/js/process.js"></script>
-
 <script>
-// ─── EMOJI RAIN ───
-(function(){
-  var emojis = ['❤️','👍','🔥','⭐','🚀','💫','✨','💜','🎉','👏','😍','🤩','💎','⚡','🌟'];
-  var bg = document.getElementById('lv-emoji-bg');
-  if(!bg) return;
-  function spawn(){
-    var el = document.createElement('div');
-    el.className = 'lv-ep';
-    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left = Math.random()*100 + 'vw';
-    el.style.animationDuration = (5 + Math.random()*5) + 's';
-    el.style.animationDelay = (Math.random()*3) + 's';
-    el.style.fontSize = (14 + Math.random()*18) + 'px';
-    bg.appendChild(el);
-    setTimeout(function(){el.remove()},10000);
-  }
-  setInterval(spawn, 600);
-  for(var i=0;i<8;i++) setTimeout(spawn, i*300);
-})();
-
-// ─── HAMBURGER ───
-function toggleMobMenu(){
-  var menu = document.getElementById('lvMobMenu');
-  var ham = document.getElementById('lvHamburger');
-  menu.classList.toggle('open');
-  ham.classList.toggle('open');
+function openMobMenu() {
+  document.getElementById('lvMobNav').classList.add('open');
+  document.getElementById('lvOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobMenu() {
+  document.getElementById('lvMobNav').classList.remove('open');
+  document.getElementById('lvOverlay').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
-// ─── NAVBAR SCROLL ───
-window.addEventListener('scroll', function(){
-  var nav = document.getElementById('lvNav');
-  if(window.scrollY > 50) nav.style.padding = '8px 0';
-  else nav.style.padding = '12px 0';
+// Sticky navbar
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('lvNavbar');
+  if(window.scrollY > 60) nav.classList.add('lv-navbar-stuck');
+  else nav.classList.remove('lv-navbar-stuck');
 });
 
-// ─── FAQ TOGGLE ───
-function toggleFaq(el){
-  var item = el.parentElement;
-  var allItems = document.querySelectorAll('.lv-faq-item');
-  allItems.forEach(function(i){
-    if(i !== item) i.classList.remove('open');
-  });
-  item.classList.toggle('open');
-}
-
-// ─── SMOOTH SCROLL ───
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click', function(e){
-    var target = document.querySelector(this.getAttribute('href'));
-    if(target){
-      e.preventDefault();
-      target.scrollIntoView({behavior:'smooth',block:'start'});
-      var menu = document.getElementById('lvMobMenu');
-      var ham = document.getElementById('lvHamburger');
-      if(menu) menu.classList.remove('open');
-      if(ham) ham.classList.remove('open');
-    }
-  });
-});
-
-// ─── CLOSE MOBILE MENU ON OUTSIDE CLICK ───
-document.addEventListener('click', function(e){
-  var menu = document.getElementById('lvMobMenu');
-  var ham = document.getElementById('lvHamburger');
-  if(menu && menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)){
-    menu.classList.remove('open');
-    ham.classList.remove('open');
+// FAQ accordion
+function toggleFaq(i) {
+  var ans = document.getElementById('faqAns' + i);
+  var arrow = document.getElementById('faqArrow' + i);
+  var btn = ans.previousElementSibling;
+  var open = ans.classList.contains('open');
+  // close all
+  document.querySelectorAll('.lv-faq-answer').forEach(function(el) { el.classList.remove('open'); });
+  document.querySelectorAll('.lv-faq-arrow').forEach(function(el) { el.textContent = '＋'; });
+  document.querySelectorAll('.lv-faq-question').forEach(function(el) { el.classList.remove('active'); el.setAttribute('aria-expanded','false'); });
+  if(!open) {
+    ans.classList.add('open');
+    arrow.textContent = '－';
+    btn.classList.add('active');
+    btn.setAttribute('aria-expanded','true');
   }
-});
+}
 </script>
-</body>
-</html>
