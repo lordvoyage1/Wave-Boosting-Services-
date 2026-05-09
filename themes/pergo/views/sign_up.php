@@ -1,6 +1,7 @@
 <?php include_once 'blocks/head.blade.php'; ?>
 
 <div class="lv-auth-page">
+  <div class="lv-auth-page-inner">
   <div class="lv-auth-box" style="max-width:500px">
     <div class="lv-auth-logo">
       <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-auth-logo-img">
@@ -71,10 +72,11 @@
       <button type="submit" class="lv-btn-auth btn-submit" style="margin-top:8px">🚀 Create My Free Account</button>
     </form>
     <div class="lv-auth-or">or</div>
-    <a href="<?=cn('auth/login')?>" class="lv-btn-auth" style="display:block;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);box-shadow:none">Login to Existing Account</a>
+    <a href="<?=cn('auth/login')?>" class="lv-btn-auth" style="display:block;text-align:center;background:#fff;color:var(--lv-navy);border:1.5px solid var(--lv-border)">Login to Existing Account</a>
     <div class="lv-auth-bottom">
       <a href="<?=cn()?>" class="lv-auth-back"><i class="fa fa-arrow-left"></i> Back to Home</a>
     </div>
+  </div>
   </div>
 </div>
 

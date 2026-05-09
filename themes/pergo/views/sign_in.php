@@ -1,6 +1,7 @@
 <?php include_once 'blocks/head.blade.php'; ?>
 
 <div class="lv-auth-page">
+  <div class="lv-auth-page-inner">
   <div class="lv-auth-box">
     <div class="lv-auth-logo">
       <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-auth-logo-img">
@@ -46,11 +47,12 @@
     </form>
     <?php if(!get_option('disable_signup_page')):?>
     <div class="lv-auth-or">or</div>
-    <a href="<?=cn('auth/signup')?>" class="lv-btn-auth" style="display:block;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);box-shadow:none">Create Free Account 🚀</a>
+    <a href="<?=cn('auth/signup')?>" class="lv-btn-auth" style="display:block;text-align:center;background:#fff;color:var(--lv-navy);border:1.5px solid var(--lv-border)">Create Free Account</a>
     <?php endif;?>
     <div class="lv-auth-bottom" style="margin-top:18px">
       <a href="<?=cn()?>" class="lv-auth-back"><i class="fa fa-arrow-left"></i> Back to Home</a>
     </div>
+  </div>
   </div>
 </div>
 
