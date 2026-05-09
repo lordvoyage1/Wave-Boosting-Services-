@@ -8,7 +8,7 @@ $items_category = array_flip(array_intersect_key($items_category, array_flip(arr
     <?php if (get_option("enable_explication_service_symbol")): ?>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       <?php foreach(['⭐'=>lang("__good_seller"),'⚡️'=>lang("__speed_level"),'🔥'=>lang("__hot_service"),'💎'=>lang("__best_service"),'💧'=>lang("__drip_feed")] as $sym=>$lbl): ?>
-      <span style="padding:4px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;font-size:11px;color:rgba(255,255,255,.6)"><?=$sym?> <?=$lbl?></span>
+      <span style="padding:4px 10px;background:var(--d-olt);border:1px solid rgba(230,126,34,.2);border-radius:20px;font-size:11px;color:var(--d-orange)"><?=$sym?> <?=$lbl?></span>
       <?php endforeach; ?>
     </div>
     <?php endif; ?>

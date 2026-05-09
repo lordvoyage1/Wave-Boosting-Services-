@@ -1,39 +1,40 @@
-<?php
-  foreach ($items as $key => $item_category) {
-?>
-  <div class="col-md-12 col-xl-12">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><?php echo $key; ?></h3>
-        <div class="card-options">
-          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-          <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-        </div>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered table-vcenter card-table">
-          <?php 
-            echo render_table_thead($columns, false, false, false); 
-          ?>
-          <tbody>
-            <?php if (!empty($item_category)) {
-              foreach ($item_category as $key => $item) {
-                $show_item_view     = show_item_details('services', $item);
-                $item_price         = show_item_rate($item, $items_custom_rate, 'user');
-            ?>
-              <tr class="tr_<?php echo esc($item['id']); ?>">
-                <td class="text-center w-10p text-muted"><?=esc($item['id']);?></td>
-                <td>
-                  <div class="title"><?=esc($item['name']);?></div>
-                </td>
-                <td class="text-center w-5p"><div><?=$item_price ;?></div></td>
-                <td class="text-center w-10p text-muted"><?=$item['min'] . ' / ' . $item['max']?></td>
-                <td class="text-center w-5p"> <?php echo $show_item_view;?></td>
-              </tr>
-            <?php }}?>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<?php foreach ($items as $category_name => $item_category): ?>
+<div class="d-card d-mb-16">
+  <div class="d-card-header">
+    <span class="d-card-title">
+      <i class="fe fe-layers" style="color:var(--d-orange);margin-right:6px"></i>
+      <?=esc($category_name)?>
+    </span>
+    <span style="font-size:11px;color:var(--d-muted)"><?=count($item_category)?> <?=lang("Services")?></span>
   </div>
-<?php } ?>
+  <div class="d-table-wrap">
+    <table class="d-table">
+      <thead>
+        <tr>
+          <th style="width:50px">ID</th>
+          <th><?=lang("Name")?></th>
+          <th class="d-td-center" style="width:120px"><?=lang("price_per_1000")?></th>
+          <th class="d-td-center" style="width:140px"><?=lang("min_max_order")?></th>
+          <th class="d-td-center" style="width:80px"><?=lang("Description")?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($item_category as $item):
+          $item_price = show_item_rate($item, $items_custom_rate, 'user');
+          $show_item_view = show_item_details('services', $item);
+        ?>
+        <tr class="tr_<?=esc($item['id'])?>">
+          <td class="d-td-muted"><?=esc($item['id'])?></td>
+          <td>
+            <div class="d-service-name"><?=esc($item['name'])?></div>
+          </td>
+          <td class="d-td-center d-td-bold"><?=$item_price?></td>
+          <td class="d-td-center d-td-muted"><?=$item['min'].' / '.$item['max']?></td>
+          <td class="d-td-center"><?=$show_item_view?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+<?php endforeach; ?>

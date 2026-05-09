@@ -334,3 +334,101 @@ input,textarea,select{font-family:inherit}
 ::-webkit-scrollbar-track{background:var(--d-bg)}
 ::-webkit-scrollbar-thumb{background:var(--d-border);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:#ccc}
+
+/* ── MISSING HELPERS ─────────────────────────────*/
+.d-mb-16{margin-bottom:16px}
+.d-mb-12{margin-bottom:12px}
+.d-sm-inline-flex{display:inline-flex}
+
+/* ── TOGGLE SWITCH ───────────────────────────────*/
+.d-switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.d-switch input[type="checkbox"]{position:absolute;opacity:0;width:0;height:0}
+.d-switch-track{position:relative;width:44px;height:24px;background:var(--d-border);border-radius:12px;flex-shrink:0;transition:background .2s;display:inline-block;vertical-align:middle}
+.d-switch-track::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s}
+.d-switch input:checked ~ .d-switch-track{background:var(--d-orange)}
+.d-switch input:checked ~ .d-switch-track::after,.d-switch input[type="checkbox"]:checked+.d-switch-track::after{transform:translateX(20px)}
+.is_drip_feed:checked+.d-switch-track,.is_drip_feed:checked~.d-switch-track{background:var(--d-orange)}
+.d-switch-label{font-size:13px;font-weight:600;color:var(--d-text)}
+
+/* ── TICKET ITEMS ────────────────────────────────*/
+.d-ticket-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:#fff;border:1px solid var(--d-border);border-radius:var(--d-radius);transition:all .2s;box-shadow:var(--d-shadow)}
+.d-ticket-item:hover{border-color:var(--d-orange);box-shadow:0 4px 16px rgba(230,126,34,.1)}
+.d-ticket-icon{width:38px;height:38px;border-radius:10px;background:var(--d-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.d-ticket-body{flex:1;min-width:0}
+.d-ticket-title{font-size:14px;font-weight:700;color:var(--d-navy);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-ticket-meta{font-size:11px;color:var(--d-muted)}
+
+/* ── BOOTSTRAP FORM-CONTROL OVERRIDE ────────────*/
+.form-control,.form-control:not([type="range"]){background:var(--d-bg)!important;border:1.5px solid var(--d-border)!important;border-radius:9px!important;padding:10px 14px!important;color:var(--d-text)!important;font-size:14px!important;box-shadow:none!important;transition:border-color .2s!important;width:100%!important}
+.form-control:focus{border-color:var(--d-orange)!important;background:#fff!important;box-shadow:0 0 0 3px rgba(230,126,34,.1)!important;outline:none!important}
+.form-control::placeholder{color:#bbb!important}
+label{font-size:12px;font-weight:700;color:var(--d-text);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.5px}
+.form-group{margin-bottom:16px}
+select.form-control{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:right 14px center!important;padding-right:36px!important;-webkit-appearance:none!important;cursor:pointer}
+textarea.form-control{resize:vertical;min-height:90px}
+
+/* ── BOOTSTRAP CARD/TABLE FALLBACK OVERRIDE ──────*/
+.card{background:#fff!important;border:1px solid var(--d-border)!important;border-radius:var(--d-radius)!important;box-shadow:var(--d-shadow)!important;overflow:hidden}
+.card-header{background:var(--d-bg)!important;border-bottom:1px solid var(--d-border)!important;padding:14px 18px!important}
+.card-title{font-size:14px!important;font-weight:700!important;color:var(--d-navy)!important}
+.card-body{padding:0!important}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{text-align:left;padding:11px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--d-muted);border-bottom:2px solid var(--d-border)!important;white-space:nowrap;background:var(--d-bg)!important;color:var(--d-muted)!important}
+.table td{padding:13px 14px;border-bottom:1px solid var(--d-border)!important;color:var(--d-text)!important;vertical-align:middle;background:transparent!important}
+.table-hover tbody tr:hover td{background:var(--d-bg)!important}
+.table-bordered{border:none!important}
+.table-bordered td,.table-bordered th{border-color:var(--d-border)!important}
+.col-md-12{width:100%;padding:0!important}
+.row{margin:0!important}
+
+/* ── MODAL OVERRIDE ──────────────────────────────*/
+.modal-content{border-radius:var(--d-radius)!important;border:1px solid var(--d-border)!important;background:#fff!important}
+.modal-header{background:var(--d-bg)!important;border-bottom:1px solid var(--d-border)!important;padding:16px 20px!important}
+.modal-header .modal-title{font-size:15px!important;font-weight:700!important;color:var(--d-navy)!important}
+.modal-body{padding:20px!important;background:#fff!important}
+.modal-footer{background:var(--d-bg)!important;border-top:1px solid var(--d-border)!important;padding:14px 20px!important}
+.btn-primary{background:var(--d-orange)!important;border-color:var(--d-orange)!important;border-radius:9px!important;font-weight:700!important}
+.btn-primary:hover{background:#cf6d17!important;border-color:#cf6d17!important}
+.btn-default,.btn-secondary{background:#fff!important;border:1.5px solid var(--d-border)!important;color:var(--d-text)!important;border-radius:9px!important;font-weight:700!important}
+.btn-default:hover,.btn-secondary:hover{border-color:var(--d-orange)!important;color:var(--d-orange)!important}
+.close,.btn-close{background:none!important;border:none!important;font-size:20px!important;color:var(--d-muted)!important;opacity:1!important;cursor:pointer}
+
+/* ── C3 CHART LIGHT THEME ────────────────────────*/
+.c3 text{fill:var(--d-muted)!important}
+.c3-axis-x .tick text,.c3-axis-y .tick text{fill:var(--d-muted)!important;font-size:11px!important}
+.c3-grid line{stroke:var(--d-border)!important}
+.c3-axis path,.c3-axis line{stroke:var(--d-border)!important}
+.c3-tooltip{background:#fff!important;border:1px solid var(--d-border)!important;border-radius:8px!important;box-shadow:0 4px 16px rgba(0,0,0,.1)!important}
+.c3-tooltip td{color:var(--d-text)!important;border-left:none!important}
+.c3-tooltip th{background:var(--d-bg)!important;color:var(--d-navy)!important;font-weight:700!important}
+
+/* ── BOOTSTRAP GRID FALLBACK ─────────────────────*/
+.row{display:flex;flex-wrap:wrap;margin:0!important}
+.col-md-12,.col-xl-12{width:100%;padding:6px 0!important}
+.col-md-4{width:100%;padding:0!important}
+.col-md-8{width:100%;padding:0!important}
+@media(min-width:768px){
+  .col-md-4{width:33.333%!important;padding-right:10px!important}
+  .col-md-8{width:66.667%!important}
+}
+
+/* ── TICKET CONVERSATION ─────────────────────────*/
+.tc-thread{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;max-height:520px;overflow-y:auto;padding-right:4px}
+.tc-msg{display:flex;gap:10px;align-items:flex-start}
+.tc-msg-avatar{flex-shrink:0}
+.tc-msg-body{flex:1;min-width:0}
+.tc-msg-meta{margin-bottom:6px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.tc-msg-text{background:var(--d-bg);border:1px solid var(--d-border);border-radius:0 12px 12px 12px;padding:12px 16px;font-size:13px;color:var(--d-text);line-height:1.7;word-break:break-word}
+.tc-msg-support .tc-msg-text{background:var(--d-olt);border-color:rgba(230,126,34,.2);border-radius:12px 12px 12px 0}
+.tc-reply-box{padding-top:16px;border-top:1px solid var(--d-border);margin-top:8px}
+
+/* ── LEGACY CHAT CLASSES (from helper) ───────────*/
+.messages{padding:0;list-style:none}
+.messages ul{padding:0;list-style:none;margin:0}
+.messages li{display:flex;gap:10px;margin-bottom:14px}
+.messages li img{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover}
+.messages .message{flex:1;min-width:0}
+.messages .msg-content{background:var(--d-bg);border:1px solid var(--d-border);border-radius:0 12px 12px 12px;padding:12px 16px;font-size:13px;color:var(--d-text);line-height:1.7;margin-top:4px;word-break:break-word}
+.messages .replies .msg-content{background:var(--d-olt);border-color:rgba(230,126,34,.2);border-radius:12px 12px 12px 0}
+.messages .msg-footer{font-size:11px;color:var(--d-muted);margin-top:4px}
+.messages #frame .content{padding:0}

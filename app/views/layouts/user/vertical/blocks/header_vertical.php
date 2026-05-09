@@ -63,7 +63,7 @@
       <button class="d-user-btn" data-ddtoggle="userDropdown" type="button">
         <div class="d-user-avatar"><?=$initial?></div>
         <span class="d-user-name"><?=$fname?></span>
-        <i class="fe fe-chevron-down" style="font-size:11px;color:rgba(255,255,255,.4)"></i>
+        <i class="fe fe-chevron-down" style="font-size:11px;color:var(--d-muted)"></i>
       </button>
       <div class="d-dropdown-menu" id="userDropdown">
         <a href="<?=cn('profile')?>" class="d-dropdown-item">

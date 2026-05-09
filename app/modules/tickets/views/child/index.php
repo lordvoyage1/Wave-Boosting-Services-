@@ -1,11 +1,11 @@
 <?php
 $item_link_detail = cn($controller_name.'/'.$item['id']);
 $status_map = [
-  'closed'   => ['cls' => 'd-s-error',     'icon' => 'fe fe-x-circle',     'color' => 'rgba(255,255,255,.3)'],
-  'pending'  => ['cls' => 'd-s-pending',   'icon' => 'fe fe-clock',         'color' => '#fbbf24'],
-  'answered' => ['cls' => 'd-s-completed', 'icon' => 'fe fe-check-circle',  'color' => '#06d6a0'],
+  'closed'   => ['cls' => 'd-s-error',     'icon' => 'fe fe-x-circle',     'color' => '#ef4444'],
+  'pending'  => ['cls' => 'd-s-pending',   'icon' => 'fe fe-clock',         'color' => '#d97706'],
+  'answered' => ['cls' => 'd-s-completed', 'icon' => 'fe fe-check-circle',  'color' => '#27ae60'],
 ];
-$s = isset($status_map[$item['status']]) ? $status_map[$item['status']] : ['cls'=>'d-s-pending','icon'=>'fe fe-circle','color'=>'#fbbf24'];
+$s = isset($status_map[$item['status']]) ? $status_map[$item['status']] : ['cls'=>'d-s-pending','icon'=>'fe fe-circle','color'=>'#d97706'];
 ?>
 <a href="<?=$item_link_detail?>" style="text-decoration:none;display:block;margin-bottom:8px">
 <div class="d-ticket-item tr_<?=$item['ids']?>">
@@ -16,7 +16,7 @@ $s = isset($status_map[$item['status']]) ? $status_map[$item['status']] : ['cls'
     <div class="d-ticket-title" style="<?=($item['status']=='closed')?'opacity:.5':''?>">
       #<?=$item['id']?> — <?=esc($item['subject'])?>
       <?php if ($item['user_read']): ?>
-      <span style="background:var(--d-amber);color:#000;font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle">NEW</span>
+      <span style="background:var(--d-orange);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle">NEW</span>
       <?php endif; ?>
     </div>
     <div class="d-ticket-meta"><?=convert_timezone($item['changed'], 'user')?></div>
