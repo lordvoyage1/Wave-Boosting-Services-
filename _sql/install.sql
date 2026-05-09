@@ -547,8 +547,6 @@ VALUES
 ('wave_admin_2', 1, 1, NULL, 'Wave', 'Admin2', 'meddymususwa126@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW()),
 ('wave_admin_3', 1, 1, NULL, 'Wave', 'Admin3', 'voyagedelost@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW());
 
-INSERT IGNORE INTO `payments` (`id`, `type`, `name`, `min`, `max`, `sort`, `new_users`, `status`, `params`)
-
 UPDATE `payments` SET `status` = 0 WHERE `type` IN ('paypal', 'stripe');
 
 /* Enable services page for non-logged-in visitors */
