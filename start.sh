@@ -7,7 +7,12 @@ MYSQL_LOG="/tmp/mysql_error.log"
 DB_NAME="smm_free"
 MYSQL_ROOT_PASS="yourpass"
 
-MARIADB_BASE="/nix/store/a4jsa8kjdn3wlccj2wkvhxqza38rpxzf-mariadb-server-10.11.13"
+# Dynamically find MariaDB in the Nix store
+MARIADB_BASE=$(ls /nix/store/ 2>/dev/null | grep "^[a-z0-9]*-mariadb-server-10\.11\." | grep -v man | grep -v devdoc | sort | tail -1)
+if [ -z "$MARIADB_BASE" ]; then
+  MARIADB_BASE=$(ls /nix/store/ 2>/dev/null | grep "^[a-z0-9]*-mariadb-server-" | grep -v man | grep -v devdoc | sort | tail -1)
+fi
+MARIADB_BASE="/nix/store/$MARIADB_BASE"
 MARIADB_SHARE="$MARIADB_BASE/share/mysql"
 MARIADB_PLUGINS="$MARIADB_BASE/lib/mysql/plugin"
 MARIADB_BIN="$MARIADB_BASE/bin"
@@ -17,6 +22,7 @@ MYSQLADMIN="$MARIADB_BIN/mysqladmin"
 MYSQL="$MARIADB_BIN/mysql"
 
 echo "=== Loishvizo Boosting Solutions - Starting ==="
+echo "[DB] Using MariaDB: $MARIADB_BASE"
 
 # Initialize MariaDB data directory on first run
 if [ ! -f "$MYSQL_DATA/.initialized" ]; then
@@ -33,8 +39,8 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
     cat "$MARIADB_SHARE/mysql_performance_tables.sql"
     cat "$MARIADB_SHARE/mysql_system_tables_data.sql"
     cat "$MARIADB_SHARE/fill_help_tables.sql"
-    cat "$MARIADB_SHARE/maria_add_gis_sp_bootstrap.sql"
-    cat "$MARIADB_SHARE/mysql_sys_schema.sql"
+    [ -f "$MARIADB_SHARE/maria_add_gis_sp_bootstrap.sql" ] && cat "$MARIADB_SHARE/maria_add_gis_sp_bootstrap.sql"
+    [ -f "$MARIADB_SHARE/mysql_sys_schema.sql" ] && cat "$MARIADB_SHARE/mysql_sys_schema.sql"
   ) | "$MYSQLD" --no-defaults \
       --bootstrap \
       --basedir="$MARIADB_BASE" \
@@ -117,8 +123,16 @@ for i in $(seq 1 30); do
   sleep 1
 done
 
+# Ensure root password is set for all hosts
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
+  ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+  CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION;
+  FLUSH PRIVILEGES;
+" 2>/dev/null || true
+
 # Verify smm_free database exists; re-import if lost (e.g. after /tmp reset)
-DB_EXISTS=$("$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME" 2>/dev/null || true)
+DB_EXISTS=$("$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null | grep -c "$DB_NAME" 2>/dev/null || echo "0")
 DB_EXISTS="${DB_EXISTS:-0}"
 if [ "$DB_EXISTS" -eq 0 ] 2>/dev/null || [ -z "$DB_EXISTS" ]; then
   echo "[DB] Database '$DB_NAME' missing - re-importing schema..."
@@ -132,21 +146,7 @@ if [ "$DB_EXISTS" -eq 0 ] 2>/dev/null || [ -z "$DB_EXISTS" ]; then
   echo "[DB] Schema re-imported!"
 fi
 
-# Fix root password for all hosts (ensures PHP can connect via 127.0.0.1)
-"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" -e "
-  ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
-  ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '$MYSQL_ROOT_PASS';
-  FLUSH PRIVILEGES;
-" 2>/dev/null
-
-# ─── Ensure root password is set for all hosts ───
-"$MYSQL" --socket="$MYSQL_SOCK" -u root 2>/dev/null <<'ROOTFIX'
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('yourpass');
-SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('yourpass');
-FLUSH PRIVILEGES;
-ROOTFIX
-
-# ─── Update brand settings in general_options ───
+# Update brand settings in general_options
 echo "[APP] Updating Loishvizo brand settings..."
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'BRAND_SQL'
 INSERT INTO general_options (name, value) VALUES
@@ -158,36 +158,37 @@ INSERT INTO general_options (name, value) VALUES
 ON DUPLICATE KEY UPDATE value = VALUES(value);
 BRAND_SQL
 
-# ─── Set up admin accounts in general_staffs ───
+# Set up admin accounts in general_staffs (using actual column names)
 echo "[APP] Setting up admin accounts..."
-ADMIN_PASS_HASH=$(php -r "echo md5('Loishvizo@2025');" 2>/dev/null || echo "c9f5a9e6b2d8a4f1e7c3b5d2a8f4e6c1")
+ADMIN_PASS_HASH=$(php -r "echo md5('Loishvizo@2025');" 2>/dev/null || echo "aa9103a1ad819c1ead1008ba223c2b1d")
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<ADMINS_SQL
-INSERT IGNORE INTO general_staffs (ids, first_name, last_name, email, password, role, status, created)
+INSERT IGNORE INTO general_staffs (ids, first_name, last_name, email, password, admin, status, created)
 VALUES
-  (1, 'Isha',   'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
-  (2, 'Lois',   'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
-  (3, 'Delos',  'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 'admin', 1, NOW()),
-  (4, 'Meddy',  'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 'admin', 1, NOW())
-ON DUPLICATE KEY UPDATE role='admin', status=1;
+  ('ids_1', 'Isha',   'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 1, 1, NOW()),
+  ('ids_2', 'Lois',   'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 1, 1, NOW()),
+  ('ids_3', 'Delos',  'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 1, 1, NOW()),
+  ('ids_4', 'Meddy',  'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 1, 1, NOW())
+ON DUPLICATE KEY UPDATE admin=1, status=1;
 ADMINS_SQL
 
-# ─── Add admin emails to general_users with balance=9999999 (no pay) ───
+# Add admin emails to general_users with balance=9999999
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<USERS_SQL
 INSERT IGNORE INTO general_users (ids, first_name, last_name, email, password, balance, status, api_key, created)
 VALUES
-  (1001, 'Isha',  'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_isha',   NOW()),
-  (1002, 'Lois',  'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_lois',   NOW()),
-  (1003, 'Delos', 'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_delos',  NOW()),
-  (1004, 'Meddy', 'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_meddy',  NOW())
+  ('usr_1001', 'Isha',  'Mvizo',   'Ishamvizo2005@gmail.com',  '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_isha',   NOW()),
+  ('usr_1002', 'Lois',  'Hvizo',   'loishvizo@gmail.com',      '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_lois',   NOW()),
+  ('usr_1003', 'Delos', 'Voyage',  'delostvoyage@gmail.com',   '$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_delos',  NOW()),
+  ('usr_1004', 'Meddy', 'Mususwa', 'meddymususwa126@gmail.com','$ADMIN_PASS_HASH', 9999999.00, 1, 'lv_admin_key_meddy',  NOW())
 ON DUPLICATE KEY UPDATE balance=9999999.00, status=1;
 USERS_SQL
 
-# ─── Disable lworx payment gateway in DB ───
-"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'LWORX_SQL'
-UPDATE payments_method SET status=0 WHERE type='lworx';
-LWORX_SQL
+# Disable lworx payment gateway in DB (correct table name is 'payments')
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" -e "UPDATE payments SET status=0 WHERE type='lworx';" 2>/dev/null || true
 
 echo "[APP] Setup complete!"
+
+# Ensure writable directories exist
+mkdir -p app/cache app/logs assets/uploads
 
 # Start PHP built-in server (foreground)
 PORT="${PORT:-5000}"
