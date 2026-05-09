@@ -91,10 +91,6 @@ $route['paytr_ipn']         = 'add_funds/paytr/ipn/';
 $route['ecpay_ipn']         = 'add_funds/ecpay/ipn/';
 $route['(:any)_ipn']        = 'add_funds/$1/ipn/';
 
-// LworxPay explicit routes
-$route['lworx_ipn']                         = 'add_funds/lworx/ipn/';
-$route['add_funds/lworx/complete/(:any)']   = 'add_funds/lworx/complete/$1';
-$route['add_funds/lworx/check_status/(:any)'] = 'add_funds/lworx/check_status/$1';
 
 //$route['cron/pix']                                            = 'add_funds/pix/list_pix';
 

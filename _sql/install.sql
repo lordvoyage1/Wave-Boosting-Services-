@@ -547,12 +547,8 @@ VALUES
 ('wave_admin_2', 1, 1, NULL, 'Wave', 'Admin2', 'meddymususwa126@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW()),
 ('wave_admin_3', 1, 1, NULL, 'Wave', 'Admin3', 'voyagedelost@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW());
 
-/* Add LworxPay payment method */
 INSERT IGNORE INTO `payments` (`id`, `type`, `name`, `min`, `max`, `sort`, `new_users`, `status`, `params`)
-VALUES (15, 'lworx', 'LworxPay (Mobile Money & Cards)', 1, 10000, 1, 1, 1,
-'{"type":"lworx","name":"LworxPay (Mobile Money & Cards)","min":"1","max":"10000","new_users":"1","status":"1","option":{"tnx_fee":"0","environment":"live","payment_method_mode":"payment_link","merchant_id":"9HM1KDrXogew","api_key":"qIdFYKwJ3wZL8wyHpbipfxIC2xiv","api_secret":"PgNB7OyyB2YXwKuacEVtE18kIF3cLVyp4hCODL"}}');
 
-/* Disable old payment methods, enable lworx */
 UPDATE `payments` SET `status` = 0 WHERE `type` IN ('paypal', 'stripe');
 
 /* Enable services page for non-logged-in visitors */

@@ -1,45 +1,45 @@
-<div class="page-header">
-  <h1 class="page-title">
-    <i class="fe fe-calendar" aria-hidden="true"> </i> 
-    <?=lang("Transaction_logs")?>
-  </h1>
+<div class="d-page-header">
+  <h1><i class="fe fe-file-text"></i> <?=lang("Transaction_logs")?></h1>
 </div>
 
-<div class="row">
-  <?php if(!empty($items)){
-  ?>
-    <div class="col-md-12 col-xl-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title"><?=lang("Lists")?></h3>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-bordered table-vcenter card-table">
-            <?php echo render_table_thead($columns, false, false, false); ?>
-            <tbody>
-              <?php if (!empty($items)) {
-                $i = $from;
-                foreach ($items as $key => $item) {
-                  $i++;
-                  $item_payment_type  = show_item_transaction_type($item['type']);
-                  $created            = show_item_datetime($item['created'], 'long');
-                  $item_status        = show_item_status($controller_name, $item['id'], $item['status'], '', 'user');
-              ?>
-                <tr class="tr_<?php echo $item['id']; ?>">
-                  <td class="text-center w-5p text-muted"><?=$item['id']?></td>
-                  <td class="text-center w-10p"><?php echo $item_payment_type ; ?></td>
-                  <td class="text-center w-10p"><?php echo $item['amount']; ?></td>
-                  <td class="text-center w-5p text-muted"><?php echo $item['txn_fee']; ?></td>
-                  <td class="text-center w-5p text-muted"><?php echo $created; ?></td>
-                </tr>
-              <?php }}?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <?php echo show_pagination($pagination); ?>
-  <?php }else{
-    echo show_empty_item();
-  }?>
+<?php if (!empty($items)): ?>
+<div class="d-card">
+  <div class="d-table-wrap">
+    <table class="d-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th class="d-td-center"><?=lang("Type")?></th>
+          <th class="d-td-center"><?=lang("Amount")?></th>
+          <th class="d-td-center"><?=lang("Fee")?></th>
+          <th class="d-td-center"><?=lang("Date")?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $i = $from; foreach ($items as $item):
+          $i++;
+          $item_payment_type = show_item_transaction_type($item['type']);
+          $created = show_item_datetime($item['created'], 'long');
+        ?>
+        <tr class="tr_<?=$item['id']?>">
+          <td class="d-td-muted"><?=$item['id']?></td>
+          <td class="d-td-center"><?=$item_payment_type?></td>
+          <td class="d-td-center d-td-bold" style="color:var(--d-green)"><?=$item['amount']?></td>
+          <td class="d-td-center d-td-muted"><?=$item['txn_fee']?></td>
+          <td class="d-td-center d-td-muted"><?=$created?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
 </div>
+<?=show_pagination($pagination)?>
+<?php else: ?>
+<div class="d-card">
+  <div class="d-empty">
+    <i class="fe fe-file-text"></i>
+    <h3><?=lang("no_results_found")?></h3>
+    <p><?=lang("no_transactions_yet")?></p>
+  </div>
+</div>
+<?php endif; ?>

@@ -1,49 +1,36 @@
-<?php
-  $columns     =  array(
-    "id"                => ['name' => lang("Name"),    'class' => ''],
-    "order_details"     => ['name' => lang("rate_per_1000"), 'class' => 'text-center'],
-    "created"           => ['name' => lang("min__max_order"), 'class' => 'text-center'],
-    "status"            => ['name' => lang("Description"),  'class' => 'text-center'],
-  );
-?>
-
-<?php
-  if ($items_top_best_seller) {
-?>
-  <div class="row justify-content-center">
-    <div class="col-md-12 col-xl-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title"><?php echo lang("top_bestsellers"); ?></h3>
-          <div class="card-options">
-            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-bordered table-vcenter card-table">
-            <?php 
-              echo render_table_thead($columns, false, true, false, []); 
-            ?>
-            <tbody>
-              <?php
-                foreach ($items_top_best_seller as $key => $item) {
-                  $show_item_view     = show_item_details('services', $item);
-              ?>
-                <tr class="tr_<?php echo esc($item['id']); ?>">
-                  <td class="text-center w-10p text-muted"><?=esc($item['id']);?></td>
-                  <td>
-                    <div class="title"><?=esc($item['name']);?></div>
-                  </td>
-                  <td class="text-center w-5p"><div><?=(double)$item['price'] ;?></div></td>
-                  <td class="text-center w-10p text-muted"><?=$item['min'] . ' / ' . $item['max']?></td>
-                  <td class="text-center w-5p"> <?php echo $show_item_view;?></td>
-                </tr>
-              <?php }?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+<?php if ($items_top_best_seller): ?>
+<div class="d-card">
+  <div class="d-card-header">
+    <span class="d-card-title"><i class="fe fe-star" style="color:var(--d-amber)"></i> <?=lang("top_bestsellers")?></span>
+    <a href="<?=cn('services')?>" class="d-btn d-btn-outline d-btn-sm">
+      <i class="fe fe-grid"></i> <?=lang("all_services")?>
+    </a>
   </div>
-<?php } ?>
+  <div class="d-table-wrap">
+    <table class="d-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><?=lang("Name")?></th>
+          <th class="d-td-center"><?=lang("rate_per_1000")?></th>
+          <th class="d-td-center"><?=lang("min__max_order")?></th>
+          <th class="d-td-center"><?=lang("Description")?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($items_top_best_seller as $item):
+          $show_item_view = show_item_details('services', $item);
+        ?>
+        <tr>
+          <td class="d-td-muted"><?=esc($item['id'])?></td>
+          <td class="d-td-bold"><?=esc($item['name'])?></td>
+          <td class="d-td-center" style="color:var(--d-green);font-weight:700"><?=(double)$item['price']?></td>
+          <td class="d-td-center d-td-muted"><?=$item['min']?> / <?=$item['max']?></td>
+          <td class="d-td-center"><?=$show_item_view?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+<?php endif; ?>

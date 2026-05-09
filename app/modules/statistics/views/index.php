@@ -1,96 +1,81 @@
-
-<div class="row justify-content-center row-card statistics">
-  <!-- header Statistic -->
-  <?php
-    if ($header_area) {
-  ?>
-    <div class="col-sm-12">
-      <div class="row">
-        <?php
-          foreach ($header_area as $key => $item) {
-        ?>
-          <div class="col-sm-6 col-lg-3 item">
-            <div class="card p-3">
-              <div class="d-flex align-items-center">
-                <span class="stamp stamp-md <?=$item['class'];?> text-white mr-3">
-                  <i class="<?=$item['icon'];?>"></i>
-                </span>
-                <div class="d-flex order-lg-2 ml-auto">
-                  <div class="ml-2 d-lg-block text-right">
-                    <h4 class="m-0 text-right number"><?=$item['value'];?></h4>
-                    <small class="text-muted "><?=$item['name'];?></small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-    </div>
-  <?php
-    }
-  ?>
-  <!-- Chart Area -->
-  <div class="col-sm-12 charts">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><?=lang("recent_orders")?></h3>
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="p-4 card">
-            <div id="orders_chart_spline" style="height: 20rem;"></div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="p-4 card">
-            <div id="orders_chart_pie" style="height: 20rem;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    $(document).ready(function(){
-      Chart_template.chart_spline('#orders_chart_spline', <?=$chart_and_orders_area['chart_spline']?>);
-      Chart_template.chart_pie('#orders_chart_pie', <?=$chart_and_orders_area['chart_pie']?>);
-    });
-  </script>
-
-  <!-- Orders Logs -->
-  <?php
-    if ($chart_and_orders_area) {
-  ?>
-    <div class="col-sm-12">
-      <div class="row">
-        <?php
-          foreach ($chart_and_orders_area['orders_statistics'] as $key => $item) {
-        ?>
-          <div class="col-sm-6 col-lg-3 item">
-            <div class="card p-3">
-              <div class="d-flex align-items-center">
-                <span class="stamp stamp-md text-primary mr-3">
-                  <i class="<?=$item['icon'];?>"></i>
-                </span>
-                <div class="d-flex order-lg-2 ml-auto">
-                  <div class="ml-2 d-lg-block text-right">
-                    <h4 class="m-0 text-right number"><?=$item['value'];?></h4>
-                    <small class="text-muted "><?=$item['name'];?></small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-    </div>
-  <?php
-    }
-  ?>
-</div>
-
-<!-- Top best Sellers -->
 <?php
-  $this->load->view('top_bestsellers');
+$icon_map = [
+  'bg-blue'   => ['icon' => 'fe fe-shopping-cart', 'cls' => 'purple'],
+  'bg-green'  => ['icon' => 'fe fe-check-circle',  'cls' => 'green'],
+  'bg-yellow' => ['icon' => 'fe fe-clock',          'cls' => 'amber'],
+  'bg-red'    => ['icon' => 'fe fe-x-circle',       'cls' => 'red'],
+  'bg-azure'  => ['icon' => 'fe fe-bar-chart-2',    'cls' => 'blue'],
+  'bg-teal'   => ['icon' => 'fe fe-dollar-sign',    'cls' => 'green'],
+  'bg-indigo' => ['icon' => 'fe fe-trending-up',    'cls' => 'purple'],
+  'bg-purple' => ['icon' => 'fe fe-layers',         'cls' => 'purple'],
+  'bg-orange' => ['icon' => 'fe fe-alert-circle',   'cls' => 'amber'],
+];
 ?>
 
+<!-- Account Stats -->
+<?php if ($header_area): ?>
+<div class="d-stats-grid d-mb-20">
+  <?php foreach ($header_area as $key => $item):
+    $icon_entry = isset($icon_map[$item['class']]) ? $icon_map[$item['class']] : ['icon' => $item['icon'], 'cls' => 'purple'];
+  ?>
+  <div class="d-stat-card">
+    <div class="d-stat-icon <?=$icon_entry['cls']?>">
+      <i class="<?=$icon_entry['icon']?>"></i>
+    </div>
+    <div class="d-stat-info">
+      <div class="d-stat-val"><?=$item['value']?></div>
+      <div class="d-stat-label"><?=$item['name']?></div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<!-- Charts -->
+<div class="d-grid-2 d-mb-20">
+  <div class="d-card">
+    <div class="d-card-header">
+      <span class="d-card-title"><i class="fe fe-trending-up" style="color:var(--d-purple)"></i> <?=lang("recent_orders")?></span>
+    </div>
+    <div class="d-card-body" style="padding-bottom:12px">
+      <div id="orders_chart_spline" style="height:220px"></div>
+    </div>
+  </div>
+  <div class="d-card">
+    <div class="d-card-header">
+      <span class="d-card-title"><i class="fe fe-pie-chart" style="color:var(--d-green)"></i> <?=lang("order_breakdown")?></span>
+    </div>
+    <div class="d-card-body" style="padding-bottom:12px">
+      <div id="orders_chart_pie" style="height:220px"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  Chart_template.chart_spline('#orders_chart_spline', <?=$chart_and_orders_area['chart_spline']?>);
+  Chart_template.chart_pie('#orders_chart_pie', <?=$chart_and_orders_area['chart_pie']?>);
+});
+</script>
+
+<!-- Order Stats -->
+<?php if ($chart_and_orders_area && !empty($chart_and_orders_area['orders_statistics'])): ?>
+<div class="d-stats-grid d-mb-20">
+  <?php foreach ($chart_and_orders_area['orders_statistics'] as $item):
+    $icon_entry = isset($icon_map[$item['class']]) ? $icon_map[$item['class']] : ['icon' => $item['icon'], 'cls' => 'blue'];
+  ?>
+  <div class="d-stat-card">
+    <div class="d-stat-icon <?=$icon_entry['cls']?>">
+      <i class="<?=(strpos($item['icon'],'fe fe-') === 0 ? $item['icon'] : $icon_entry['icon'])?>"></i>
+    </div>
+    <div class="d-stat-info">
+      <div class="d-stat-val"><?=$item['value']?></div>
+      <div class="d-stat-label"><?=$item['name']?></div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<!-- Top Bestsellers -->
+<?php $this->load->view('top_bestsellers'); ?>

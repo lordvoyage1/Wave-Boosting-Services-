@@ -1,57 +1,28 @@
 <?php
-    $item_link_detail = cn($controller_name ."/" . $item['id']);
-    switch ($item['status']) {
-        case 'closed':
-            $class_item_status = 'btn-gray-dark';
-            break;
-
-        case 'pending':
-            $class_item_status = 'btn-info';
-            break;
-
-        case 'answered':
-            $class_item_status = 'btn-gray';
-            break;
-        
-        default:
-            $class_item_status = 'btn-info';
-            break;
-    }
-    $xhtml_item_status = sprintf(
-        '<span class="btn %s btn-sm">
-            <small>%s</small>
-        </span>', $class_item_status, ticket_status_title($item['status'])
-    );
-
-    $class_subject = ($item['status'] == "closed") ? "text-muted" : "";
-    $xhtml_item_subject = "#" . $item['id']." - ". $item['subject'] . ' ';
-    if ($item['user_read']) {
-        $xhtml_item_subject .= '<span class="badge badge-warning">'. lang("Unread") .'</span>';
-    }
-    $xhtml_item_subject_content = sprintf(
-        '<div class="content">
-            <div class="subject %s">
-                %s
-            </div>
-            <div class="time">
-                <small>%s</small>
-            </div>
-        </div>', $class_subject, $xhtml_item_subject, convert_timezone($item['changed'], 'user')
-    );
-
+$item_link_detail = cn($controller_name.'/'.$item['id']);
+$status_map = [
+  'closed'   => ['cls' => 'd-s-error',     'icon' => 'fe fe-x-circle',     'color' => 'rgba(255,255,255,.3)'],
+  'pending'  => ['cls' => 'd-s-pending',   'icon' => 'fe fe-clock',         'color' => '#fbbf24'],
+  'answered' => ['cls' => 'd-s-completed', 'icon' => 'fe fe-check-circle',  'color' => '#06d6a0'],
+];
+$s = isset($status_map[$item['status']]) ? $status_map[$item['status']] : ['cls'=>'d-s-pending','icon'=>'fe fe-circle','color'=>'#fbbf24'];
 ?>
-
-<div class="item tr_<?=$item['ids']?>">
-    <a href="<?php echo $item_link_detail; ?>" class="p-l-5 d-flex text-decoration-none">
-        <div class="media-left p-r-10">
-            <span class="avatar avatar-md">
-                <span class="media-object rounded-circle text-circle text-uppercase <?=$item['status']?> "><i class="fe fe-user"></i></span>
-            </span>
-        </div>
-        <?php echo $xhtml_item_subject_content; ?>
-    </a>
-    <div class="action item-action dropdown m-t-10">
-        <?php echo $xhtml_item_status; ?>
+<a href="<?=$item_link_detail?>" style="text-decoration:none;display:block;margin-bottom:8px">
+<div class="d-ticket-item tr_<?=$item['ids']?>">
+  <div class="d-ticket-icon">
+    <i class="<?=$s['icon']?>" style="font-size:18px;color:<?=$s['color']?>"></i>
+  </div>
+  <div class="d-ticket-body">
+    <div class="d-ticket-title" style="<?=($item['status']=='closed')?'opacity:.5':''?>">
+      #<?=$item['id']?> — <?=esc($item['subject'])?>
+      <?php if ($item['user_read']): ?>
+      <span style="background:var(--d-amber);color:#000;font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle">NEW</span>
+      <?php endif; ?>
     </div>
-    <div class="clearfix"></div>
+    <div class="d-ticket-meta"><?=convert_timezone($item['changed'], 'user')?></div>
+  </div>
+  <div style="flex-shrink:0;align-self:center">
+    <span class="d-badge-status <?=$s['cls']?>"><?=ticket_status_title($item['status'])?></span>
+  </div>
 </div>
+</a>
