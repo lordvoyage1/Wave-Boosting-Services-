@@ -417,6 +417,11 @@ CREATE TABLE `payments` (
 
 insert  into `payments`(`id`,`type`,`name`,`min`,`max`,`sort`,`new_users`,`status`,`params`) values (13,'paypal','Paypal Checkout',10,100,NULL,1,0,'{\"type\":\"paypal\",\"name\":\"Paypal Checkout\",\"min\":\"10\",\"max\":\"100\",\"new_users\":\"1\",\"status\":\"1\",\"take_fee_from_user\":\"0\",\"option\":{\"environment\":\"sandbox\",\"client_id\":\"\",\"secret_key\":\"\"}}'),(14,'stripe','Stripe Checkout',5,100,NULL,0,0,'{\"type\":\"stripe\",\"name\":\"Stripe Checkout\",\"min\":\"5\",\"max\":\"100\",\"new_users\":\"0\",\"status\":\"1\",\"option\":{\"tnx_fee\":\"10\",\"environment\":\"sandbox\",\"public_key\":\"\",\"secret_key\":\"\"}}');
 
+INSERT IGNORE INTO `payments`(`id`,`type`,`name`,`min`,`max`,`sort`,`new_users`,`status`,`params`) VALUES
+(20,'airtel_money','Airtel Money (Uganda)',5000,5000000,10,1,1,'{\"type\":\"airtel_money\",\"name\":\"Airtel Money Uganda\",\"min\":\"5000\",\"max\":\"5000000\",\"new_users\":\"1\",\"status\":\"1\",\"currency\":\"UGX\",\"option\":{\"tnx_fee\":\"0\"}}'),
+(21,'mtn_money','MTN Mobile Money (Uganda)',5000,5000000,11,1,1,'{\"type\":\"mtn_money\",\"name\":\"MTN Mobile Money Uganda\",\"min\":\"5000\",\"max\":\"5000000\",\"new_users\":\"1\",\"status\":\"1\",\"currency\":\"UGX\",\"option\":{\"tnx_fee\":\"0\"}}'),
+(22,'mastercard','Mastercard',1,1000,12,1,1,'{\"type\":\"mastercard\",\"name\":\"Mastercard\",\"min\":\"1\",\"max\":\"1000\",\"new_users\":\"1\",\"status\":\"1\",\"currency\":\"USD\",\"option\":{\"tnx_fee\":\"0\"}}');
+
 /*Table structure for table `payments_bonus` */
 
 DROP TABLE IF EXISTS `payments_bonus`;

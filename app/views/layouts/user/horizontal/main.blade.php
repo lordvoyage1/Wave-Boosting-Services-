@@ -39,49 +39,27 @@
     <link rel="stylesheet" href="<?=BASE?>assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="<?=BASE?>assets/plugins/boostrap-datetimepicket/bootstrap-datetimepicker.min.css">
     <link href="<?=BASE?>assets/plugins/emoji-picker/lib/css/emoji.css" rel="stylesheet">
-    <!-- Theme CSS -->
-    <link href="<?=BASE?>themes/pergo/assets/css/theme_style.css" rel="stylesheet">
-    <style>
-      /* Override old layout for new sidebar-based design */
-      body { background: #06010f; font-family: 'Inter', 'Segoe UI', sans-serif; }
-      .page, .page-main { display: block; }
-      .my-3.my-md-5 { margin: 0 !important; }
-      .my-3.my-md-5 > .container { max-width: 100% !important; padding: 0 !important; }
-    </style>
+    <link href="<?=BASE?>assets/css/dashboard.css" rel="stylesheet">
     <script type="text/javascript">
       var token = '<?=htmlspecialchars($this->security->get_csrf_hash())?>',
           PATH  = '<?=PATH?>',
           BASE  = '<?=BASE?>';
+      var deleteItem  = '<?=lang("Are_you_sure_you_want_to_delete_this_item")?>';
+      var deleteItems = '<?=lang("Are_you_sure_you_want_to_delete_all_items")?>';
     </script>
     <?=htmlspecialchars_decode(get_option('embed_head_javascript', ''), ENT_QUOTES)?>
   </head>
-  <body class="lv-user-body">
-    <!-- Page loader -->
-    <div id="page-overlay" class="visible incoming">
+  <body>
+    <div id="page-overlay" class="visible">
       <div class="loader-wrapper-outer">
-        <div class="loader-wrapper-inner">
-          <div class="lds-double-ring"><div></div><div></div><div><div></div></div><div><div></div></div></div>
-        </div>
+        <div class="lds-double-ring"><div></div><div></div></div>
       </div>
     </div>
-
-    <!-- Header + Sidebar (injected by blocks/header.php) -->
+    <div class="d-overlay" id="dOverlay" onclick="closeDashSidebar()"></div>
     <?php include_once 'blocks/header.php'; ?>
-
-    <!-- Main content -->
-    <div class="lv-user-main">
-      <div class="lv-page-wrap" style="padding:24px 22px">
-        <!-- Mobile search -->
-        <div class="d-md-none" style="margin-bottom:16px">
-          <?php if (allowed_search_bar(segment(1)) || allowed_search_bar(segment(2))): ?>
-          <?php echo Modules::run('blocks/search_box'); ?>
-          <?php endif; ?>
-        </div>
-        <?=$template['body']?>
-      </div>
+    <div class="d-main" id="dMain">
+      <?=$template['body']?>
     </div>
-
-    <!-- Footer -->
     <?php include_once 'blocks/footer.php'; ?>
 
     <!-- Modal -->
@@ -108,6 +86,7 @@
     <?php endif; ?>
     <script src="<?=BASE?>assets/js/process.js"></script>
     <script src="<?=BASE?>assets/js/general.js"></script>
+    <script src="<?=BASE?>assets/js/dashboard.js"></script>
     <?=htmlspecialchars_decode(get_option('embed_javascript', ''), ENT_QUOTES)?>
   </body>
 </html>

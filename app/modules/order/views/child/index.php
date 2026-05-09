@@ -1,0 +1,41 @@
+<?php if (!empty($items)): ?>
+<div class="d-card">
+  <div class="d-table-wrap">
+    <table class="d-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><?=lang("Details")?></th>
+          <th class="d-td-center"><?=lang("created")?></th>
+          <th class="d-td-center"><?=lang("Status")?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($items as $key => $item):
+          $item_details = show_item_order_details($controller_name, $item, isset($params)?$params:[], 'user');
+          $item_status  = (in_array(strtolower($item['status']), ['error','fail'])) ? 'pending' : strtolower($item['status']);
+        ?>
+        <tr class="tr_<?=$item['ids']?>">
+          <td class="d-td-muted">#<?=esc($item['id'])?></td>
+          <td><?=$item_details?></td>
+          <td class="d-td-center d-td-muted" style="white-space:nowrap"><?=convert_timezone($item['created'], "user")?></td>
+          <td class="d-td-center"><?=show_item_status($controller_name, $item['id'], $item_status, '', 'user')?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+<?php if(!empty($pagination)) echo show_pagination($pagination); ?>
+<?php else: ?>
+<div class="d-card">
+  <div class="d-empty">
+    <i class="fe fe-list"></i>
+    <h3><?=lang("no_results_found")?></h3>
+    <p><?=lang("Look_like_there_are_no_results_in_here")?></p>
+    <a href="<?=cn('order/new_order')?>" class="d-btn d-btn-primary" style="margin-top:14px;display:inline-flex">
+      <i class="fe fe-plus"></i> Place New Order
+    </a>
+  </div>
+</div>
+<?php endif; ?>
