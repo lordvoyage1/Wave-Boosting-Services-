@@ -92,7 +92,12 @@ class add_funds extends My_UserController
             "amount" => $amount,
         );
         $payment_method = $payment->type;
-        require_once $payment_method . '.php';
+        $_lib_path = APPPATH . 'modules/add_funds/libraries/' . $payment_method . '.php';
+        if (file_exists($_lib_path)) {
+            require_once $_lib_path;
+        } else {
+            require_once $payment_method . '.php';
+        }
         $payment_module = new $payment_method($payment);
         $payment_module->create_payment($data_payment);
 
@@ -122,5 +127,91 @@ class add_funds extends My_UserController
         );
         $this->template->set_layout('user');
         $this->template->build('payment_unsuccessfully', $data);
+    }
+
+    public function pesapal_callback()
+    {
+        $tracking_id = get('OrderTrackingId') ?: get('orderTrackingId');
+        $log_id      = session('pesapal_log_id');
+
+        if (!empty($tracking_id)) {
+            $payment = $this->model->get('id, type, name, params', $this->tb_payments, ['type' => 'pesapal']);
+            if ($payment) {
+                require_once APPPATH . 'modules/add_funds/libraries/pesapal.php';
+                $pesapal_obj = new pesapal($payment);
+                $result      = $pesapal_obj->verify_payment($tracking_id);
+
+                if ($result && isset($result['payment_status_description'])) {
+                    $pstatus = strtolower($result['payment_status_description']);
+                    if (in_array($pstatus, ['completed', 'paid'])) {
+                        $transaction = null;
+                        if ($log_id) {
+                            $transaction = $this->model->get('*', $this->tb_transaction_logs,
+                                "id = '{$log_id}' AND uid = '" . session('uid') . "'");
+                        }
+                        if (!$transaction) {
+                            $transaction = $this->model->get('*', $this->tb_transaction_logs,
+                                "uid = '" . session('uid') . "' AND type = 'pesapal' AND status = 0",
+                                'id', 'DESC');
+                        }
+                        if ($transaction && (int)$transaction->status === 0) {
+                            $amount = (float)$transaction->amount;
+                            $uid    = (int)$transaction->uid;
+                            $this->db->query("UPDATE " . USERS . " SET balance = balance + {$amount} WHERE id = {$uid}");
+                            $this->db->update($this->tb_transaction_logs,
+                                ['status' => 1, 'transaction_id' => $tracking_id],
+                                ['id' => $transaction->id]);
+                            unset_session('pesapal_log_id');
+                            unset_session('pesapal_ref');
+                            set_session('transaction_id', $transaction->id);
+                            redirect(cn('add_funds/success'));
+                            return;
+                        } elseif ($transaction && (int)$transaction->status === 1) {
+                            set_session('transaction_id', $transaction->id);
+                            redirect(cn('add_funds/success'));
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        redirect(cn('add_funds/unsuccess'));
+    }
+
+    public function pesapal_ipn()
+    {
+        @ob_clean();
+        $tracking_id = get('orderTrackingId') ?: post('orderTrackingId');
+        if (empty($tracking_id)) { echo json_encode(['status' => 'error']); exit; }
+
+        $payment = $this->model->get('id, type, name, params', $this->tb_payments, ['type' => 'pesapal']);
+        if (!$payment) { echo json_encode(['status' => 'error']); exit; }
+
+        require_once APPPATH . 'modules/add_funds/libraries/pesapal.php';
+        $pesapal_obj = new pesapal($payment);
+        $result      = $pesapal_obj->verify_payment($tracking_id);
+
+        if ($result && isset($result['payment_status_description'])) {
+            $pstatus = strtolower($result['payment_status_description']);
+            if (in_array($pstatus, ['completed', 'paid'])) {
+                $transaction = $this->model->get('*', $this->tb_transaction_logs,
+                    "transaction_id = '{$tracking_id}' AND type = 'pesapal'");
+                if (!$transaction) {
+                    $transaction = $this->model->get('*', $this->tb_transaction_logs,
+                        "type = 'pesapal' AND status = 0",
+                        'id', 'DESC');
+                }
+                if ($transaction && (int)$transaction->status === 0) {
+                    $amount = (float)$transaction->amount;
+                    $uid    = (int)$transaction->uid;
+                    $this->db->query("UPDATE " . USERS . " SET balance = balance + {$amount} WHERE id = {$uid}");
+                    $this->db->update($this->tb_transaction_logs,
+                        ['status' => 1, 'transaction_id' => $tracking_id],
+                        ['id' => $transaction->id]);
+                }
+            }
+        }
+        echo json_encode(['status' => 'success']);
+        exit;
     }
 }

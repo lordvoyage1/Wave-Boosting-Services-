@@ -18,14 +18,14 @@
           <label><?=lang('first_name')?></label>
           <div class="lv-field-icon">
             <i class="fa fa-user"></i>
-            <input type="text" class="lv-input" name="first_name" placeholder="John" required>
+            <input type="text" class="lv-input" name="first_name" placeholder="First name" required>
           </div>
         </div>
         <div class="lv-field">
           <label><?=lang('last_name')?></label>
           <div class="lv-field-icon">
             <i class="fa fa-user"></i>
-            <input type="text" class="lv-input" name="last_name" placeholder="Doe" required>
+            <input type="text" class="lv-input" name="last_name" placeholder="Last name" required>
           </div>
         </div>
       </div>

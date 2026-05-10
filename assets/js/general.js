@@ -646,8 +646,12 @@ function General(){
                         notify(_result.message, _result.status);
                     }, 1500)
                     setTimeout(function () {
-                        if (_result.status == 'success' && typeof _redirect != "undefined") {
-                            reloadPage(_redirect);
+                        if (_result.status == 'success') {
+                            if (typeof _result.redirect_url !== "undefined" && _result.redirect_url) {
+                                reloadPage(_result.redirect_url);
+                            } else if (typeof _redirect !== "undefined") {
+                                reloadPage(_redirect);
+                            }
                         }
                     }, 2000)
                 } else {

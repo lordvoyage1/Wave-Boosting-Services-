@@ -76,15 +76,17 @@ if [ ! -f "$MYSQL_DATA/.initialized" ]; then
 
   # Set up root user and create app database (skip-grant-tables mode)
   # Note: In skip-grant-tables mode, connect without password and without -p flag
+  # Using FLUSH PRIVILEGES + SET PASSWORD which is reliable across MariaDB versions
   "$MYSQL" --socket="$MYSQL_SOCK" --user=root 2>/dev/null <<SETUP_SQL
-USE mysql;
-UPDATE user SET plugin='mysql_native_password', Password=PASSWORD('$MYSQL_ROOT_PASS'), authentication_string='' WHERE User='root';
-DELETE FROM user WHERE User='';
 FLUSH PRIVILEGES;
+DELETE FROM mysql.user WHERE User='';
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PASS');
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '$MYSQL_ROOT_PASS' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'repl' IDENTIFIED BY '$MYSQL_ROOT_PASS' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' IDENTIFIED BY '$MYSQL_ROOT_PASS' WITH GRANT OPTION;
 CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'localhost';
 GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'127.0.0.1';
-GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO 'root'@'repl';
 FLUSH PRIVILEGES;
 SETUP_SQL
 
@@ -186,6 +188,83 @@ USERS_SQL
 
 # Disable lworx payment gateway in DB (correct table name is 'payments')
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" -e "UPDATE payments SET status=0 WHERE type='lworx';" 2>/dev/null || true
+
+# Apply Loishvizo settings: currency, contact, terms, PesaPal, categories, services
+echo "[APP] Applying Loishvizo settings and services..."
+"$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'LOISHVIZO_SQL'
+
+-- Currency UGX
+UPDATE general_options SET value = 'UGX' WHERE name = 'currency_code';
+UPDATE general_options SET value = 'UGX ' WHERE name = 'currency_symbol';
+
+-- Brand & contact
+UPDATE general_options SET value = 'Loishvizo Boosting Solutions' WHERE name = 'website_name';
+UPDATE general_options SET value = 'Loishvizo Boosting Solutions - Ultra Speed SMM Panel Uganda' WHERE name = 'website_title';
+UPDATE general_options SET value = 'Copyright &copy; 2025 Loishvizo Boosting Solutions. All Rights Reserved.' WHERE name = 'copy_right_content';
+UPDATE general_options SET value = 'loishvizo@gmail.com' WHERE name = 'contact_email';
+UPDATE general_options SET value = 'loishvizo@gmail.com' WHERE name = 'email_from';
+UPDATE general_options SET value = 'Loishvizo Boosting Solutions' WHERE name = 'email_name';
+UPDATE general_options SET value = 'https://www.youtube.com/@loishvizo' WHERE name = 'social_youtube_link';
+UPDATE general_options SET value = '1' WHERE name = 'enable_service_list_no_login';
+
+-- Terms of Service (real English content)
+UPDATE general_options SET value = '<h2>Terms of Service</h2><p><strong>Last updated: May 2025</strong></p><h3>1. Acceptance of Terms</h3><p>By using Loishvizo Boosting Solutions, you agree to these Terms of Service. If you do not agree, please do not use our platform.</p><h3>2. Description of Services</h3><p>Loishvizo Boosting Solutions is a social media marketing (SMM) panel providing engagement services including followers, likes, views, streams, and other metrics for TikTok, Instagram, YouTube, Facebook, Twitter/X, Spotify, Telegram, and other platforms. Services are fulfilled through our network of verified delivery providers.</p><h3>3. Account Responsibilities</h3><p>You are responsible for keeping your login credentials secure. You agree to provide accurate information during registration. Account sharing is not permitted. You are solely responsible for all activity that occurs under your account.</p><h3>4. Payments and Refunds</h3><p>All payments are processed in Uganda Shillings (UGX). Funds added to your account balance are non-refundable unless a service fails to deliver any results. Partial deliveries do not qualify for refunds. For payment issues, contact loishvizo@gmail.com within 7 days of the transaction.</p><h3>5. Service Delivery</h3><p>We aim to deliver all services within the timeframe stated. Delivery times may vary due to platform conditions and provider availability. We do not guarantee 100% completion in all cases, and delivery timelines are estimates only.</p><h3>6. Order Cancellations</h3><p>Orders cannot be cancelled once processing has begun. Please verify all details before placing an order.</p><h3>7. Prohibited Uses</h3><p>You may not use our services for illegal purposes, to harass others, or in violation of any social media platform terms of service. Attempts to resell our services without written permission are prohibited.</p><h3>8. Limitation of Liability</h3><p>Loishvizo Boosting Solutions is not responsible for any account bans, suspensions, or penalties imposed by social media platforms. Our maximum liability is limited to the amount paid for the specific service in question.</p><h3>9. Privacy</h3><p>We collect only the information needed to provide our services and do not sell your personal data to third parties. Payments are processed through secure providers including PesaPal, MTN Mobile Money, and Airtel Money.</p><h3>10. Changes to Terms</h3><p>We may update these Terms at any time. Continued use of the Service after changes means you accept the updated Terms.</p><h3>11. Contact</h3><p>Email: loishvizo@gmail.com | Ishamvizo2005@gmail.com<br>WhatsApp: +256707291063</p>' WHERE name = 'terms_content';
+
+-- PesaPal payment method
+INSERT IGNORE INTO payments (id, type, name, min, max, sort, new_users, status, params) VALUES
+(23, 'pesapal', 'PesaPal (MTN/Airtel/Mastercard/Visa)', 5000, 10000000, 1, 1, 1,
+'{"type":"pesapal","name":"PesaPal","min":"5000","max":"10000000","consumer_key":"5Tj1LQ/T7CHpBKwGa+qpsg//M5aKqciy","consumer_secret":"","sandbox":"0"}');
+
+-- Categories for all 16 platforms (IDs 101-116 to avoid install.sql conflicts)
+INSERT IGNORE INTO categories (id,ids,name,sort,status,created,changed) VALUES
+(101,'cat_tiktok','TikTok',1,1,NOW(),NOW()),(102,'cat_instagram','Instagram',2,1,NOW(),NOW()),
+(103,'cat_youtube','YouTube',3,1,NOW(),NOW()),(104,'cat_facebook','Facebook',4,1,NOW(),NOW()),
+(105,'cat_twitter','Twitter / X',5,1,NOW(),NOW()),(106,'cat_spotify','Spotify',6,1,NOW(),NOW()),
+(107,'cat_telegram','Telegram',7,1,NOW(),NOW()),(108,'cat_linkedin','LinkedIn',8,1,NOW(),NOW()),
+(109,'cat_pinterest','Pinterest',9,1,NOW(),NOW()),(110,'cat_twitch','Twitch',10,1,NOW(),NOW()),
+(111,'cat_snapchat','Snapchat',11,1,NOW(),NOW()),(112,'cat_soundcloud','SoundCloud',12,1,NOW(),NOW()),
+(113,'cat_discord','Discord',13,1,NOW(),NOW()),(114,'cat_reddit','Reddit',14,1,NOW(),NOW()),
+(115,'cat_whatsapp','WhatsApp',15,1,NOW(),NOW()),(116,'cat_threads','Threads',16,1,NOW(),NOW());
+
+-- Services for all platforms (IDs 101-135, prices in UGX)
+INSERT IGNORE INTO services (id,ids,cate_id,name,price,original_price,min,max,add_type,type,status,created,changed) VALUES
+(101,'svc_tt_followers',101,'TikTok Followers - Real & Active',2000.0000,1400.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(102,'svc_tt_likes',101,'TikTok Likes - Fast Delivery',800.0000,560.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(103,'svc_tt_views',101,'TikTok Video Views - Ultra Fast',250.0000,175.0000,1000,1000000,'manual','default',1,NOW(),NOW()),
+(104,'svc_tt_comments',101,'TikTok Custom Comments',5000.0000,3500.0000,10,1000,'manual','custom_comments',1,NOW(),NOW()),
+(105,'svc_tt_shares',101,'TikTok Shares',1500.0000,1050.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(106,'svc_ig_followers',102,'Instagram Followers - High Quality',2500.0000,1750.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(107,'svc_ig_likes',102,'Instagram Likes - Fast',700.0000,490.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(108,'svc_ig_views',102,'Instagram Video Views',350.0000,245.0000,500,1000000,'manual','default',1,NOW(),NOW()),
+(109,'svc_ig_story',102,'Instagram Story Views',500.0000,350.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(110,'svc_ig_reels',102,'Instagram Reel Views',400.0000,280.0000,500,500000,'manual','default',1,NOW(),NOW()),
+(111,'svc_yt_views',103,'YouTube Views - High Quality',1200.0000,840.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(112,'svc_yt_subs',103,'YouTube Subscribers - Real',3500.0000,2450.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(113,'svc_yt_likes',103,'YouTube Likes',900.0000,630.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(114,'svc_yt_hours',103,'YouTube Watch Hours',8000.0000,5600.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(115,'svc_fb_pagelikes',104,'Facebook Page Likes',1800.0000,1260.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(116,'svc_fb_followers',104,'Facebook Followers',1500.0000,1050.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(117,'svc_fb_postlikes',104,'Facebook Post Likes',700.0000,490.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(118,'svc_fb_views',104,'Facebook Video Views',450.0000,315.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(119,'svc_tw_followers',105,'Twitter/X Followers',2000.0000,1400.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(120,'svc_tw_likes',105,'Twitter/X Likes',600.0000,420.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(121,'svc_tw_retweets',105,'Twitter/X Retweets',1000.0000,700.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(122,'svc_sp_streams',106,'Spotify Streams',900.0000,630.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(123,'svc_sp_followers',106,'Spotify Artist Followers',2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(124,'svc_tg_members',107,'Telegram Channel Members',1500.0000,1050.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(125,'svc_tg_views',107,'Telegram Post Views',300.0000,210.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(126,'svc_li_followers',108,'LinkedIn Page Followers',4000.0000,2800.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(127,'svc_pn_followers',109,'Pinterest Followers',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(128,'svc_tw_ch_followers',110,'Twitch Followers',3000.0000,2100.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(129,'svc_snap_followers',111,'Snapchat Followers',2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(130,'svc_sc_plays',112,'SoundCloud Plays',700.0000,490.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(131,'svc_dc_members',113,'Discord Server Members',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(132,'svc_rd_upvotes',114,'Reddit Post Upvotes',8000.0000,5600.0000,10,1000,'manual','default',1,NOW(),NOW()),
+(133,'svc_wa_members',115,'WhatsApp Channel Members',2500.0000,1750.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(134,'svc_th_followers',116,'Threads Followers',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(135,'svc_th_likes',116,'Threads Post Likes',700.0000,490.0000,100,50000,'manual','default',1,NOW(),NOW());
+
+LOISHVIZO_SQL
 
 echo "[APP] Setup complete!"
 

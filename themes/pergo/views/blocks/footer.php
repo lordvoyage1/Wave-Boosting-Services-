@@ -18,7 +18,7 @@
               </a>
               <a href="https://www.youtube.com/@loishvizo" target="_blank" class="lv-footer-soc" title="YouTube"><i class="fa fa-youtube-play"></i></a>
               <a href="https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30" target="_blank" class="lv-footer-soc" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
-              <a href="mailto:delostvoyage@gmail.com" class="lv-footer-soc" title="Email"><i class="fa fa-envelope"></i></a>
+              <a href="mailto:loishvizo@gmail.com" class="lv-footer-soc" title="Email"><i class="fa fa-envelope"></i></a>
             </div>
           </div>
 
@@ -60,7 +60,10 @@
             <div class="lv-footer-contact">
               <div class="lv-footer-contact-item">
                 <i class="fa fa-envelope"></i>
-                <a href="mailto:delostvoyage@gmail.com">delostvoyage@gmail.com</a>
+                <div>
+                  <a href="mailto:loishvizo@gmail.com">loishvizo@gmail.com</a><br>
+                  <a href="mailto:Ishamvizo2005@gmail.com">Ishamvizo2005@gmail.com</a>
+                </div>
               </div>
               <div class="lv-footer-contact-item">
                 <i class="fa fa-clock-o"></i>
@@ -88,6 +91,18 @@
       </div>
     </footer>
 
+    <!-- WhatsApp Floating Button -->
+    <style>
+    .lv-wa-float{position:fixed;bottom:26px;right:26px;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;box-shadow:0 4px 22px rgba(37,211,102,.45);z-index:9998;text-decoration:none;transition:transform .2s,box-shadow .2s}
+    .lv-wa-float:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,.55);color:#fff;text-decoration:none}
+    .lv-wa-float-tip{position:absolute;right:70px;top:50%;transform:translateY(-50%);white-space:nowrap;background:rgba(0,0,0,.72);color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+    .lv-wa-float:hover .lv-wa-float-tip{opacity:1}
+    @media(max-width:480px){.lv-wa-float{width:50px;height:50px;font-size:24px;bottom:18px;right:18px}}
+    </style>
+    <a href="https://wa.me/256707291063" target="_blank" rel="noopener noreferrer" class="lv-wa-float" aria-label="Chat on WhatsApp">
+      <i class="fa fa-whatsapp"></i>
+      <span class="lv-wa-float-tip">Chat with us</span>
+    </a>
     <script src="<?=BASE?>assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="<?=BASE?>assets/js/vendors/jquery.sparkline.min.js"></script>
     <script src="<?=BASE?>assets/js/core.js"></script>

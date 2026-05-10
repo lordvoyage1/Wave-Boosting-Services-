@@ -138,7 +138,7 @@
   <div class="lv-ticker-scroll">
     <?php $ticks = ['TikTok Followers','Instagram Likes','YouTube Views','Facebook Likes','Twitter/X Followers','Spotify Streams','Telegram Members','LinkedIn Followers','Pinterest Repins','Twitch Followers','Snapchat Views','SoundCloud Plays','Discord Members','WhatsApp Members','Reddit Upvotes']; ?>
     <?php foreach(array_merge($ticks,$ticks) as $t): ?>
-    <span class="lv-tick-item">⚡ <?=htmlspecialchars($t)?></span>
+    <span class="lv-tick-item"><svg class="lv-tick-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><?=htmlspecialchars($t)?></span>
     <?php endforeach; ?>
   </div>
 </div>

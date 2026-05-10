@@ -105,7 +105,8 @@ img{max-width:100%;display:block}
 .lv-ticker-wrap{overflow:hidden;padding:14px 0;background:#fff;border-top:1px solid var(--lv-border);border-bottom:1px solid var(--lv-border)}
 .lv-ticker-scroll{display:flex;gap:10px;animation:tickScroll 35s linear infinite;white-space:nowrap}
 @keyframes tickScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.lv-tick-item{flex-shrink:0;padding:7px 16px;background:var(--lv-olt);border:1px solid rgba(230,126,34,.2);border-radius:50px;font-size:12px;font-weight:600;color:var(--lv-orange)}
+.lv-tick-item{flex-shrink:0;padding:7px 16px;background:var(--lv-olt);border:1px solid rgba(230,126,34,.2);border-radius:50px;font-size:12px;font-weight:600;color:var(--lv-orange);display:inline-flex;align-items:center;gap:5px}
+.lv-tick-icon{width:11px;height:11px;flex-shrink:0;stroke:currentColor}
 
 /* ── SECTIONS ────────────────────────────────────*/
 .lv-section{padding:96px 0}
