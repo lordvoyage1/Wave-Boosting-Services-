@@ -7,7 +7,7 @@
 <nav class="lv-mobile-nav" id="lvMobNav">
   <div class="lv-mob-header">
     <div class="lv-mob-logo">
-      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" height="36">
+      <img src="<?=get_option('website_logo', BASE.'assets/images/logo.png')?>" alt="Loishvizo" height="36">
       <span>Loishvizo</span>
     </div>
     <button class="lv-mob-close" onclick="closeMobMenu()">✕</button>
@@ -15,6 +15,7 @@
   <div class="lv-mob-links">
     <a href="<?=cn()?>">Home</a>
     <a href="#platforms">Platforms</a>
+    <a href="#how-it-works">How It Works</a>
     <?php if(get_option("enable_service_list_no_login") == 1):?>
     <a href="<?=cn('services')?>">Services</a>
     <?php endif;?>
@@ -32,7 +33,7 @@
 <nav class="lv-navbar" id="lvNavbar">
   <div class="lv-container lv-navbar-inner">
     <a href="<?=cn()?>" class="lv-logo-wrap">
-      <img src="<?=BASE?>assets/images/logo.png" alt="Loishvizo" class="lv-logo-img">
+      <img src="<?=get_option('website_logo', BASE.'assets/images/logo.png')?>" alt="Loishvizo" class="lv-logo-img">
       <div class="lv-logo-text">
         <span class="lv-logo-name">Loishvizo</span>
         <span class="lv-logo-tagline">Boosting Solutions</span>
@@ -41,6 +42,7 @@
     <ul class="lv-nav-menu">
       <li><a href="<?=cn()?>" class="active">Home</a></li>
       <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
       <?php if(get_option("enable_service_list_no_login") == 1):?>
       <li><a href="<?=cn('services')?>">Services</a></li>
       <?php endif;?>
@@ -76,16 +78,21 @@
           Faster Than Ever
         </h1>
         <p class="lv-hero-para">
-          Loishvizo delivers followers, likes, views and engagement across all major platforms — fast, affordable, and safe.
+          Loishvizo delivers real followers, likes, views and engagement across all major platforms — fast, affordable and 100% account safe.
         </p>
         <div class="lv-hero-cta">
           <?php if(!session('uid')):?>
-          <a href="<?=cn('auth/signup')?>" class="lv-btn-main">Get Started Free</a>
+          <a href="<?=cn('auth/signup')?>" class="lv-btn-main">🚀 Get Started Free</a>
           <a href="<?=cn('auth/login')?>" class="lv-btn-sec">Login to Dashboard</a>
           <?php else:?>
-          <a href="<?=cn('new_order')?>" class="lv-btn-main">Place New Order</a>
+          <a href="<?=cn('new_order')?>" class="lv-btn-main">⚡ Place New Order</a>
           <a href="<?=cn('services')?>" class="lv-btn-sec">Browse Services</a>
           <?php endif;?>
+        </div>
+        <div class="lv-hero-trust">
+          <span class="lv-hero-trust-item"><i class="fa fa-shield"></i> No Password Required</span>
+          <span class="lv-hero-trust-item"><i class="fa fa-bolt"></i> Instant Start</span>
+          <span class="lv-hero-trust-item"><i class="fa fa-lock"></i> Secure Payments</span>
         </div>
       </div>
       <!-- PLATFORM LOGOS SIDE -->
@@ -136,18 +143,45 @@
 <!-- SCROLLING TICKER -->
 <div class="lv-ticker-wrap">
   <div class="lv-ticker-scroll">
-    <?php $ticks = ['TikTok Followers','Instagram Likes','YouTube Views','Facebook Likes','Twitter/X Followers','Spotify Streams','Telegram Members','LinkedIn Followers','Pinterest Repins','Twitch Followers','Snapchat Views','SoundCloud Plays','Discord Members','WhatsApp Members','Reddit Upvotes']; ?>
+    <?php $ticks = ['TikTok Followers','Instagram Likes','YouTube Views','Facebook Likes','Twitter/X Followers','Spotify Streams','Telegram Members','LinkedIn Followers','Pinterest Repins','Twitch Followers','Snapchat Views','SoundCloud Plays','Discord Members','WhatsApp Members','Reddit Upvotes','Threads Followers']; ?>
     <?php foreach(array_merge($ticks,$ticks) as $t): ?>
     <span class="lv-tick-item"><svg class="lv-tick-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><?=htmlspecialchars($t)?></span>
     <?php endforeach; ?>
   </div>
 </div>
 
+<!-- STATS SECTION -->
+<section class="lv-stats-section">
+  <div class="lv-container">
+    <div class="lv-stats-grid">
+      <div class="lv-stat-item">
+        <div class="lv-stat-num">500K<span>+</span></div>
+        <div class="lv-stat-lbl">Orders Completed</div>
+      </div>
+      <div class="lv-stat-sep"></div>
+      <div class="lv-stat-item">
+        <div class="lv-stat-num">50K<span>+</span></div>
+        <div class="lv-stat-lbl">Active Users</div>
+      </div>
+      <div class="lv-stat-sep"></div>
+      <div class="lv-stat-item">
+        <div class="lv-stat-num">16<span>+</span></div>
+        <div class="lv-stat-lbl">Platforms Supported</div>
+      </div>
+      <div class="lv-stat-sep"></div>
+      <div class="lv-stat-item">
+        <div class="lv-stat-num">24/7</div>
+        <div class="lv-stat-lbl">Customer Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PLATFORMS SECTION -->
 <section class="lv-section" id="platforms">
   <div class="lv-container">
     <div class="lv-sec-head">
-      <h2>15+ Platforms. <span class="lv-gradient-text">One Panel.</span></h2>
+      <h2>16+ Platforms. <span class="lv-gradient-text">One Panel.</span></h2>
       <p>Boost your presence on every major social media platform from a single dashboard.</p>
     </div>
     <div class="lv-platforms-grid">
@@ -201,12 +235,12 @@
       </div>
       <div class="lv-feat-box">
         <div class="lv-feat-ic lv-ic-purple">💰</div>
-        <div class="lv-feat-title">Lowest Prices</div>
-        <div class="lv-feat-body">Industry's most competitive rates with bulk discounts and custom pricing for agencies and resellers.</div>
+        <div class="lv-feat-title">Lowest Prices in Uganda</div>
+        <div class="lv-feat-body">Industry's most competitive UGX rates with bulk discounts and custom pricing for agencies and resellers.</div>
       </div>
       <div class="lv-feat-box">
         <div class="lv-feat-ic lv-ic-green">🔄</div>
-        <div class="lv-feat-title">Auto Refill</div>
+        <div class="lv-feat-title">Auto Refill Guarantee</div>
         <div class="lv-feat-body">Followers drop? Our auto-refill system replenishes your orders automatically at no extra cost.</div>
       </div>
       <div class="lv-feat-box">
@@ -216,12 +250,12 @@
       </div>
       <div class="lv-feat-box">
         <div class="lv-feat-ic lv-ic-green">🤝</div>
-        <div class="lv-feat-title">24/7 Support</div>
-        <div class="lv-feat-body">Our support team responds around the clock via tickets. Average response under 30 minutes.</div>
+        <div class="lv-feat-title">24/7 Live Support</div>
+        <div class="lv-feat-body">Our support team responds around the clock via WhatsApp and tickets. Average response under 30 minutes.</div>
       </div>
       <div class="lv-feat-box">
         <div class="lv-feat-ic lv-ic-purple">🌍</div>
-        <div class="lv-feat-title">15+ Platforms</div>
+        <div class="lv-feat-title">16+ Platforms</div>
         <div class="lv-feat-body">TikTok, Instagram, YouTube, Spotify, Telegram and more — all from a single, simple dashboard.</div>
       </div>
       <div class="lv-feat-box">
@@ -229,6 +263,73 @@
         <div class="lv-feat-title">Drip Feed &amp; API</div>
         <div class="lv-feat-body">Natural-looking growth with drip feed delivery. Full API access for resellers and developers.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="lv-section lv-hiw-section" id="how-it-works">
+  <div class="lv-container">
+    <div class="lv-sec-head">
+      <h2>How It <span class="lv-gradient-text">Works</span></h2>
+      <p>Three simple steps to boost your social media presence in minutes.</p>
+    </div>
+    <div class="lv-steps-grid">
+      <div class="lv-step-card">
+        <div class="lv-step-badge">01</div>
+        <div class="lv-step-icon">👤</div>
+        <div class="lv-step-title">Create Your Account</div>
+        <div class="lv-step-body">Sign up for free in under 30 seconds. No credit card required. Instantly access the full dashboard.</div>
+        <a href="<?=cn('auth/signup')?>" class="lv-step-link">Get Started →</a>
+      </div>
+      <div class="lv-step-connector"><span></span></div>
+      <div class="lv-step-card">
+        <div class="lv-step-badge">02</div>
+        <div class="lv-step-icon">💳</div>
+        <div class="lv-step-title">Add Funds</div>
+        <div class="lv-step-body">Top up your balance using MTN Mobile Money, Airtel Money, MasterCard or Visa — all via secure PesaPal.</div>
+        <a href="<?=cn('auth/signup')?>" class="lv-step-link">Add Funds →</a>
+      </div>
+      <div class="lv-step-connector"><span></span></div>
+      <div class="lv-step-card">
+        <div class="lv-step-badge">03</div>
+        <div class="lv-step-icon">🚀</div>
+        <div class="lv-step-title">Place Your Order</div>
+        <div class="lv-step-body">Choose a service, enter your profile or post link and watch your numbers grow — orders start instantly.</div>
+        <a href="<?=cn('auth/signup')?>" class="lv-step-link">Start Boosting →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT METHODS -->
+<section class="lv-pay-section">
+  <div class="lv-container">
+    <div class="lv-pay-inner">
+      <div class="lv-pay-title">Secure Payment Methods Accepted</div>
+      <div class="lv-pay-badges">
+        <div class="lv-pay-badge lv-pay-mtn">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#FFCC00"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">MTN</text></svg>
+          <span>MTN Mobile Money</span>
+        </div>
+        <div class="lv-pay-badge lv-pay-airtel">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#E50011"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff">Airtel</text></svg>
+          <span>Airtel Money</span>
+        </div>
+        <div class="lv-pay-badge lv-pay-mc">
+          <svg width="32" height="22" viewBox="0 0 50 32" fill="none"><rect width="50" height="32" rx="4" fill="#fff"/><circle cx="19" cy="16" r="11" fill="#EB001B"/><circle cx="31" cy="16" r="11" fill="#F79E1B"/><path d="M25 7.5a11 11 0 010 17A11 11 0 0125 7.5z" fill="#FF5F00"/></svg>
+          <span>MasterCard</span>
+        </div>
+        <div class="lv-pay-badge lv-pay-visa">
+          <svg width="40" height="22" viewBox="0 0 60 32" fill="none"><rect width="60" height="32" rx="4" fill="#1A1F71"/><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF" font-style="italic">VISA</text></svg>
+          <span>Visa Card</span>
+        </div>
+        <div class="lv-pay-badge lv-pay-pesapal">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#5B2D8E"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="7" font-weight="bold" fill="#fff">PesaPal</text></svg>
+          <span>PesaPal Secure</span>
+        </div>
+      </div>
+      <div class="lv-pay-secured"><i class="fa fa-lock"></i> All transactions are encrypted and processed securely via PesaPal</div>
     </div>
   </div>
 </section>
@@ -243,14 +344,15 @@
     <div class="lv-faq-wrap">
       <?php
       $faqs = [
-        ['Is it safe to use Loishvizo?', 'Yes. We never ask for your password. Services are delivered externally without accessing your account. Your account security is always protected.'],
-        ['How fast will I receive results?', 'Most orders start within seconds and complete within minutes to a few hours depending on the service type and quantity ordered.'],
-        ['Which platforms do you support?', 'We support 15+ platforms including TikTok, Instagram, YouTube, Facebook, Twitter/X, Spotify, Telegram, LinkedIn, Pinterest, Twitch, Snapchat, SoundCloud, Discord, Reddit, WhatsApp and more.'],
+        ['Is it safe to use Loishvizo?', 'Yes. We never ask for your password. Services are delivered externally without accessing your account. Your account security is always protected. We have served 50,000+ users without a single account compromise.'],
+        ['How fast will I receive results?', 'Most orders start within seconds and complete within minutes to a few hours depending on the service type and quantity ordered. TikTok and Instagram orders often begin in under 60 seconds.'],
+        ['Which platforms do you support?', 'We support 16+ platforms including TikTok, Instagram, YouTube, Facebook, Twitter/X, Spotify, Telegram, LinkedIn, Pinterest, Twitch, Snapchat, SoundCloud, Discord, Reddit, WhatsApp, Threads and more.'],
+        ['What payment methods do you accept?', 'We accept MTN Mobile Money, Airtel Money, MasterCard, and Visa — all processed securely through PesaPal. All payments are in Uganda Shillings (UGX).'],
         ['Do you offer a refill guarantee?', 'Yes. Many of our services include a refill guarantee period. If your count drops, we refill it at no extra cost within the guarantee window.'],
-        ['Can I use Loishvizo for my clients as an agency?', 'Absolutely. Loishvizo is built for agencies and resellers. You can manage multiple accounts and access our API for automated order placement.'],
-        ['What payment methods do you accept?', 'We accept major payment methods available in your region. Log in and visit the Add Funds page to see all options available to you.'],
-        ['Can I cancel an order after placing it?', 'Orders can be cancelled if they have not started processing yet. Once started, cancellation depends on the service type. Contact support for help.'],
-        ['Is there a minimum order amount?', 'Minimum order quantities vary per service. You can see the minimum and maximum for each service on the services page before placing your order.'],
+        ['Can I use Loishvizo for my clients as an agency?', 'Absolutely. Loishvizo is built for agencies and resellers. You can manage multiple accounts and access our full API for automated order placement at your reseller pricing.'],
+        ['Can I cancel an order after placing it?', 'Orders can be cancelled if they have not started processing yet. Once processing begins, cancellation depends on the service type. Contact support for assistance.'],
+        ['Is there a minimum order amount?', 'Minimum order quantities vary per service. You can see the minimum and maximum for each service on the services page before placing your order. Most services start from as low as UGX 250.'],
+        ['How do I contact support?', 'You can reach us via the ticket system in your dashboard, by email at loishvizo@gmail.com, or via WhatsApp at +256707291063. We respond 24/7.'],
       ];
       foreach($faqs as $i => $faq): ?>
       <div class="lv-faq-row" id="faqRow<?=$i?>">
@@ -269,15 +371,21 @@
 <section class="lv-cta-section">
   <div class="lv-container">
     <div class="lv-cta-box">
+      <div class="lv-cta-badge">⚡ Join 50,000+ creators</div>
       <h2>Ready to Grow Your Social Media?</h2>
-      <p>Join thousands of creators and businesses who trust Loishvizo for ultra-speed social media growth.</p>
+      <p>Join thousands of creators and businesses across Uganda and East Africa who trust Loishvizo for ultra-speed social media growth.</p>
       <div class="lv-cta-btns">
         <?php if(!session('uid')):?>
-        <a href="<?=cn('auth/signup')?>" class="lv-btn-main">Create Free Account</a>
+        <a href="<?=cn('auth/signup')?>" class="lv-btn-main">🚀 Create Free Account</a>
         <?php else:?>
-        <a href="<?=cn('new_order')?>" class="lv-btn-main">Place New Order</a>
+        <a href="<?=cn('new_order')?>" class="lv-btn-main">⚡ Place New Order</a>
         <?php endif;?>
         <a href="#platforms" class="lv-btn-sec">View All Platforms</a>
+      </div>
+      <div class="lv-cta-reassurance">
+        <span>✓ Free to sign up</span>
+        <span>✓ No credit card required</span>
+        <span>✓ Start in under 2 minutes</span>
       </div>
     </div>
   </div>
@@ -299,20 +407,17 @@ function closeMobMenu() {
   document.body.style.overflow = '';
 }
 
-// Sticky navbar
 window.addEventListener('scroll', function() {
   var nav = document.getElementById('lvNavbar');
   if(window.scrollY > 60) nav.classList.add('lv-navbar-stuck');
   else nav.classList.remove('lv-navbar-stuck');
 });
 
-// FAQ accordion
 function toggleFaq(i) {
   var ans = document.getElementById('faqAns' + i);
   var arrow = document.getElementById('faqArrow' + i);
   var btn = ans.previousElementSibling;
   var open = ans.classList.contains('open');
-  // close all
   document.querySelectorAll('.lv-faq-answer').forEach(function(el) { el.classList.remove('open'); });
   document.querySelectorAll('.lv-faq-arrow').forEach(function(el) { el.textContent = '＋'; });
   document.querySelectorAll('.lv-faq-question').forEach(function(el) { el.classList.remove('active'); el.setAttribute('aria-expanded','false'); });
@@ -323,4 +428,29 @@ function toggleFaq(i) {
     btn.setAttribute('aria-expanded','true');
   }
 }
+
+// Animate stat numbers on scroll
+(function(){
+  var animated = false;
+  function animateStats() {
+    if(animated) return;
+    var el = document.querySelector('.lv-stats-section');
+    if(!el) return;
+    var rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 100) {
+      animated = true;
+      document.querySelectorAll('.lv-stat-num').forEach(function(num) {
+        num.style.opacity = '0';
+        num.style.transform = 'translateY(20px)';
+        setTimeout(function() {
+          num.style.transition = 'all 0.6s ease';
+          num.style.opacity = '1';
+          num.style.transform = 'translateY(0)';
+        }, 100);
+      });
+    }
+  }
+  window.addEventListener('scroll', animateStats);
+  animateStats();
+})();
 </script>

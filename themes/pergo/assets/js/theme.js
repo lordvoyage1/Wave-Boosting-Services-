@@ -1,41 +1,38 @@
-function Langding_page(){
-    var self= this;
-    this.init= function(){
-    };
+/* Loishvizo Boosting Solutions — Pergo Theme JS */
 
-    $('body').scrollspy({
-        target: '#headerNav',
-        offset: 54
-    });
-
-      // Collapse Navbar
-    var navbarCollapse = function() {
-        if ($("#headerNav").offset().top > 100) {
-          $("#headerNav").addClass("shrink");
-          $("#headerNav .site-logo").removeClass("d-none");
-          $("#headerNav .site-logo-white").addClass("d-none");
-        } else {
-          $("#headerNav").removeClass("shrink");
-          $("#headerNav .site-logo").addClass("d-none");
-          $("#headerNav .site-logo-white").removeClass("d-none");
-        }
-    };
-    // Collapse now if page is not at top
-    navbarCollapse();
-    // Collapse the navbar when page is scrolled
-    $(window).scroll(navbarCollapse);
-
-    $(document).on("click", ".js-scroll-trigger", function(){
-        _that = $(this);
-        $(this).parent().addClass('active');
-        $(this).parent().siblings().removeClass('active');
-        _div = _that.attr('href');
-        $('html, body').animate({
-            scrollTop: $(_div).offset().top
-        }, 1000);
-    });
+// Sidebar mobile toggle for logged-in users
+function lvToggleSidebar() {
+  var sb = document.querySelector('.lv-user-sidebar');
+  if(sb) sb.classList.toggle('open');
 }
-Langding_page= new Langding_page();
-$(function(){
-    Langding_page.init();
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
 });
+
+// Active nav link highlighting based on scroll
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  if(!sections.length) return;
+  window.addEventListener('scroll', function() {
+    var pos = window.scrollY + 100;
+    sections.forEach(function(sec) {
+      var top = sec.offsetTop;
+      var h = sec.offsetHeight;
+      var link = document.querySelector('.lv-nav-menu a[href="#' + sec.id + '"]');
+      if(link) {
+        if(pos >= top && pos < top + h) {
+          document.querySelectorAll('.lv-nav-menu a').forEach(function(l){ l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      }
+    });
+  }, { passive: true });
+})();

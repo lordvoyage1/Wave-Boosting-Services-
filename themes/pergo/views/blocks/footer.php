@@ -11,14 +11,24 @@
               <img src="<?=get_option('website_logo', BASE.'assets/images/logo.png')?>" alt="Loishvizo">
               <span class="lv-footer-brand-name">Loishvizo</span>
             </div>
-            <p class="lv-footer-brand-desc">The ultra speed social media boosting panel. Grow TikTok, Instagram, YouTube, Spotify and 15+ more platforms instantly.</p>
+            <p class="lv-footer-brand-desc">The ultra speed social media boosting panel. Grow TikTok, Instagram, YouTube, Spotify and 16+ more platforms instantly from one dashboard.</p>
             <div class="lv-footer-socials">
-              <a href="https://www.tiktok.com/@itsmeddy?_r=1&_t=ZS-95zn8eiI69V" target="_blank" class="lv-footer-soc" title="TikTok">
+              <a href="https://www.tiktok.com/@itsmeddy?_r=1&_t=ZS-95zn8eiI69V" target="_blank" rel="noopener" class="lv-footer-soc" title="TikTok">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.72a8.17 8.17 0 004.77 1.52V6.79a4.85 4.85 0 01-1-.1z"/></svg>
               </a>
-              <a href="https://www.youtube.com/@loishvizo" target="_blank" class="lv-footer-soc" title="YouTube"><i class="fa fa-youtube-play"></i></a>
-              <a href="https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30" target="_blank" class="lv-footer-soc" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+              <a href="https://www.youtube.com/@loishvizo" target="_blank" rel="noopener" class="lv-footer-soc" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30" target="_blank" rel="noopener" class="lv-footer-soc" title="WhatsApp Channel"><i class="fa fa-whatsapp"></i></a>
               <a href="mailto:loishvizo@gmail.com" class="lv-footer-soc" title="Email"><i class="fa fa-envelope"></i></a>
+            </div>
+            <div style="margin-top:16px">
+              <div class="lv-footer-col-title" style="margin-bottom:10px">Accepted Payments</div>
+              <div class="lv-footer-pay-row">
+                <span class="lv-footer-pay-chip">MTN MoMo</span>
+                <span class="lv-footer-pay-chip">Airtel Money</span>
+                <span class="lv-footer-pay-chip">MasterCard</span>
+                <span class="lv-footer-pay-chip">Visa</span>
+                <span class="lv-footer-pay-chip">PesaPal</span>
+              </div>
             </div>
           </div>
 
@@ -28,12 +38,14 @@
             <ul class="lv-footer-links">
               <li><a href="<?=cn()?>">Home</a></li>
               <li><a href="#platforms">Platforms</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
               <?php if(!session('uid')):?>
               <li><a href="<?=cn('auth/login')?>">Login</a></li>
               <li><a href="<?=cn('auth/signup')?>">Sign Up Free</a></li>
               <?php else:?>
               <li><a href="<?=cn('new_order')?>">New Order</a></li>
               <li><a href="<?=cn('services')?>">Services</a></li>
+              <li><a href="<?=cn('statistics')?>">Dashboard</a></li>
               <?php endif;?>
               <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -41,37 +53,49 @@
 
           <!-- Support -->
           <div>
-            <div class="lv-footer-col-title">Support</div>
+            <div class="lv-footer-col-title">Support & Legal</div>
             <ul class="lv-footer-links">
-              <li><a href="<?=cn('tickets')?>">Submit Ticket</a></li>
-              <li><a href="<?=cn('terms')?>">Terms &amp; Conditions</a></li>
-              <?php if(get_option('is_cookie_policy_page')):?>
-              <li><a href="<?=cn('cookie-policy')?>">Cookie Policy</a></li>
-              <?php endif;?>
+              <li><a href="<?=cn('tickets')?>">Submit a Ticket</a></li>
+              <li><a href="<?=cn('terms')?>">Terms of Service</a></li>
+              <li><a href="<?=cn('cookie-policy')?>">Privacy Policy</a></li>
               <?php if(get_option('enable_api_tab')):?>
               <li><a href="<?=cn('api/docs')?>">API Documentation</a></li>
+              <?php endif;?>
+              <?php if(get_option("enable_service_list_no_login") == 1):?>
+              <li><a href="<?=cn('services')?>">Browse Services</a></li>
               <?php endif;?>
             </ul>
           </div>
 
           <!-- Contact -->
           <div>
-            <div class="lv-footer-col-title">Contact Info</div>
+            <div class="lv-footer-col-title">Contact Us</div>
             <div class="lv-footer-contact">
               <div class="lv-footer-contact-item">
                 <i class="fa fa-envelope"></i>
                 <div>
                   <a href="mailto:loishvizo@gmail.com">loishvizo@gmail.com</a><br>
-                  <a href="mailto:Ishamvizo2005@gmail.com">Ishamvizo2005@gmail.com</a>
+                  <a href="mailto:Ishamvizo2005@gmail.com" style="margin-top:3px;display:inline-block">Ishamvizo2005@gmail.com</a>
+                </div>
+              </div>
+              <div class="lv-footer-contact-item">
+                <i class="fa fa-whatsapp"></i>
+                <div>
+                  <a href="https://wa.me/256707291063" target="_blank" rel="noopener">+256 707 291 063</a><br>
+                  <a href="https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30" target="_blank" rel="noopener" style="margin-top:3px;display:inline-block;font-size:11.5px">WhatsApp Channel</a>
                 </div>
               </div>
               <div class="lv-footer-contact-item">
                 <i class="fa fa-clock-o"></i>
-                <span>Support available 24/7 via ticket system</span>
+                <span>Support available 24/7 via ticket &amp; WhatsApp</span>
               </div>
               <div class="lv-footer-contact-item">
                 <i class="fa fa-bolt"></i>
                 <span>Average response time: under 30 minutes</span>
+              </div>
+              <div class="lv-footer-contact-item">
+                <i class="fa fa-map-marker"></i>
+                <span>Uganda &amp; East Africa</span>
               </div>
             </div>
           </div>
@@ -83,9 +107,8 @@
           <span class="lv-footer-copy"><?=get_option('copy_right_content', 'Copyright &copy; '.date('Y').' Loishvizo Boosting Solutions. All Rights Reserved.')?></span>
           <div class="lv-footer-legal">
             <a href="<?=cn('terms')?>">Terms of Service</a>
-            <?php if(get_option('is_cookie_policy_page')):?>
             <a href="<?=cn('cookie-policy')?>">Privacy Policy</a>
-            <?php endif;?>
+            <a href="<?=cn('tickets')?>">Support</a>
           </div>
         </div>
       </div>
