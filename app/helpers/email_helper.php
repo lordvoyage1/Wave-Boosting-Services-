@@ -75,8 +75,8 @@ if (!function_exists('parse_merge_fields')) {
             "{{email_content}}" => $content,
             "{{website_logo}}" => get_option('website_logo', BASE . "assets/images/favicon.png"),
             "{{website_link}}" => PATH,
-            "{{website_name}}" => get_option("website_name", "Smartpanel PANEL"),
-            "{{copyright}}" => get_option('copy_right_content', "Copyright &copy; 2020 - SmartPanel"),
+            "{{website_name}}" => get_option("website_name", "Loishvizo Boosting Solutions"),
+            "{{copyright}}" => get_option('copy_right_content', "Copyright &copy; 2026 Loishvizo Boosting Solutions. All Rights Reserved."),
         );
 
         if (is_array($merge_fields)) {

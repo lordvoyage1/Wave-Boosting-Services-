@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-pantone">
-          <h4 class="modal-title"><i class="fe fe-award"></i> <?=lang("whats_new_on_smartpanel")?></h4>
+          <h4 class="modal-title"><i class="fe fe-award"></i> What's New on Loishvizo</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           </button>
         </div>

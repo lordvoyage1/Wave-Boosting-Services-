@@ -55,7 +55,7 @@
             'type' => "checkbox",
         ],
         [
-            'label'      => form_label('Sync Service Description (Support only HQ SmartPanel)'),
+            'label'      => form_label('Sync Service Description (Support only HQ Panel)'),
             'element'    => $hidden_service_desc . form_input(['name' => 'sync_request_options[service_desc]', 'value' => 1,  'type' => 'checkbox', 'class' => $class_element_checkbox]),
             'class_main' => "col-md-12 col-sm-12 col-xs-12",
             'type' => "checkbox",

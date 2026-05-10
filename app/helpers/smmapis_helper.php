@@ -3,8 +3,8 @@
 if(!function_exists('apis_list')){
     function apis_list($type = ""){
         $apis = array(
-            'standard'    => "Standard (JAP, Perfectpanel, Smartpanel)",
-            'indusrabbit' => "Type 2 (indusrabbit, Indiansmartpanel)",
+            'standard'    => "Standard (JAP, Perfectpanel, Standard Panel)",
+            'indusrabbit' => "Type 2 (indusrabbit, Standard Panel v2)",
             'yoyomedia'   => "Type 3 (Yoyomedia)",
             'instasmm'    => "Type 4 (Instasmm)",
             'realfans'    => "Type 5 (realfans)",
@@ -232,34 +232,34 @@ if(!function_exists("order_status_title")){
         switch ($key) {
             case 'completed':
                 return lang("Completed");
-                break;			
+                break;                  
             case 'processing':
                 return lang("Processing");
-                break;			
+                break;                  
             case 'inprogress':
                 return lang("In_progress");
-                break;			
+                break;                  
             case 'pending':
                 return lang('Pending');
-                break;			
+                break;                  
             case 'partial':
                 return lang("Partial");
-                break;			
+                break;                  
             case 'canceled':
                 return lang("Canceled");
-                break;	
+                break;  
 
             case 'refunded':
                 return lang("Refunded");
-                break;	
+                break;  
 
             case 'active':
                 return lang("Active");
-                break;	
+                break;  
 
             case 'awaiting':
                 return lang("Awaiting");
-                break;	
+                break;  
 
             /*----------  subscriptions  ----------*/
 
@@ -289,11 +289,11 @@ if(!function_exists("order_status_title")){
 
             case 'fail':
                 return lang("Fail");
-                break;	
+                break;  
 
             case 'error':
                 return lang("Error");
-                break;						
+                break;                                          
         }
     }
 }

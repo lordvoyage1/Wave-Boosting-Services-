@@ -153,13 +153,29 @@ fi
 # Update brand settings in general_options
 echo "[APP] Updating Loishvizo brand settings..."
 "$MYSQL" --socket="$MYSQL_SOCK" -u root -p"$MYSQL_ROOT_PASS" "$DB_NAME" 2>/dev/null <<'BRAND_SQL'
-INSERT INTO general_options (name, value) VALUES
-  ('website_name',    'Loishvizo Boosting Solutions'),
-  ('website_title',   'Loishvizo Boosting Solutions - Ultra Speed SMM Panel'),
-  ('website_desc',    'Loishvizo Boosting Solutions - The ultra speed social media boosting platform. Boost TikTok, YouTube, Instagram, Facebook, Twitter, Spotify & more instantly.'),
-  ('website_keywords','loishvizo, smm panel, social media boosting, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, fast smm panel'),
-  ('copy_right_content', 'Copyright &copy; 2025 Loishvizo Boosting Solutions. All Rights Reserved.')
-ON DUPLICATE KEY UPDATE value = VALUES(value);
+UPDATE general_options SET value='Loishvizo Boosting Solutions' WHERE name='website_name';
+UPDATE general_options SET value='Loishvizo Boosting Solutions - #1 SMM Panel Uganda | Boost TikTok, YouTube, Instagram & More' WHERE name='website_title';
+UPDATE general_options SET value='Copyright &copy; 2026 Loishvizo Boosting Solutions. All Rights Reserved.' WHERE name='copy_right_content';
+UPDATE general_options SET value='loishvizo@gmail.com' WHERE name='contact_email';
+UPDATE general_options SET value='loishvizo@gmail.com' WHERE name='email_from';
+UPDATE general_options SET value='Loishvizo Boosting Solutions' WHERE name='email_name';
+UPDATE general_options SET value='+256 707 291 063' WHERE name='contact_tel';
+UPDATE general_options SET value='Mon - Sat 08:00 AM - 10:00 PM (EAT)' WHERE name='contact_work_hour';
+INSERT IGNORE INTO general_options (name,value) VALUES ('currency_code','UGX');
+INSERT IGNORE INTO general_options (name,value) VALUES ('currency_symbol','UGX ');
+UPDATE general_options SET value='UGX' WHERE name='currency_code';
+UPDATE general_options SET value='UGX ' WHERE name='currency_symbol';
+UPDATE general_options SET value='0' WHERE name='currency_decimal';
+UPDATE general_options SET value='1' WHERE name='enable_service_list_no_login';
+UPDATE general_options SET value='1' WHERE name='enable_api_tab';
+INSERT IGNORE INTO general_options (name,value) VALUES ('is_cookie_policy_page','1');
+UPDATE general_options SET value='1' WHERE name='is_cookie_policy_page';
+INSERT IGNORE INTO general_options (name,value) VALUES ('social_tiktok_link','https://www.tiktok.com/@loishvizo');
+INSERT IGNORE INTO general_options (name,value) VALUES ('social_whatsapp_link','https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30');
+UPDATE general_options SET value='https://www.tiktok.com/@loishvizo' WHERE name='social_tiktok_link';
+UPDATE general_options SET value='https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30' WHERE name='social_whatsapp_link';
+INSERT IGNORE INTO general_options (name,value) VALUES ('admin_emails','Ishamvizo2005@gmail.com,loishvizo@gmail.com,delostvoyage@gmail.com,meddymususwa126@gmail.com');
+UPDATE general_options SET value='Ishamvizo2005@gmail.com,loishvizo@gmail.com,delostvoyage@gmail.com,meddymususwa126@gmail.com' WHERE name='admin_emails';
 BRAND_SQL
 
 # Set up admin accounts in general_staffs (using actual column names)
@@ -215,54 +231,9 @@ INSERT IGNORE INTO payments (id, type, name, min, max, sort, new_users, status, 
 (23, 'pesapal', 'PesaPal (MTN/Airtel/Mastercard/Visa)', 5000, 10000000, 1, 1, 1,
 '{"type":"pesapal","name":"PesaPal","min":"5000","max":"10000000","consumer_key":"5Tj1LQ/T7CHpBKwGa+qpsg//M5aKqciy","consumer_secret":"","sandbox":"0"}');
 
--- Categories for all 16 platforms (IDs 101-116 to avoid install.sql conflicts)
-INSERT IGNORE INTO categories (id,ids,name,sort,status,created,changed) VALUES
-(101,'cat_tiktok','TikTok',1,1,NOW(),NOW()),(102,'cat_instagram','Instagram',2,1,NOW(),NOW()),
-(103,'cat_youtube','YouTube',3,1,NOW(),NOW()),(104,'cat_facebook','Facebook',4,1,NOW(),NOW()),
-(105,'cat_twitter','Twitter / X',5,1,NOW(),NOW()),(106,'cat_spotify','Spotify',6,1,NOW(),NOW()),
-(107,'cat_telegram','Telegram',7,1,NOW(),NOW()),(108,'cat_linkedin','LinkedIn',8,1,NOW(),NOW()),
-(109,'cat_pinterest','Pinterest',9,1,NOW(),NOW()),(110,'cat_twitch','Twitch',10,1,NOW(),NOW()),
-(111,'cat_snapchat','Snapchat',11,1,NOW(),NOW()),(112,'cat_soundcloud','SoundCloud',12,1,NOW(),NOW()),
-(113,'cat_discord','Discord',13,1,NOW(),NOW()),(114,'cat_reddit','Reddit',14,1,NOW(),NOW()),
-(115,'cat_whatsapp','WhatsApp',15,1,NOW(),NOW()),(116,'cat_threads','Threads',16,1,NOW(),NOW());
-
--- Services for all platforms (IDs 101-135, prices in UGX)
-INSERT IGNORE INTO services (id,ids,cate_id,name,price,original_price,min,max,add_type,type,status,created,changed) VALUES
-(101,'svc_tt_followers',101,'TikTok Followers - Real & Active',2000.0000,1400.0000,100,100000,'manual','default',1,NOW(),NOW()),
-(102,'svc_tt_likes',101,'TikTok Likes - Fast Delivery',800.0000,560.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(103,'svc_tt_views',101,'TikTok Video Views - Ultra Fast',250.0000,175.0000,1000,1000000,'manual','default',1,NOW(),NOW()),
-(104,'svc_tt_comments',101,'TikTok Custom Comments',5000.0000,3500.0000,10,1000,'manual','custom_comments',1,NOW(),NOW()),
-(105,'svc_tt_shares',101,'TikTok Shares',1500.0000,1050.0000,100,10000,'manual','default',1,NOW(),NOW()),
-(106,'svc_ig_followers',102,'Instagram Followers - High Quality',2500.0000,1750.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(107,'svc_ig_likes',102,'Instagram Likes - Fast',700.0000,490.0000,100,100000,'manual','default',1,NOW(),NOW()),
-(108,'svc_ig_views',102,'Instagram Video Views',350.0000,245.0000,500,1000000,'manual','default',1,NOW(),NOW()),
-(109,'svc_ig_story',102,'Instagram Story Views',500.0000,350.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(110,'svc_ig_reels',102,'Instagram Reel Views',400.0000,280.0000,500,500000,'manual','default',1,NOW(),NOW()),
-(111,'svc_yt_views',103,'YouTube Views - High Quality',1200.0000,840.0000,1000,500000,'manual','default',1,NOW(),NOW()),
-(112,'svc_yt_subs',103,'YouTube Subscribers - Real',3500.0000,2450.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(113,'svc_yt_likes',103,'YouTube Likes',900.0000,630.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(114,'svc_yt_hours',103,'YouTube Watch Hours',8000.0000,5600.0000,100,10000,'manual','default',1,NOW(),NOW()),
-(115,'svc_fb_pagelikes',104,'Facebook Page Likes',1800.0000,1260.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(116,'svc_fb_followers',104,'Facebook Followers',1500.0000,1050.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(117,'svc_fb_postlikes',104,'Facebook Post Likes',700.0000,490.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(118,'svc_fb_views',104,'Facebook Video Views',450.0000,315.0000,1000,500000,'manual','default',1,NOW(),NOW()),
-(119,'svc_tw_followers',105,'Twitter/X Followers',2000.0000,1400.0000,100,50000,'manual','default',1,NOW(),NOW()),
-(120,'svc_tw_likes',105,'Twitter/X Likes',600.0000,420.0000,100,100000,'manual','default',1,NOW(),NOW()),
-(121,'svc_tw_retweets',105,'Twitter/X Retweets',1000.0000,700.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(122,'svc_sp_streams',106,'Spotify Streams',900.0000,630.0000,1000,500000,'manual','default',1,NOW(),NOW()),
-(123,'svc_sp_followers',106,'Spotify Artist Followers',2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(124,'svc_tg_members',107,'Telegram Channel Members',1500.0000,1050.0000,100,100000,'manual','default',1,NOW(),NOW()),
-(125,'svc_tg_views',107,'Telegram Post Views',300.0000,210.0000,1000,500000,'manual','default',1,NOW(),NOW()),
-(126,'svc_li_followers',108,'LinkedIn Page Followers',4000.0000,2800.0000,100,10000,'manual','default',1,NOW(),NOW()),
-(127,'svc_pn_followers',109,'Pinterest Followers',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(128,'svc_tw_ch_followers',110,'Twitch Followers',3000.0000,2100.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(129,'svc_snap_followers',111,'Snapchat Followers',2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(130,'svc_sc_plays',112,'SoundCloud Plays',700.0000,490.0000,1000,500000,'manual','default',1,NOW(),NOW()),
-(131,'svc_dc_members',113,'Discord Server Members',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(132,'svc_rd_upvotes',114,'Reddit Post Upvotes',8000.0000,5600.0000,10,1000,'manual','default',1,NOW(),NOW()),
-(133,'svc_wa_members',115,'WhatsApp Channel Members',2500.0000,1750.0000,100,10000,'manual','default',1,NOW(),NOW()),
-(134,'svc_th_followers',116,'Threads Followers',2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
-(135,'svc_th_likes',116,'Threads Post Likes',700.0000,490.0000,100,50000,'manual','default',1,NOW(),NOW());
+-- Categories and services are seeded by install.sql (IDs 1-16 and 1-47 respectively)
+-- Clean up any duplicate categories that may have been seeded with high IDs
+DELETE FROM categories WHERE id > 16;
 
 -- Enable cookie/privacy policy page
 INSERT IGNORE INTO general_options (name, value) VALUES ('is_cookie_policy_page', '1');

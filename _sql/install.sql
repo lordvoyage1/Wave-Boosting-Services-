@@ -192,7 +192,7 @@ CREATE TABLE `general_options` (
 
 /*Data for the table `general_options` */
 
-insert  into `general_options`(`id`,`name`,`value`) values (67,'enable_https','0'),(68,'is_maintenance_mode','0'),(69,'enable_disable_homepage',''),(70,'website_desc','SmartPanel - #1 SMM Reseller Panel - Best SMM Panel for Resellers. Also well known for TOP SMM Panel and Cheap SMM Panel for all kind of Social Media Marketing Services. SMM Panel for Facebook, Instagram, YouTube and more services!            '),(71,'website_keywords','smm panel, SmartPanel, smm reseller panel, smm provider panel, reseller panel, instagram panel, resellerpanel, social media reseller panel, smmpanel, panelsmm, smm, panel, socialmedia, instagram reseller panel            '),(72,'website_title','SmartPanel - SMM Panel Reseller Tool'),(73,'website_favicon','http://yourhost/assets/images/favicon.png'),(74,'embed_head_javascript',''),(75,'website_logo','http://yourhost/assets/images/logo.png'),(76,'website_logo_white','http://yourhost/assets/images/logo-white.png'),(77,'enable_service_list_no_login',''),(78,'disable_signup_page',''),(79,'notification_popup_content',''),(80,'is_cookie_policy_page',''),(81,'enable_api_tab',''),(82,'contact_tel','+12345678'),(83,'contact_email','do-not-reply@smartpanel.com'),(84,'contact_work_hour','Mon - Sat 09 am - 10 pm'),(85,'social_facebook_link',''),(86,'social_twitter_link',''),(87,'social_instagram_link',''),(88,'social_pinterest_link',''),(89,'social_tumblr_link',''),(90,'social_youtube_link',''),(91,'copy_right_content','Copyright &copy; 2020 - SmartPanel'),(92,'embed_javascript',''),(93,'enable_notification_popup','0'),(94,'default_limit_per_page','10'),(95,'enable_goolge_recapcha',''),(96,'admin_auto_logout_when_change_ip','0'),(97,'website_logo_mark','http://yourhost/assets/images/logo-mark.png'),(98,'default_price_percentage_increase','30'),(99,'website_name','SmartPanel Free By Anh Nguyen'),(100,'is_clear_ticket','0'),(101,'default_clear_ticket_days','30'),(102,'default_pending_ticket_per_user','2'),(103,'default_min_order','300'),(104,'default_max_order','5000'),(105,'default_price_per_1k','0.80'),(106,'enable_drip_feed','0'),(107,'default_drip_feed_runs','10'),(108,'default_drip_feed_interval','30'),(109,'enable_explication_service_symbol','0'),(110,'enable_news_announcement','0'),(111,'enable_signup_skype_field','0'),(112,'google_capcha_site_key',''),(113,'google_capcha_secret_key',''),(114,'cookies_policy_page','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(115,'terms_content','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(116,'policy_content','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(117,'is_active_manual',''),(118,'manual_payment_content','You can make a manual payment to cover an outstanding balance. Once time, open a ticket and contact with Administrator.'),(119,'verification_email_subject','{{website_name}} - Please validate your account'),(120,'verification_email_content','<p><strong>Welcome to {{website_name}}! </strong></p><p>Hello <strong>{{user_firstname}}</strong>!</p><p> Thank you for joining! We&#39;re glad to have you as community member, and we&#39;re stocked for you to start exploring our service.  If you don&#39;t verify your address, you won&#39;t be able to create a User Account.</p><p>  All you need to do is activate your account by click this link: <br>  {{activation_link}} </p><p>Thanks and Best Regards!</p>'),(121,'email_welcome_email_subject','{{website_name}} - Getting Started with Our Service!'),(122,'email_welcome_email_content','<p><strong>Welcome to {{website_name}}! </strong></p><p>Hello <strong>{{user_firstname}}</strong>!</p><p>Congratulations! <br>You have successfully signed up for our service - {{website_name}} with follow data</p><ul><li>Firstname: {{user_firstname}}</li><li>Lastname: {{user_lastname}}</li><li>Email: {{user_email}}</li><li>Timezone: {{user_timezone}}</li></ul><p>We want to exceed your expectations, so please do not hesitate to reach out at any time if you have any questions or concerns. We look to working with you.</p><p>Best Regards,</p>'),(123,'email_new_registration_subject','{{website_name}} - New Registration'),(124,'email_new_registration_content','<p>Hi Admin!</p><p>Someone signed up in <strong>{{website_name}}</strong> with follow data</p><ul><li>Firstname {{user_firstname}}</li><li>Lastname: {{user_lastname}}</li><li>Email: {{user_email}}</li><li>Timezone: {{user_timezone}}</li></ul> '),(125,'email_password_recovery_subject','{{website_name}} - Password Recovery'),(126,'email_password_recovery_content','<p>Hi<strong> {{user_firstname}}! </strong></p><p>Somebody (hopefully you) requested a new password for your account. </p><p>No changes have been made to your account yet. <br>You can reset your password by click this link: <br>{{recovery_password_link}}</p><p>If you did not request a password reset, no further action is required. </p><p>Thanks and Best Regards!</p>                '),(127,'email_payment_notice_subject','{{website_name}} -  Thank You! Deposit Payment Received'),(128,'email_payment_notice_content','<p>Hi<strong> {{user_firstname}}! </strong></p><p>We&#39;ve just received your final remittance and would like to thank you. We appreciate your diligence in adding funds to your balance in our service.</p><p>It has been a pleasure doing business with you. We wish you the best of luck.</p><p>Thanks and Best Regards!</p>'),(129,'is_verification_new_account','0'),(130,'is_welcome_email','0'),(131,'is_new_user_email','0'),(132,'is_payment_notice_email','0'),(133,'is_ticket_notice_email','0'),(134,'is_ticket_notice_email_admin','0'),(135,'is_order_notice_email','0'),(136,'email_from',''),(137,'email_name',''),(138,'email_protocol_type','php_mail'),(139,'smtp_server',''),(140,'smtp_port',''),(141,'smtp_encryption',''),(142,'smtp_username',''),(143,'smtp_password',''),(144,'currency_symbol','$'),(145,'currency_decimal','2'),(146,'currency_decimal_separator','dot'),(147,'currency_thousand_separator','comma');
+insert  into `general_options`(`id`,`name`,`value`) values (67,'enable_https','0'),(68,'is_maintenance_mode','0'),(69,'enable_disable_homepage',''),(70,'website_desc','Loishvizo Boosting Solutions - #1 SMM Panel Uganda | Boost TikTok, YouTube, Instagram & More'),(71,'website_keywords','loishvizo smm panel, smm panel uganda, tiktok followers, youtube views, instagram likes, smm reseller panel, boost followers, pesapal smm panel, ugx smm panel'),(72,'website_title','Loishvizo Boosting Solutions - SMM Panel'),(73,'website_favicon',''),(74,'embed_head_javascript',''),(75,'website_logo',''),(76,'website_logo_white',''),(77,'enable_service_list_no_login',''),(78,'disable_signup_page',''),(79,'notification_popup_content',''),(80,'is_cookie_policy_page',''),(81,'enable_api_tab',''),(82,'contact_tel','+256 707 291 063'),(83,'contact_email','loishvizo@gmail.com'),(84,'contact_work_hour','Mon - Sat 08:00 AM - 10:00 PM (EAT)'),(85,'social_facebook_link',''),(86,'social_twitter_link',''),(87,'social_instagram_link',''),(88,'social_pinterest_link',''),(89,'social_tumblr_link',''),(90,'social_youtube_link',''),(91,'copy_right_content','Copyright &copy; 2026 Loishvizo Boosting Solutions. All Rights Reserved.'),(92,'embed_javascript',''),(93,'enable_notification_popup','0'),(94,'default_limit_per_page','10'),(95,'enable_goolge_recapcha',''),(96,'admin_auto_logout_when_change_ip','0'),(97,'website_logo_mark',''),(98,'default_price_percentage_increase','30'),(99,'website_name','Loishvizo Boosting Solutions'),(100,'is_clear_ticket','0'),(101,'default_clear_ticket_days','30'),(102,'default_pending_ticket_per_user','2'),(103,'default_min_order','300'),(104,'default_max_order','5000'),(105,'default_price_per_1k','0.80'),(106,'enable_drip_feed','0'),(107,'default_drip_feed_runs','10'),(108,'default_drip_feed_interval','30'),(109,'enable_explication_service_symbol','0'),(110,'enable_news_announcement','0'),(111,'enable_signup_skype_field','0'),(112,'google_capcha_site_key',''),(113,'google_capcha_secret_key',''),(114,'cookies_policy_page','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(115,'terms_content','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(116,'policy_content','<p><strong>Lorem Ipsum</strong></p><p>Lorem ipsum dolor sit amet, in eam consetetur consectetuer. Vivendo eleifend postulant ut mei, vero maiestatis cu nam. Qui et facer mandamus, nullam regione lucilius eu has. Mei an vidisse facilis posidonium, eros minim deserunt per ne.</p><p>Duo quando tibique intellegam at. Nec error mucius in, ius in error legendos reformidans. Vidisse dolorum vulputate cu ius. Ei qui stet error consulatu.</p><p>Mei habeo prompta te. Ignota commodo nam ei. Te iudico definitionem sed, placerat oporteat tincidunt eu per, stet clita meliore usu ne. Facer debitis ponderum per no, agam corpora recteque at mel.</p>'),(117,'is_active_manual',''),(118,'manual_payment_content','You can make a manual payment to cover an outstanding balance. Once time, open a ticket and contact with Administrator.'),(119,'verification_email_subject','{{website_name}} - Please validate your account'),(120,'verification_email_content','<p><strong>Welcome to {{website_name}}! </strong></p><p>Hello <strong>{{user_firstname}}</strong>!</p><p> Thank you for joining! We&#39;re glad to have you as community member, and we&#39;re stocked for you to start exploring our service.  If you don&#39;t verify your address, you won&#39;t be able to create a User Account.</p><p>  All you need to do is activate your account by click this link: <br>  {{activation_link}} </p><p>Thanks and Best Regards!</p>'),(121,'email_welcome_email_subject','{{website_name}} - Getting Started with Our Service!'),(122,'email_welcome_email_content','<p><strong>Welcome to {{website_name}}! </strong></p><p>Hello <strong>{{user_firstname}}</strong>!</p><p>Congratulations! <br>You have successfully signed up for our service - {{website_name}} with follow data</p><ul><li>Firstname: {{user_firstname}}</li><li>Lastname: {{user_lastname}}</li><li>Email: {{user_email}}</li><li>Timezone: {{user_timezone}}</li></ul><p>We want to exceed your expectations, so please do not hesitate to reach out at any time if you have any questions or concerns. We look to working with you.</p><p>Best Regards,</p>'),(123,'email_new_registration_subject','{{website_name}} - New Registration'),(124,'email_new_registration_content','<p>Hi Admin!</p><p>Someone signed up in <strong>{{website_name}}</strong> with follow data</p><ul><li>Firstname {{user_firstname}}</li><li>Lastname: {{user_lastname}}</li><li>Email: {{user_email}}</li><li>Timezone: {{user_timezone}}</li></ul> '),(125,'email_password_recovery_subject','{{website_name}} - Password Recovery'),(126,'email_password_recovery_content','<p>Hi<strong> {{user_firstname}}! </strong></p><p>Somebody (hopefully you) requested a new password for your account. </p><p>No changes have been made to your account yet. <br>You can reset your password by click this link: <br>{{recovery_password_link}}</p><p>If you did not request a password reset, no further action is required. </p><p>Thanks and Best Regards!</p>                '),(127,'email_payment_notice_subject','{{website_name}} -  Thank You! Deposit Payment Received'),(128,'email_payment_notice_content','<p>Hi<strong> {{user_firstname}}! </strong></p><p>We&#39;ve just received your final remittance and would like to thank you. We appreciate your diligence in adding funds to your balance in our service.</p><p>It has been a pleasure doing business with you. We wish you the best of luck.</p><p>Thanks and Best Regards!</p>'),(129,'is_verification_new_account','0'),(130,'is_welcome_email','0'),(131,'is_new_user_email','0'),(132,'is_payment_notice_email','0'),(133,'is_ticket_notice_email','0'),(134,'is_ticket_notice_email_admin','0'),(135,'is_order_notice_email','0'),(136,'email_from',''),(137,'email_name',''),(138,'email_protocol_type','php_mail'),(139,'smtp_server',''),(140,'smtp_port',''),(141,'smtp_encryption',''),(142,'smtp_username',''),(143,'smtp_password',''),(144,'currency_symbol','$'),(145,'currency_decimal','2'),(146,'currency_decimal_separator','dot'),(147,'currency_thousand_separator','comma');
 
 /*Table structure for table `general_purchase` */
 
@@ -517,185 +517,174 @@ CREATE TABLE `tickets` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 
 /* ============================================================
-   Wave Boosting Services - Branding & Configuration Updates
+   Loishvizo Boosting Solutions - Branding & Configuration
    ============================================================ */
 
-UPDATE `general_options` SET `value` = 'Wave Boosting Services - #1 SMM Panel | Boost TikTok, YouTube, Instagram, Facebook & More' WHERE `name` = 'website_desc';
-UPDATE `general_options` SET `value` = 'smm panel, wave boosting, wave panel, boost followers, boost likes, tiktok panel, youtube panel, instagram panel, facebook panel, cheap smm panel' WHERE `name` = 'website_keywords';
-UPDATE `general_options` SET `value` = 'Wave Boosting Services - SMM Panel' WHERE `name` = 'website_title';
-DELETE FROM `general_options` WHERE `name` = 'website_favicon';
-UPDATE `general_options` SET `value` = 'delostvoyage@gmail.com' WHERE `name` = 'contact_email';
-UPDATE `general_options` SET `value` = 'delostvoyage@gmail.com' WHERE `name` = 'email_from';
-UPDATE `general_options` SET `value` = 'Wave Boosting Services' WHERE `name` = 'email_name';
-UPDATE `general_options` SET `value` = 'Copyright &copy; 2025 Wave Platforms, Inc. All Rights Reserved.' WHERE `name` = 'copy_right_content';
-UPDATE `general_options` SET `value` = 'Wave Boosting Services' WHERE `name` = 'website_name';
-DELETE FROM `general_options` WHERE `name` IN ('website_logo', 'website_logo_white', 'website_logo_mark');
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_facebook_link';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_twitter_link';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_instagram_link';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_pinterest_link';
-UPDATE `general_options` SET `value` = '' WHERE `name` = 'social_tumblr_link';
-UPDATE `general_options` SET `value` = 'https://www.youtube.com/@Wave-platfoms' WHERE `name` = 'social_youtube_link';
+/* Core branding */
+UPDATE `general_options` SET `value` = 'Loishvizo Boosting Solutions' WHERE `name` = 'website_name';
+UPDATE `general_options` SET `value` = 'Loishvizo Boosting Solutions - #1 SMM Panel Uganda | Boost TikTok, YouTube, Instagram & More' WHERE `name` = 'website_title';
+UPDATE `general_options` SET `value` = 'Loishvizo Boosting Solutions - Ultra-fast SMM panel Uganda. Boost TikTok followers, YouTube views, Instagram likes, Spotify streams instantly. UGX payments via PesaPal, MTN Mobile Money, Airtel Money.' WHERE `name` = 'website_desc';
+UPDATE `general_options` SET `value` = 'loishvizo smm panel, smm panel uganda, tiktok followers, youtube views, instagram likes, smm reseller panel, boost followers, pesapal smm panel, ugx smm panel' WHERE `name` = 'website_keywords';
+UPDATE `general_options` SET `value` = 'Copyright &copy; 2026 Loishvizo Boosting Solutions. All Rights Reserved.' WHERE `name` = 'copy_right_content';
+UPDATE `general_options` SET `value` = 'loishvizo@gmail.com' WHERE `name` = 'contact_email';
+UPDATE `general_options` SET `value` = 'loishvizo@gmail.com' WHERE `name` = 'email_from';
+UPDATE `general_options` SET `value` = 'Loishvizo Boosting Solutions' WHERE `name` = 'email_name';
+UPDATE `general_options` SET `value` = '+256 707 291 063' WHERE `name` = 'contact_tel';
+UPDATE `general_options` SET `value` = 'Mon - Sat 08:00 AM - 10:00 PM (EAT)' WHERE `name` = 'contact_work_hour';
 
+/* Clear old logo/favicon paths so admin can set new ones */
+UPDATE `general_options` SET `value` = '' WHERE `name` IN ('website_logo', 'website_logo_white', 'website_logo_mark', 'website_favicon');
+
+/* Social links */
+UPDATE `general_options` SET `value` = 'https://www.youtube.com/@loishvizo' WHERE `name` = 'social_youtube_link';
+UPDATE `general_options` SET `value` = '' WHERE `name` IN ('social_facebook_link', 'social_twitter_link', 'social_instagram_link', 'social_pinterest_link', 'social_tumblr_link');
 INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES
-('social_tiktok_link', 'https://www.tiktok.com/@itsmeddy?_r=1&_t=ZS-95zn8eiI69V'),
+('social_tiktok_link', 'https://www.tiktok.com/@loishvizo'),
 ('social_whatsapp_link', 'https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30'),
-('admin_emails', 'delostvoyage@gmail.com,meddymususwa126@gmail.com,voyagedelost@gmail.com'),
-('wave_hero_image', 'https://media.istockphoto.com/id/1504173168/photo/futuristic-energy-sphere-on-black-background-representing-ai-and-future-technologies-3d.jpg?s=612x612&w=0&k=20&c=lNbKE07EEb7bpsKTf1Pmm1enLnfwooepNLsSa4hAAE4=');
+('admin_emails', 'Ishamvizo2005@gmail.com,loishvizo@gmail.com,delostvoyage@gmail.com,meddymususwa126@gmail.com');
+UPDATE `general_options` SET `value` = 'https://www.tiktok.com/@loishvizo' WHERE `name` = 'social_tiktok_link';
+UPDATE `general_options` SET `value` = 'https://whatsapp.com/channel/0029VbDD5xgBlHpjUBmayj30' WHERE `name` = 'social_whatsapp_link';
+UPDATE `general_options` SET `value` = 'Ishamvizo2005@gmail.com,loishvizo@gmail.com,delostvoyage@gmail.com,meddymususwa126@gmail.com' WHERE `name` = 'admin_emails';
 
-/* Update admin staff emails */
-UPDATE `general_staffs` SET `email` = 'delostvoyage@gmail.com', `first_name` = 'Wave', `last_name` = 'Admin' WHERE `id` = 10;
-
-/* Add extra admin staff */
-INSERT IGNORE INTO `general_staffs` (`ids`, `role_id`, `admin`, `login_type`, `first_name`, `last_name`, `email`, `password`, `timezone`, `settings`, `activation_key`, `reset_key`, `history_ip`, `status`, `changed`, `created`)
-VALUES
-('wave_admin_2', 1, 1, NULL, 'Wave', 'Admin2', 'meddymususwa126@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW()),
-('wave_admin_3', 1, 1, NULL, 'Wave', 'Admin3', 'voyagedelost@gmail.com', '$2a$08$zcgCYoZYr3Uhp/JxvUuQTe7KMVUyxHjsSXgBaG1aUba0ouTyVi/vG', 'Africa/Nairobi', NULL, NULL, NULL, '127.0.0.1', 1, NOW(), NOW());
-
-UPDATE `payments` SET `status` = 0 WHERE `type` IN ('paypal', 'stripe');
-
-/* Enable services page for non-logged-in visitors */
+/* Feature flags */
 UPDATE `general_options` SET `value` = '1' WHERE `name` = 'enable_service_list_no_login';
-/* Set currency */
-INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES ('currency_code', 'USD');
-UPDATE `general_options` SET `value` = 'USD' WHERE `name` = 'currency_code';
-UPDATE `general_options` SET `value` = '$' WHERE `name` = 'currency_symbol';
+UPDATE `general_options` SET `value` = '1' WHERE `name` = 'enable_api_tab';
+INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES ('is_cookie_policy_page', '1');
+UPDATE `general_options` SET `value` = '1' WHERE `name` = 'is_cookie_policy_page';
+
+/* Currency: UGX */
+INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES ('currency_code', 'UGX');
+INSERT IGNORE INTO `general_options` (`name`, `value`) VALUES ('currency_symbol', 'UGX ');
+UPDATE `general_options` SET `value` = 'UGX' WHERE `name` = 'currency_code';
+UPDATE `general_options` SET `value` = 'UGX ' WHERE `name` = 'currency_symbol';
+UPDATE `general_options` SET `value` = '0' WHERE `name` = 'currency_decimal';
+UPDATE `general_options` SET `value` = 'none' WHERE `name` = 'currency_decimal_separator';
+UPDATE `general_options` SET `value` = 'comma' WHERE `name` = 'currency_thousand_separator';
+
+/* Disable unused payment gateways */
+UPDATE `payments` SET `status` = 0 WHERE `type` IN ('paypal', 'stripe', 'airtel_money', 'mtn_money', 'mastercard');
+
+/* PesaPal payment method */
+INSERT IGNORE INTO `payments` (`id`, `type`, `name`, `min`, `max`, `sort`, `new_users`, `status`, `params`) VALUES
+(23, 'pesapal', 'PesaPal (MTN MoMo / Airtel Money / Mastercard / Visa)', 5000, 10000000, 1, 1, 1,
+'{"type":"pesapal","name":"PesaPal","min":"5000","max":"10000000","new_users":"1","status":"1","consumer_key":"5Tj1LQ/T7CHpBKwGa+qpsg//M5aKqciy","consumer_secret":"","sandbox":"0","option":{"tnx_fee":"0"}}');
+UPDATE `payments` SET `status` = 1, `sort` = 1, `name` = 'PesaPal (MTN MoMo / Airtel Money / Mastercard / Visa)', `min` = 5000, `max` = 10000000, `new_users` = 1 WHERE `type` = 'pesapal';
 
 /* ============================================================
-   SMM Service Categories
+   SMM Categories (16 platforms)
    ============================================================ */
-INSERT IGNORE INTO `categories` (`id`, `ids`, `uid`, `name`, `desc`, `image`, `sort`, `status`, `created`, `changed`) VALUES
-(1,  'cat_tiktok',    10, 'TikTok',           'Boost your TikTok presence with real engagement',       '', 1,  1, NOW(), NOW()),
-(2,  'cat_youtube',   10, 'YouTube',           'Grow your YouTube channel fast and organically',        '', 2,  1, NOW(), NOW()),
-(3,  'cat_instagram', 10, 'Instagram',         'Increase your Instagram reach and engagement',          '', 3,  1, NOW(), NOW()),
-(4,  'cat_facebook',  10, 'Facebook',          'Expand your Facebook page and post reach',              '', 4,  1, NOW(), NOW()),
-(5,  'cat_twitter',   10, 'Twitter / X',       'Grow your Twitter/X audience and engagement',           '', 5,  1, NOW(), NOW()),
-(6,  'cat_telegram',  10, 'Telegram',          'Build your Telegram community with real members',       '', 6,  1, NOW(), NOW()),
-(7,  'cat_spotify',   10, 'Spotify',           'Boost your Spotify streams and monthly listeners',      '', 7,  1, NOW(), NOW()),
-(8,  'cat_soundcloud',10, 'SoundCloud',        'Grow your SoundCloud audience and plays',               '', 8,  1, NOW(), NOW()),
-(9,  'cat_linkedin',  10, 'LinkedIn',          'Build your professional LinkedIn presence',             '', 9,  1, NOW(), NOW()),
-(10, 'cat_traffic',   10, 'Website Traffic',   'Drive real targeted visitors to your website',          '', 10, 1, NOW(), NOW());
+-- Ensure no duplicate categories
+DELETE FROM `categories` WHERE `id` > 16;
+INSERT INTO `categories` (`id`, `ids`, `uid`, `name`, `sort`, `status`, `created`, `changed`) VALUES
+(1,  'cat_tiktok',    NULL, 'TikTok',       1,  1, NOW(), NOW()),
+(2,  'cat_instagram', NULL, 'Instagram',    2,  1, NOW(), NOW()),
+(3,  'cat_youtube',   NULL, 'YouTube',      3,  1, NOW(), NOW()),
+(4,  'cat_facebook',  NULL, 'Facebook',     4,  1, NOW(), NOW()),
+(5,  'cat_twitter',   NULL, 'Twitter / X',  5,  1, NOW(), NOW()),
+(6,  'cat_telegram',  NULL, 'Telegram',     6,  1, NOW(), NOW()),
+(7,  'cat_spotify',   NULL, 'Spotify',      7,  1, NOW(), NOW()),
+(8,  'cat_soundcloud',NULL, 'SoundCloud',   8,  1, NOW(), NOW()),
+(9,  'cat_linkedin',  NULL, 'LinkedIn',     9,  1, NOW(), NOW()),
+(10, 'cat_whatsapp',  NULL, 'WhatsApp',     10, 1, NOW(), NOW()),
+(11, 'cat_pinterest', NULL, 'Pinterest',    11, 1, NOW(), NOW()),
+(12, 'cat_twitch',    NULL, 'Twitch',       12, 1, NOW(), NOW()),
+(13, 'cat_snapchat',  NULL, 'Snapchat',     13, 1, NOW(), NOW()),
+(14, 'cat_discord',   NULL, 'Discord',      14, 1, NOW(), NOW()),
+(15, 'cat_reddit',    NULL, 'Reddit',       15, 1, NOW(), NOW()),
+(16, 'cat_threads',   NULL, 'Threads',      16, 1, NOW(), NOW());
 
 /* ============================================================
-   SMM Services — TikTok (cate_id=1)
+   SMM Services — all prices in UGX per 1,000 units
+   Prices shown are UGX per 1,000 units ordered
    ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_tt_fol',    10,1,'TikTok Followers',               'Real-looking TikTok followers. Fast delivery.',              0.8000,  0.8000, 0,0,0, 100,  1000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_fol_hq', 10,1,'TikTok Followers [High Quality]','Premium high-retention TikTok followers.',                  2.0000,  2.0000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_lik',    10,1,'TikTok Likes',                   'Instant TikTok likes for any public video.',                 0.3000,  0.3000, 0,0,0,  50,   500000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_view',   10,1,'TikTok Video Views',             'Fast video views delivered within minutes.',                 0.1000,  0.1000, 0,0,0, 500, 10000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_cmt',    10,1,'TikTok Comments [Custom]',       'Custom TikTok comments from real-looking accounts.',         5.0000,  5.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_share',  10,1,'TikTok Shares',                  'Boost video distribution with organic-looking shares.',      0.8000,  0.8000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_sview',  10,1,'TikTok Story Views',             'Increase your TikTok story view count.',                     0.2000,  0.2000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_live',   10,1,'TikTok Live Views',              'Real concurrent viewers for your TikTok Live streams.',      2.5000,  2.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_save',   10,1,'TikTok Saves (Favorites)',       'Increase saves/favorites on your TikTok posts.',             0.5000,  0.5000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_tt_fol_df', 10,1,'TikTok Followers [Drip-Feed]',  'Gradual follower delivery to mimic organic growth.',         1.2000,  1.2000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
+-- Wipe any old/legacy services first for a clean install
+DELETE FROM `services`;
+-- Reset auto-increment
+ALTER TABLE `services` AUTO_INCREMENT = 1;
+INSERT INTO `services` (`id`,`ids`,`cate_id`,`name`,`price`,`original_price`,`min`,`max`,`add_type`,`type`,`status`,`created`,`changed`) VALUES
+/* TikTok */
+(1, 'svc_tt_followers',1,'TikTok Followers - Real & Active',2000.0000,1400.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(2, 'svc_tt_likes',    1,'TikTok Likes - Fast Delivery',     800.0000, 560.0000,100,50000, 'manual','default',1,NOW(),NOW()),
+(3, 'svc_tt_views',    1,'TikTok Video Views - Ultra Fast',  250.0000, 175.0000,1000,1000000,'manual','default',1,NOW(),NOW()),
+(4, 'svc_tt_comments', 1,'TikTok Custom Comments',          5000.0000,3500.0000,10,1000,  'manual','custom_comments',1,NOW(),NOW()),
+(5, 'svc_tt_shares',   1,'TikTok Shares',                   1500.0000,1050.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(6, 'svc_tt_story',    1,'TikTok Story Views',               400.0000, 280.0000,500,1000000,'manual','default',1,NOW(),NOW()),
+(7, 'svc_tt_saves',    1,'TikTok Saves / Bookmarks',        1000.0000, 700.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* Instagram */
+(8, 'svc_ig_followers',2,'Instagram Followers - High Quality',2500.0000,1750.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(9, 'svc_ig_likes',    2,'Instagram Post Likes - Instant',    700.0000, 490.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(10,'svc_ig_views',    2,'Instagram Video Views',             350.0000, 245.0000,500,1000000,'manual','default',1,NOW(),NOW()),
+(11,'svc_ig_story',    2,'Instagram Story Views',             500.0000, 350.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(12,'svc_ig_reels',    2,'Instagram Reel Views',              400.0000, 280.0000,500,500000,'manual','default',1,NOW(),NOW()),
+(13,'svc_ig_saves',    2,'Instagram Saves',                   600.0000, 420.0000,100,50000,'manual','default',1,NOW(),NOW()),
+/* YouTube */
+(14,'svc_yt_views',    3,'YouTube Views - High Retention',   1200.0000, 840.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(15,'svc_yt_subs',     3,'YouTube Subscribers - Real',       3500.0000,2450.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(16,'svc_yt_likes',    3,'YouTube Likes',                     900.0000, 630.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(17,'svc_yt_hours',    3,'YouTube Watch Hours (Monetization)',8000.0000,5600.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(18,'svc_yt_comments', 3,'YouTube Comments Custom',          6000.0000,4200.0000,5,500,   'manual','default',1,NOW(),NOW()),
+/* Facebook */
+(19,'svc_fb_pagelikes',4,'Facebook Page Likes',              1800.0000,1260.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(20,'svc_fb_followers',4,'Facebook Profile Followers',       1500.0000,1050.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(21,'svc_fb_postlikes',4,'Facebook Post Likes',               700.0000, 490.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(22,'svc_fb_views',    4,'Facebook Video Views',              450.0000, 315.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+/* Twitter / X */
+(23,'svc_tw_followers',5,'Twitter/X Followers',              2000.0000,1400.0000,100,50000,'manual','default',1,NOW(),NOW()),
+(24,'svc_tw_likes',    5,'Twitter/X Post Likes',              600.0000, 420.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(25,'svc_tw_retweets', 5,'Twitter/X Retweets',               1000.0000, 700.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* Telegram */
+(26,'svc_tg_members',  6,'Telegram Channel Members',         1500.0000,1050.0000,100,100000,'manual','default',1,NOW(),NOW()),
+(27,'svc_tg_views',    6,'Telegram Post Views',               300.0000, 210.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(28,'svc_tg_group',    6,'Telegram Group Members',            1800.0000,1260.0000,100,50000,'manual','default',1,NOW(),NOW()),
+/* Spotify */
+(29,'svc_sp_streams',  7,'Spotify Track Streams',             900.0000, 630.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(30,'svc_sp_followers',7,'Spotify Artist Followers',         2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(31,'svc_sp_monthly',  7,'Spotify Monthly Listeners',        3000.0000,2100.0000,100,50000,'manual','default',1,NOW(),NOW()),
+/* SoundCloud */
+(32,'svc_sc_plays',    8,'SoundCloud Track Plays',            700.0000, 490.0000,1000,500000,'manual','default',1,NOW(),NOW()),
+(33,'svc_sc_followers',8,'SoundCloud Followers',             2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* LinkedIn */
+(34,'svc_li_followers',9,'LinkedIn Page Followers',          4000.0000,2800.0000,100,10000,'manual','default',1,NOW(),NOW()),
+(35,'svc_li_connections',9,'LinkedIn Connections',           5000.0000,3500.0000,50,5000, 'manual','default',1,NOW(),NOW()),
+(36,'svc_li_likes',    9,'LinkedIn Post Likes',              1200.0000, 840.0000,50,20000,'manual','default',1,NOW(),NOW()),
+/* WhatsApp */
+(37,'svc_wa_members', 10,'WhatsApp Channel Members',         2500.0000,1750.0000,100,10000,'manual','default',1,NOW(),NOW()),
+/* Pinterest */
+(38,'svc_pn_followers',11,'Pinterest Followers',             2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* Twitch */
+(39,'svc_tw_ch_followers',12,'Twitch Followers',             3000.0000,2100.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(40,'svc_tw_ch_views', 12,'Twitch Channel Views',            2000.0000,1400.0000,1000,100000,'manual','default',1,NOW(),NOW()),
+/* Snapchat */
+(41,'svc_snap_followers',13,'Snapchat Followers',            2500.0000,1750.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* Discord */
+(42,'svc_dc_members',  14,'Discord Server Members',          2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+/* Reddit */
+(43,'svc_rd_upvotes',  15,'Reddit Post Upvotes',             8000.0000,5600.0000,10,1000, 'manual','default',1,NOW(),NOW()),
+/* Threads */
+(44,'svc_th_followers',16,'Threads Followers',               2000.0000,1400.0000,100,20000,'manual','default',1,NOW(),NOW()),
+(45,'svc_th_likes',    16,'Threads Post Likes',               700.0000, 490.0000,100,50000,'manual','default',1,NOW(),NOW());
 
 /* ============================================================
-   SMM Services — YouTube (cate_id=2)
+   FAQs — Real Loishvizo Content
    ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_yt_sub',    10,2,'YouTube Subscribers',            'Real-looking YouTube subscribers. Safe delivery.',           1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_sub_hq', 10,2,'YouTube Subscribers [Non-Drop]', 'Premium subscribers with 30-day refill guarantee.',         4.0000,  4.0000, 0,1,1, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_view',   10,2,'YouTube Views',                  'High-retention YouTube video views.',                        0.1500,  0.1500, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_view_hr',10,2,'YouTube Views [High Retention]', '60%+ audience retention views for better rankings.',         0.5000,  0.5000, 0,0,0,1000,  1000000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_lik',    10,2,'YouTube Likes',                  'Boost your video likes for better social proof.',            0.5000,  0.5000, 0,0,0,  50,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_cmt',    10,2,'YouTube Comments [Custom]',      'Custom comments on your YouTube videos.',                    6.0000,  6.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_share',  10,2,'YouTube Shares',                 'Increase share count on your YouTube videos.',               1.5000,  1.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_wh',     10,2,'YouTube Watch Hours',            'Monetization-safe watch hours (4000 hrs required).',        10.0000, 10.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
-('svc_yt_sub_df', 10,2,'YouTube Subscribers [Drip-Feed]','Gradual subscriber delivery for safe growth.',               2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',1,1,NOW(),NOW()),
-('svc_yt_live',   10,2,'YouTube Live Views',             'Real concurrent viewers for YouTube Live streams.',           3.0000,  3.0000, 0,0,0, 100,    20000,'manual','default',0,1,NOW(),NOW());
+INSERT IGNORE INTO `faqs` (`id`,`question`,`answer`,`sort`,`status`,`created`,`changed`) VALUES
+(1,'How quickly will my order be delivered?','Most orders begin within 0-2 hours of payment confirmation. Smaller orders complete within hours; larger orders may take 1-5 days. Track your order status from your dashboard.',1,1,NOW(),NOW()),
+(2,'Is my social media account safe?','Yes. We only need your public profile link or username — never your password. Our delivery methods are designed to protect your account.',2,1,NOW(),NOW()),
+(3,'What payment methods do you accept?','We accept MTN Mobile Money, Airtel Money, MasterCard, and Visa through our secure PesaPal checkout. All transactions are processed in UGX.',3,1,NOW(),NOW()),
+(4,'What if my order is not fully delivered?','If an order does not deliver after 72 hours, open a support ticket. We will investigate and refund any undelivered portion to your account balance.',4,1,NOW(),NOW()),
+(5,'Can I place multiple orders at once?','Yes! You can place multiple orders simultaneously from your dashboard. Each order is tracked independently.',5,1,NOW(),NOW()),
+(6,'Do you offer refills for dropped followers?','Yes, many services include free refill guarantees. Check the service description before ordering. Refill requests can be submitted from the Orders page.',6,1,NOW(),NOW()),
+(7,'How do I contact support?','Open a ticket from your dashboard, email loishvizo@gmail.com, or WhatsApp us at +256 707 291 063. We respond within 30 minutes during business hours.',7,1,NOW(),NOW()),
+(8,'Is there an API for resellers?','Yes! We provide a full REST API for resellers. Log in and visit the API section in your dashboard to get your API key and documentation.',8,1,NOW(),NOW()),
+(9,'What is the minimum order amount?','The minimum varies by service — most services start at 100 units. The minimum deposit is UGX 5,000.',9,1,NOW(),NOW()),
+(10,'Do you serve customers outside Uganda?','Yes! While we specialise in East African payments, we accept international cards via PesaPal and serve customers worldwide.',10,1,NOW(),NOW());
 
-/* ============================================================
-   SMM Services — Instagram (cate_id=3)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_ig_fol',    10,3,'Instagram Followers',            'Real-looking Instagram followers. Fast start.',              0.7000,  0.7000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_fol_hq', 10,3,'Instagram Followers [HQ]',      'Premium followers with 30-day refill guarantee.',            2.5000,  2.5000, 0,1,1, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_lik',    10,3,'Instagram Likes',                'Auto-likes on your latest Instagram posts.',                 0.2500,  0.2500, 0,0,0,  50,   500000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_view',   10,3,'Instagram Video Views',          'Fast video view delivery for Reels and posts.',              0.1200,  0.1200, 0,0,0, 500,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_reel',   10,3,'Instagram Reel Views',           'Boost reel views for better Explore placement.',             0.1000,  0.1000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_sview',  10,3,'Instagram Story Views',          'Increase story view count instantly.',                       0.1500,  0.1500, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_cmt',    10,3,'Instagram Comments [Custom]',    'Custom comments from real-looking profiles.',                4.0000,  4.0000, 0,0,0,  10,     1000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_save',   10,3,'Instagram Saves',                'Boost post saves for algorithm reach increase.',             0.5000,  0.5000, 0,0,0,  50,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_igtv',   10,3,'Instagram IGTV Views',           'Real views for your IGTV long-form video content.',         0.1500,  0.1500, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
-('svc_ig_fol_df', 10,3,'Instagram Followers [Drip-Feed]','Organic-paced follower delivery over time.',                 1.0000,  1.0000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — Facebook (cate_id=4)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_fb_plik',   10,4,'Facebook Page Likes',            'Real-looking Facebook page likes for brand growth.',         0.8000,  0.8000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_fol',    10,4,'Facebook Page Followers',        'Increase your Facebook page follower count.',                0.8000,  0.8000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_postlik',10,4,'Facebook Post Likes',            'Likes on any public Facebook post.',                         0.3000,  0.3000, 0,0,0,  50,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_cmt',    10,4,'Facebook Comments [Custom]',     'Custom comments on public Facebook posts.',                  5.0000,  5.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_share',  10,4,'Facebook Post Shares',           'Organic-looking post shares for viral reach.',               1.5000,  1.5000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_view',   10,4,'Facebook Video Views',           '3-second video views to boost post reach.',                  0.1000,  0.1000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_grp',    10,4,'Facebook Group Members',         'Add real-looking members to your Facebook group.',           2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_event',  10,4,'Facebook Event Attendees',       'Boost event attendance interest count.',                     2.5000,  2.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW()),
-('svc_fb_reel',   10,4,'Facebook Reel Views',            'Boost views on your Facebook Reels.',                        0.1200,  0.1200, 0,0,0,1000,  3000000,'manual','default',0,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — Twitter / X (cate_id=5)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_tw_fol',    10,5,'Twitter/X Followers',            'Real-looking Twitter/X followers. Fast delivery.',           1.0000,  1.0000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_lik',    10,5,'Twitter/X Likes',                'Increase likes on your tweets quickly.',                     0.4000,  0.4000, 0,0,0,  50,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_ret',    10,5,'Twitter/X Retweets',             'Real-looking retweets to boost content reach.',              1.0000,  1.0000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_cmt',    10,5,'Twitter/X Replies [Custom]',     'Custom replies on any public tweet.',                        5.0000,  5.0000, 0,0,0,   5,      500,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_imp',    10,5,'Twitter/X Impressions',          'Boost tweet impression count for better reach.',             0.3000,  0.3000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_visit',  10,5,'Twitter/X Profile Visits',       'Drive traffic to your Twitter/X profile.',                   0.5000,  0.5000, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tw_spaces', 10,5,'Twitter/X Spaces Listeners',     'Real listeners for your Twitter Spaces broadcast.',          3.0000,  3.0000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — Telegram (cate_id=6)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_tg_mem',    10,6,'Telegram Channel Members',       'Real-looking Telegram channel members.',                     0.9000,  0.9000, 0,0,0, 100,   500000,'manual','default',0,1,NOW(),NOW()),
-('svc_tg_grp',    10,6,'Telegram Group Members',         'Add real-looking members to your Telegram group.',           1.5000,  1.5000, 0,0,0, 100,   200000,'manual','default',0,1,NOW(),NOW()),
-('svc_tg_view',   10,6,'Telegram Post Views',            'Fast post view delivery for any public channel.',            0.0800,  0.0800, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
-('svc_tg_react',  10,6,'Telegram Reactions 👍',          'Add positive reactions to your Telegram posts.',             0.8000,  0.8000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_tg_share',  10,6,'Telegram Post Shares',           'Organic-looking shares for your channel posts.',             1.0000,  1.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_tg_mem_df', 10,6,'Telegram Members [Drip-Feed]',   'Gradual member delivery for organic channel growth.',        1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',1,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — Spotify (cate_id=7)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_sp_play',   10,7,'Spotify Plays',                  'Real Spotify song plays to boost chart position.',           0.2000,  0.2000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_sp_fol',    10,7,'Spotify Followers',              'Grow your Spotify artist followers count.',                  2.0000,  2.0000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_sp_ml',     10,7,'Spotify Monthly Listeners',      'Increase your monthly listeners for credibility.',           3.0000,  3.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_sp_plfol',  10,7,'Spotify Playlist Followers',     'Add followers to your Spotify playlist.',                    2.0000,  2.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_sp_save',   10,7,'Spotify Track Saves',            'Real saves/add-to-library for your tracks.',                 1.5000,  1.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — SoundCloud (cate_id=8)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_sc_play',   10,8,'SoundCloud Plays',               'Fast SoundCloud track play delivery.',                       0.1500,  0.1500, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_sc_fol',    10,8,'SoundCloud Followers',           'Grow your SoundCloud follower base.',                        1.5000,  1.5000, 0,0,0, 100,   100000,'manual','default',0,1,NOW(),NOW()),
-('svc_sc_lik',    10,8,'SoundCloud Likes',               'Increase likes on your SoundCloud tracks.',                  1.0000,  1.0000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_sc_cmt',    10,8,'SoundCloud Comments',            'Custom comments on your SoundCloud tracks.',                 4.0000,  4.0000, 0,0,0,  10,      500,'manual','default',0,1,NOW(),NOW()),
-('svc_sc_rep',    10,8,'SoundCloud Reposts',             'Reposts to expand your track distribution.',                 1.2000,  1.2000, 0,0,0, 100,    20000,'manual','default',0,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — LinkedIn (cate_id=9)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_li_fol',    10,9,'LinkedIn Followers',             'Grow your LinkedIn company or profile followers.',           3.0000,  3.0000, 0,0,0,  50,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_li_lik',    10,9,'LinkedIn Post Likes',            'Boost engagement on your LinkedIn posts.',                   1.2000,  1.2000, 0,0,0,  50,    20000,'manual','default',0,1,NOW(),NOW()),
-('svc_li_cmt',    10,9,'LinkedIn Comments [Custom]',     'Professional custom comments on your posts.',                6.0000,  6.0000, 0,0,0,   5,      200,'manual','default',0,1,NOW(),NOW()),
-('svc_li_visit',  10,9,'LinkedIn Profile Views',         'Drive traffic to your LinkedIn profile.',                    1.5000,  1.5000, 0,0,0, 100,    50000,'manual','default',0,1,NOW(),NOW()),
-('svc_li_conn',   10,9,'LinkedIn Connections',           'Expand your professional network connections.',              3.5000,  3.5000, 0,0,0,  50,    10000,'manual','default',0,1,NOW(),NOW());
-
-/* ============================================================
-   SMM Services — Website Traffic (cate_id=10)
-   ============================================================ */
-INSERT IGNORE INTO `services` (`ids`,`uid`,`cate_id`,`name`,`desc`,`price`,`original_price`,`deny_duplicates`,`refill`,`refill_type`,`min`,`max`,`add_type`,`type`,`dripfeed`,`status`,`created`,`changed`) VALUES
-('svc_web_ww',    10,10,'Website Traffic [Worldwide]',   'Real human visitors from around the world.',                 0.5000,  0.5000, 0,0,0,1000, 10000000,'manual','default',0,1,NOW(),NOW()),
-('svc_web_us',    10,10,'Website Traffic [USA]',         'Targeted US visitors for your website.',                    2.5000,  2.5000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
-('svc_web_eu',    10,10,'Website Traffic [Europe]',      'Targeted European visitors for your website.',              2.0000,  2.0000, 0,0,0, 500,  1000000,'manual','default',0,1,NOW(),NOW()),
-('svc_web_seo',   10,10,'SEO Traffic [Organic Search]',  'Targeted visitors from Google/Bing search results.',        1.5000,  1.5000, 0,0,0,1000,  5000000,'manual','default',0,1,NOW(),NOW()),
-('svc_web_af',    10,10,'Website Traffic [Africa]',      'Targeted African visitors including Uganda, Kenya, etc.',   1.0000,  1.0000, 0,0,0, 500,  2000000,'manual','default',0,1,NOW(),NOW());
+/* Admin staff accounts */
+INSERT IGNORE INTO `general_staffs` (`ids`,`role_id`,`admin`,`first_name`,`last_name`,`email`,`password`,`status`,`created`,`changed`) VALUES
+('lv_admin_001',1,1,'Isha','Mvizo','Ishamvizo2005@gmail.com','google_oauth_only',1,NOW(),NOW()),
+('lv_admin_002',1,1,'Lois','Hvizo','loishvizo@gmail.com','google_oauth_only',1,NOW(),NOW()),
+('lv_admin_003',1,1,'Delos','Voyage','delostvoyage@gmail.com','google_oauth_only',1,NOW(),NOW()),
+('lv_admin_004',1,1,'Meddy','Mususwa','meddymususwa126@gmail.com','google_oauth_only',1,NOW(),NOW());
+UPDATE `general_staffs` SET `admin`=1, `status`=1 WHERE `email` IN ('Ishamvizo2005@gmail.com','loishvizo@gmail.com','delostvoyage@gmail.com','meddymususwa126@gmail.com');
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
